@@ -1,0 +1,4 @@
+$kind: collection
+name: 4 - Route / Erreurs
+description: Erreurs 404 (nœud inconnu) et 400 (paramètre manquant ou vide)
+order: 4000
