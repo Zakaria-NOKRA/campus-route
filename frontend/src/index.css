@@ -66,6 +66,12 @@ body {
   margin: 0 auto;
 }
 
+.app-plan {
+  padding: 0 16px 16px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
 @media (max-width: 900px) {
   .app-main {
     grid-template-columns: 1fr;

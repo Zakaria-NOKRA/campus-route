@@ -1,3 +1,4 @@
+import PlanPage from './pages/PlanPage'
 import SearchPage from './pages/SearchPage'
 
 function App() {
@@ -8,6 +9,10 @@ function App() {
         <span>Bâtiment B, 3 étages</span>
       </header>
       <SearchPage />
+      {/* Temporary place: under the search. The final layout comes in step 4. */}
+      <div className="app-plan">
+        <PlanPage />
+      </div>
     </>
   )
 }
