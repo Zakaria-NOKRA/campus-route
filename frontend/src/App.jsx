@@ -53,7 +53,11 @@ function App() {
             routeState={routeState}
           />
         </div>
-        <PlanPage selectedCode={selectedCode} onSelect={setSelectedCode} />
+        <PlanPage
+          selectedCode={selectedCode}
+          onSelect={setSelectedCode}
+          route={routeState.route}
+        />
       </main>
     </>
   )
