@@ -1,0 +1,16 @@
+$kind: http-request
+description: Insensible à la casse.
+url: "{{baseUrl}}/api/rooms/search?q=B204"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: B204
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const rooms = pm.response.json();
+      pm.test("Un seul résultat : B204", () => { pm.expect(rooms).to.have.lengthOf(1); pm.expect(rooms[0].code).to.eql("B204"); });
+    language: text/javascript
+order: 3000

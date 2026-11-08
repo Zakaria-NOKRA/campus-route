@@ -1,0 +1,4 @@
+$kind: collection
+name: 2 - Rooms / Fiche
+description: GET /api/rooms/{code}
+order: 2000

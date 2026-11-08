@@ -1,0 +1,20 @@
+$kind: http-request
+description: "Un seul résultat : B204."
+url: "{{baseUrl}}/api/rooms/search?q=b204"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: b204
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const rooms = pm.response.json();
+      pm.test("Un seul résultat", () => pm.expect(rooms).to.have.lengthOf(1));
+      pm.test("C'est B204", () => pm.expect(rooms[0].code).to.eql("B204"));
+      pm.test("Champs du DTO présents", () => pm.expect(rooms[0]).to.have.all.keys("code","name","type","floor","capacity","equipment"));
+      pm.test("Pas de fuite des champs internes", () => pm.expect(rooms[0]).to.not.have.any.keys("slot","top","tag","node"));
+    language: text/javascript
+order: 1000
