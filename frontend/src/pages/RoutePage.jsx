@@ -1,4 +1,6 @@
 import RouteForm from '../components/RouteForm'
+import RouteSteps from '../components/RouteSteps'
+import RouteSummary from '../components/RouteSummary'
 
 // Route card: the form, then loading / error / result. `routeState` is { status, route, error }
 // and is "idle" whenever the form no longer matches the last calculation.
@@ -22,12 +24,21 @@ function RoutePage({
     )
   } else if (routeState.status === 'success') {
     const { route } = routeState
-    // Temporary line: the real summary and the step list come in the next step.
-    content = (
-      <p className="hint">
-        {route.distanceMeters} m · {route.durationSeconds} s · {route.steps.length} étapes
-      </p>
-    )
+    if (route.path.length < 2) {
+      // Empty result: nowhere to go (the form already blocks this case).
+      content = <p className="hint">Vous êtes déjà sur place.</p>
+    } else {
+      content = (
+        <>
+          <RouteSummary
+            distanceMeters={route.distanceMeters}
+            durationSeconds={route.durationSeconds}
+            accessible={accessible}
+          />
+          <RouteSteps steps={route.steps} />
+        </>
+      )
+    }
   }
 
   return (
