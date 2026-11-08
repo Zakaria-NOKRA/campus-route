@@ -7,9 +7,9 @@ import { useDebouncedValue } from '../utils/useDebouncedValue'
 
 const DEBOUNCE_MS = 300
 
-function SearchPage() {
+// The selected room is owned by App (shared with the plan): we get it as a prop.
+function SearchPage({ selectedCode, onSelect }) {
   const [query, setQuery] = useState('')
-  const [selectedCode, setSelectedCode] = useState(null)
   // Last answers received. They remember WHICH request they answer (q / code),
   // so the status below can be computed instead of stored.
   const [searchResult, setSearchResult] = useState(null) // { q, rooms, error }
@@ -59,7 +59,7 @@ function SearchPage() {
   else detailStatus = detailResult.error ? 'error' : 'success'
 
   return (
-    <main className="app-main">
+    <>
       <section className="card">
         <h2>Où allez-vous ?</h2>
         <SearchInput value={query} onChange={setQuery} />
@@ -68,7 +68,7 @@ function SearchPage() {
           rooms={searchResult?.rooms}
           error={searchResult?.error}
           selectedCode={selectedCode}
-          onSelect={setSelectedCode}
+          onSelect={onSelect}
         />
       </section>
       <section className="card">
@@ -79,7 +79,7 @@ function SearchPage() {
           error={detailResult?.error}
         />
       </section>
-    </main>
+    </>
   )
 }
 
