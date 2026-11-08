@@ -9,6 +9,16 @@
   --accent-ink: #fff;
   --info: #f0ecff;
   --error: #c92a2a;
+  /* plan colours (from the prototype) */
+  --room: #eef2f7;
+  --room-line: #9fb0c3;
+  --corr: #fdf6e3;
+  --svc: #dde7f0;
+  --amph: #e3edff;
+  --lab: #e6f6ec;
+  --serv: #fff0dc;
+  --hatch: #d5dbe3;
+  --dest: #e03131;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,6 +32,15 @@
     --accent-ink: #06222a;
     --info: #2d2748;
     --error: #ff8787;
+    --room: #232b36;
+    --room-line: #56667c;
+    --corr: #2b2a22;
+    --svc: #2c3a48;
+    --amph: #1f2d4a;
+    --lab: #1f3a2a;
+    --serv: #40301a;
+    --hatch: #2f3844;
+    --dest: #ff6b6b;
   }
 }
 
@@ -64,6 +83,16 @@ body {
   padding: 16px;
   max-width: 1300px;
   margin: 0 auto;
+}
+
+.app-main > * {
+  min-width: 0; /* lets the plan card shrink and scroll inside instead of widening the page */
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 @media (max-width: 900px) {
@@ -181,4 +210,114 @@ ul.results li:last-child {
 
 .info p {
   margin: 4px 0;
+}
+
+/* Floor plan (SVG). Classes match the prototype. */
+.plan-scroll {
+  overflow-x: auto;
+}
+
+.plan-svg {
+  width: 100%;
+  height: auto;
+  /* Below this width the labels become unreadable: the .plan-scroll box scrolls
+     sideways instead (only the plan moves, not the page). */
+  min-width: 600px;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.plan-svg .corr {
+  fill: var(--corr);
+}
+
+.plan-svg .svc {
+  fill: var(--svc);
+  stroke: var(--room-line);
+}
+
+.plan-svg .room {
+  fill: var(--room);
+  stroke: var(--room-line);
+  stroke-width: 1.5;
+}
+
+.plan-svg .room.t-amph {
+  fill: var(--amph);
+}
+
+.plan-svg .room.t-lab {
+  fill: var(--lab);
+}
+
+.plan-svg .room.t-serv {
+  fill: var(--serv);
+}
+
+.plan-svg .atrium {
+  fill: var(--hatch);
+  stroke: var(--room-line);
+  stroke-dasharray: 4 4;
+}
+
+.plan-svg .door {
+  fill: var(--corr);
+}
+
+.plan-svg .code {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.plan-svg .tag {
+  font-size: 11px;
+  fill: var(--muted);
+}
+
+.plan-svg .lbl {
+  font-size: 12px;
+  fill: var(--muted);
+}
+
+/* Floor tabs */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+}
+
+.tabs button.on {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+/* Selectable rooms */
+.plan-svg .plan-room {
+  cursor: pointer;
+}
+
+.plan-svg .plan-room:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.plan-svg .room.selected {
+  stroke: var(--dest);
+  stroke-width: 3;
 }
