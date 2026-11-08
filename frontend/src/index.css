@@ -122,3 +122,63 @@ input[type='text'] {
   border: 1px solid var(--line);
   margin: 4px 4px 0 0;
 }
+
+ul.results {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+ul.results li {
+  border-bottom: 1px solid var(--line);
+}
+
+ul.results li:last-child {
+  border-bottom: 0;
+}
+
+.room-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border: 0;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.room-item:hover {
+  background: var(--bg);
+}
+
+.room-item.selected {
+  background: var(--bg);
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.room-item small {
+  display: block;
+  color: var(--muted);
+}
+
+.info {
+  background: var(--info);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.info b {
+  font-size: 16px;
+}
+
+.info p {
+  margin: 4px 0;
+}

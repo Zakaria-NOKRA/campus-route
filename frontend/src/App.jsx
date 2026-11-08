@@ -1,4 +1,5 @@
-// Empty shell for now: the search page is added in the next step.
+import SearchPage from './pages/SearchPage'
+
 function App() {
   return (
     <>
@@ -6,9 +7,7 @@ function App() {
         <h1>Campus Route</h1>
         <span>Bâtiment B, 3 étages</span>
       </header>
-      <main className="app-main">
-        <p className="hint">La recherche de salles arrive bientôt.</p>
-      </main>
+      <SearchPage />
     </>
   )
 }
