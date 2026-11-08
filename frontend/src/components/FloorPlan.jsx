@@ -131,6 +131,10 @@ function FloorPlan({ plan, selectedCode, onSelect }) {
           })}
         </svg>
       </div>
+      <p className="hint">
+        Cliquez sur une salle pour la sélectionner. Sur un petit écran, faites
+        glisser le plan pour voir toute la largeur.
+      </p>
     </>
   )
 }

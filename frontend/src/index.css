@@ -220,6 +220,9 @@ ul.results li:last-child {
 .plan-svg {
   width: 100%;
   height: auto;
+  /* Below this width the labels become unreadable: the .plan-scroll box scrolls
+     sideways instead (only the plan moves, not the page). */
+  min-width: 600px;
   display: block;
   border-radius: 10px;
   border: 1px solid var(--line);
