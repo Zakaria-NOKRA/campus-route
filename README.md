@@ -14,24 +14,25 @@ Les données actuelles représentent un bâtiment exemple (bâtiment B, 3 étage
   des instructions pas à pas en français (« Tournez à droite et avancez de 6 m »).
 - **Itinéraire accessible** : option pour éviter les escaliers et passer par l'ascenseur, pour les personnes à
   mobilité réduite.
-- **Plan du bâtiment** : toutes les données nécessaires pour dessiner chaque étage et tracer le trajet.
+- **Plan interactif** : affichage de chaque étage, sélection d'une salle sur le plan ou dans la recherche, et tracé de l'itinéraire avec ses étapes.
 - **Documentation interactive** : une page Swagger pour découvrir et tester l'API.
 
 ## Technologies
 
 - Back-end : Java 17, Spring Boot, Spring Data JPA, Maven
 - Base de données : PostgreSQL (lancée avec Docker)
-- Front-end : React
+- Front-end : React, Vite
 - Documentation de l'API : OpenAPI / Swagger
 - Tests de l'API : Postman
 
 ## Prérequis
 
-| Outil | Version | Vérifier |
-|---|---|---|
-| Git | récent | `git --version` |
-| JDK (Java) | 17 ou plus | `java -version` |
-| Docker Desktop | récent | `docker --version` |
+| Outil          | Version    | Vérifier           |
+| -------------- | ---------- | ------------------ |
+| Git            | récent     | `git --version`    |
+| JDK (Java)     | 17 ou plus | `java -version`    |
+| Docker Desktop | récent     | `docker --version` |
+| Node.js        | 22 ou plus | `node -v`          |
 
 - Maven n'est pas à installer : le projet embarque son propre Maven (`mvnw`).
 - Docker Desktop doit être **démarré** avant de lancer la base de données.
@@ -64,19 +65,31 @@ Le premier lancement télécharge les dépendances, ce qui peut prendre quelques
 le message `Started CampusRouteBackendApplication` apparaît. Les données du bâtiment sont chargées automatiquement au
 premier démarrage.
 
-**4. Vérifier**
+**4. Démarrer le front-end** (dans un deuxième terminal, depuis la racine du dépôt)
 
-Ouvre la documentation de l'API (voir la section suivante) : si la page s'affiche, tout fonctionne.
+```powershell
+cd frontend
+npm install
+npm run dev
+```
 
-**Arrêter le projet** : `Ctrl+C` dans le terminal du back-end, puis `docker compose down` à la racine du dépôt.
+Ouvre ensuite **http://localhost:5173** dans ton navigateur : l'application s'affiche. Le back-end doit être démarré pour que la recherche et les itinéraires fonctionnent.
+
+**5. Vérifier**
+
+Cherche une salle (par exemple `B204`), sélectionne-la, puis clique sur « Calculer l'itinéraire » : le trajet s'affiche sur le plan. La documentation de l'API est aussi disponible (voir la section suivante).
+
+**Arrêter le projet** : `Ctrl+C` dans chaque terminal (back-end et front-end), puis `docker compose down` à la racine du dépôt.
 
 Problèmes fréquents :
 
-| Problème | Solution |
-|---|---|
-| `Cannot connect to the Docker daemon` | Docker Desktop n'est pas démarré. |
-| Port 5432 ou 8080 déjà utilisé | Une autre application utilise ce port : ferme-la, ou change le port. |
-| Erreur de compilation Java | Vérifie que `java -version` indique 17 ou plus. |
+| Problème                                               | Solution                                                                                         |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `Cannot connect to the Docker daemon`                  | Docker Desktop n'est pas démarré.                                                                |
+| Port 5432, 8080 ou 5173 déjà utilisé                   | Une autre application utilise ce port : ferme-la, ou change le port.                             |
+| Erreur de compilation Java                             | Vérifie que `java -version` indique 17 ou plus.                                                  |
+| `npm` ou `node` introuvable                            | Node.js n'est pas installé : installe la version LTS depuis nodejs.org, puis rouvre le terminal. |
+| La page s'affiche mais la recherche renvoie une erreur | Le back-end n'est pas démarré (étape 3).                                                         |
 
 ## Documentation de l'API (Swagger)
 
@@ -108,6 +121,16 @@ cd backend
 
 Les tests s'exécutent sans Docker et doivent se terminer par `BUILD SUCCESS`.
 
+Pour vérifier le front-end :
+
+```powershell
+cd frontend
+npm run lint
+npm run build
+```
+
+Ces deux vérifications sont aussi exécutées automatiquement à chaque Pull Request.
+
 ## Architecture
 
 ```
@@ -123,14 +146,14 @@ campus-route/
 
 Le back-end est organisé en couches, dans `backend/src/main/java/com/campusroute/campus_route_backend/` :
 
-| Package | Rôle |
-|---|---|
-| `controller` | reçoit les requêtes HTTP et appelle les services |
-| `service` | logique métier : recherche, calcul d'itinéraire, instructions, plan |
-| `repository` | accès à la base de données |
-| `domain` | entités : salles, nœuds et arêtes du graphe du bâtiment |
-| `dto` | objets renvoyés par l'API |
-| `config` | configuration : chargement des données, CORS, documentation |
+| Package      | Rôle                                                                |
+| ------------ | ------------------------------------------------------------------- |
+| `controller` | reçoit les requêtes HTTP et appelle les services                    |
+| `service`    | logique métier : recherche, calcul d'itinéraire, instructions, plan |
+| `repository` | accès à la base de données                                          |
+| `domain`     | entités : salles, nœuds et arêtes du graphe du bâtiment             |
+| `dto`        | objets renvoyés par l'API                                           |
+| `config`     | configuration : chargement des données, CORS, documentation         |
 
 Le bâtiment est représenté par un **graphe** : les nœuds sont les salles, les couloirs, l'escalier, l'ascenseur et
 l'entrée, et les arêtes sont les trajets possibles entre eux. Le plus court chemin est calculé avec l'algorithme de
@@ -141,7 +164,7 @@ Dijkstra.
 - La branche `main` est stable : on n'y pousse pas directement.
 - Une branche par tâche (`feature/<sujet>`), puis une Pull Request vers `main`.
 - Messages de commit au format `feat:`, `fix:`, `docs:`, `test:` ou `chore:`, suivis d'une phrase claire.
-- Avant une Pull Request, les tests doivent passer.
+- Avant une Pull Request, les tests du back-end et les vérifications du front-end (`lint` et `build`) doivent passer.
 
 ## Équipe
 
