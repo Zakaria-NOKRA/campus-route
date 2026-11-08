@@ -34,6 +34,13 @@ function App() {
     setRequest({ from, to: selectedCode, accessible })
   }
 
+  // Swap: the origin room becomes the destination and vice versa.
+  // Only called when both are rooms (the button is disabled otherwise).
+  function handleSwap() {
+    setOriginCode(selectedCode)
+    setSelectedCode(originCode)
+  }
+
   return (
     <>
       <header className="app-header">
@@ -50,6 +57,7 @@ function App() {
             accessible={accessible}
             onAccessibleChange={setAccessible}
             onCalculate={handleCalculate}
+            onSwap={handleSwap}
             routeState={routeState}
           />
         </div>

@@ -11,6 +11,7 @@ function RoutePage({
   accessible,
   onAccessibleChange,
   onCalculate,
+  onSwap,
   routeState,
 }) {
   let content = null
@@ -51,6 +52,7 @@ function RoutePage({
         accessible={accessible}
         onAccessibleChange={onAccessibleChange}
         onCalculate={onCalculate}
+        onSwap={onSwap}
       />
       {content}
     </section>
