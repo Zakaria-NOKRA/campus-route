@@ -19,6 +19,8 @@
   --serv: #fff0dc;
   --hatch: #d5dbe3;
   --dest: #e03131;
+  --route: #0b7285;
+  --start: #2f9e44;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,6 +43,8 @@
     --serv: #40301a;
     --hatch: #2f3844;
     --dest: #ff6b6b;
+    --route: #3bc9db;
+    --start: #51cf66;
   }
 }
 
@@ -408,4 +412,58 @@ ol.steps .ic {
 ol.steps small {
   display: block;
   color: var(--muted);
+}
+
+/* Route on the plan */
+.plan-svg .route-layer {
+  pointer-events: none; /* clicks go through to the rooms below */
+}
+
+.plan-svg .route {
+  fill: none;
+  stroke: var(--route);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 10 8;
+  animation: route-dash 1s linear infinite;
+}
+
+@keyframes route-dash {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan-svg .route {
+    animation: none;
+  }
+}
+
+.plan-svg .mk-start {
+  fill: var(--start);
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.plan-svg .mk-dest {
+  fill: var(--dest);
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+/* Dot on the floor tabs crossed by the route */
+.tabs button .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: var(--route);
+  vertical-align: middle;
+}
+
+.tabs button.on .dot {
+  background: var(--accent-ink);
 }

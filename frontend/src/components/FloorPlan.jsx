@@ -12,8 +12,10 @@ import {
   slotX,
 } from '../utils/planGeometry'
 import { floorLabel } from '../utils/floorLabel'
+import { routeFloors } from '../utils/routeGeometry'
 import FloorTabs from './FloorTabs'
 import PlanRoom from './PlanRoom'
+import RouteLayer from './RouteLayer'
 
 // Stairs or elevator: a box centred on its node, with a short label.
 function ServiceBox({ node, label }) {
@@ -35,7 +37,8 @@ function ServiceBox({ node, label }) {
 }
 
 // Floor tabs + the SVG of the chosen floor. `plan` is the answer of GET /api/plan.
-function FloorPlan({ plan, selectedCode, onSelect }) {
+// `route` is the answer of GET /api/route, or null when there is no route to show.
+function FloorPlan({ plan, selectedCode, onSelect, route }) {
   const selectedRoom = plan.rooms.find((room) => room.code === selectedCode)
 
   // The floor being shown is view state: it lives here, not in the page.
@@ -52,6 +55,14 @@ function FloorPlan({ plan, selectedCode, onSelect }) {
     if (selectedRoom) setFloor(selectedRoom.floor)
   }
 
+  // Same idea when a new route arrives: show the floor where it starts.
+  // A new calculation gives a new `route` object, so this runs once per route.
+  const [previousRoute, setPreviousRoute] = useState(route)
+  if (route !== previousRoute) {
+    setPreviousRoute(route)
+    if (route) setFloor(route.path[0].floor)
+  }
+
   const rooms = plan.rooms.filter((room) => room.floor === floor)
   const nodes = plan.nodes.filter((node) => node.floor === floor)
   const stairs = nodes.find((node) => node.type === 'STAIRS')
@@ -64,7 +75,12 @@ function FloorPlan({ plan, selectedCode, onSelect }) {
 
   return (
     <>
-      <FloorTabs floors={plan.floors} current={floor} onChange={setFloor} />
+      <FloorTabs
+        floors={plan.floors}
+        current={floor}
+        onChange={setFloor}
+        markedFloors={route ? routeFloors(route.path) : []}
+      />
       <div className="plan-scroll">
         <svg
           className="plan-svg"
@@ -129,6 +145,8 @@ function FloorPlan({ plan, selectedCode, onSelect }) {
               </g>
             )
           })}
+
+          {route && <RouteLayer path={route.path} floor={floor} />}
         </svg>
       </div>
       <p className="hint">
