@@ -1,0 +1,15 @@
+$kind: http-request
+name: "CORS : origine Vite (5173) autorisée"
+description: Le front Vite peut appeler l'API.
+url: "{{baseUrl}}/api/plan"
+method: GET
+headers:
+  Accept: application/json
+  Origin: http://localhost:5173
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Access-Control-Allow-Origin = http://localhost:5173", () => pm.expect(pm.response.headers.get("Access-Control-Allow-Origin")).to.eql("http://localhost:5173"));
+    language: text/javascript
+order: 1000

@@ -1,0 +1,15 @@
+$kind: http-request
+name: "CORS : origine inconnue refusée"
+description: Une autre origine est rejetée (403), sans en-tête CORS.
+url: "{{baseUrl}}/api/plan"
+method: GET
+headers:
+  Accept: application/json
+  Origin: http://evil.example
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 403", () => pm.response.to.have.status(403));
+      pm.test("Pas d'en-tête Access-Control-Allow-Origin", () => pm.expect(pm.response.headers.has("Access-Control-Allow-Origin")).to.be.false);
+    language: text/javascript
+order: 3000
