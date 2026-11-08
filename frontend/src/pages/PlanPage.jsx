@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getPlan } from '../api/plan'
+import FloorPlan from '../components/FloorPlan'
 
-// Loads the building plan once and shows loading, error, empty or (for now) a summary.
-// The drawing itself comes in the next steps.
+// Loads the building plan once and shows loading, error, empty or the drawn plan.
 function PlanPage() {
   // Last answer received: { plan, error }. null means "still waiting".
   const [result, setResult] = useState(null)
@@ -30,12 +30,8 @@ function PlanPage() {
   } else if (result.plan.rooms.length === 0) {
     content = <p className="hint">Aucun plan disponible.</p>
   } else {
-    const { rooms, floors } = result.plan
-    content = (
-      <p className="hint">
-        {rooms.length} salles, {floors.length} étages
-      </p>
-    )
+    // Floor 0 only for now; floor tabs come in the next step.
+    content = <FloorPlan plan={result.plan} floor={0} />
   }
 
   return (
