@@ -6,7 +6,11 @@ function RoomList({ status, rooms, error, selectedCode, onSelect }) {
     return <p className="hint">Tapez un code, un nom ou un type de salle.</p>
   }
   if (status === 'loading') {
-    return <p className="hint">Recherche…</p>
+    return (
+      <p className="hint" role="status">
+        Recherche…
+      </p>
+    )
   }
   if (status === 'error') {
     return (
@@ -16,7 +20,11 @@ function RoomList({ status, rooms, error, selectedCode, onSelect }) {
     )
   }
   if (rooms.length === 0) {
-    return <p className="hint">Aucune salle trouvée.</p>
+    return (
+      <p className="hint" role="status">
+        Aucune salle trouvée.
+      </p>
+    )
   }
   return (
     <ul className="results">

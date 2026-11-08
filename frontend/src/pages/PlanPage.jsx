@@ -21,7 +21,11 @@ function PlanPage({ selectedCode, onSelect, route, floorRequest }) {
 
   let content
   if (result === null) {
-    content = <p className="hint">Chargement du plan…</p>
+    content = (
+      <p className="hint" role="status">
+        Chargement du plan…
+      </p>
+    )
   } else if (result.error) {
     content = (
       <p className="error" role="alert">
@@ -29,7 +33,11 @@ function PlanPage({ selectedCode, onSelect, route, floorRequest }) {
       </p>
     )
   } else if (result.plan.rooms.length === 0) {
-    content = <p className="hint">Aucun plan disponible.</p>
+    content = (
+      <p className="hint" role="status">
+        Aucun plan disponible.
+      </p>
+    )
   } else {
     content = (
       <FloorPlan

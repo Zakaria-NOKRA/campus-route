@@ -17,7 +17,11 @@ function RoutePage({
 }) {
   let content = null
   if (routeState.status === 'loading') {
-    content = <p className="hint">Calcul de l'itinéraire…</p>
+    content = (
+      <p className="hint" role="status">
+        Calcul de l'itinéraire…
+      </p>
+    )
   } else if (routeState.status === 'error') {
     content = (
       <p className="error" role="alert">
@@ -28,7 +32,11 @@ function RoutePage({
     const { route } = routeState
     if (route.path.length < 2) {
       // Empty result: nowhere to go (the form already blocks this case).
-      content = <p className="hint">Vous êtes déjà sur place.</p>
+      content = (
+        <p className="hint" role="status">
+          Vous êtes déjà sur place.
+        </p>
+      )
     } else {
       content = (
         <>
