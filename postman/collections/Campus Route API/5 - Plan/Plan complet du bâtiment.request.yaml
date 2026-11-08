@@ -1,0 +1,20 @@
+$kind: http-request
+description: "Toutes les données pour dessiner le plan : échelle, étages, salles, nœuds, arêtes."
+url: "{{baseUrl}}/api/plan"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const body = pm.response.json();
+      pm.test("Champs de la réponse", () => pm.expect(body).to.have.all.keys("scaleMetersPerPixel","floors","rooms","nodes","edges"));
+      pm.test("Échelle 0.07 m/pixel", () => pm.expect(body.scaleMetersPerPixel).to.eql(0.07));
+      pm.test("Étages [0, 1, 2]", () => pm.expect(body.floors).to.eql([0, 1, 2]));
+      pm.test("27 salles", () => pm.expect(body.rooms).to.have.lengthOf(27));
+      pm.test("49 nœuds", () => pm.expect(body.nodes).to.have.lengthOf(49));
+      pm.test("50 arêtes", () => pm.expect(body.edges).to.have.lengthOf(50));
+    language: text/javascript
+order: 1000
