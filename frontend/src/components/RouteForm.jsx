@@ -19,7 +19,7 @@ function RouteForm({
   // Why the button is disabled (null = it can be used).
   let blockedReason = null
   if (destinationCode === null) {
-    blockedReason = 'Sélectionnez une destination (recherche ou plan).'
+    blockedReason = 'Choisissez une destination (recherche ou plan), puis calculez l\'itinéraire.'
   } else if (from === destinationCode) {
     blockedReason = 'Le départ et la destination sont identiques.'
   }

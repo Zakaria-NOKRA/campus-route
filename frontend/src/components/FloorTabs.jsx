@@ -1,16 +1,16 @@
 import { floorLabel } from '../utils/floorLabel'
 
-// One button per floor. The active one is highlighted (and announced with aria-pressed).
+// One button per floor. The active one is highlighted (and announced with aria-current).
 // `markedFloors` = floors crossed by the route: they get a small dot.
 function FloorTabs({ floors, current, onChange, markedFloors = [] }) {
   return (
-    <div className="tabs">
+    <div className="tabs" role="group" aria-label="Étages">
       {floors.map((floor) => (
         <button
           key={floor}
           type="button"
           className={floor === current ? 'on' : ''}
-          aria-pressed={floor === current}
+          aria-current={floor === current ? 'true' : undefined}
           onClick={() => onChange(floor)}
         >
           {floorLabel(floor)}

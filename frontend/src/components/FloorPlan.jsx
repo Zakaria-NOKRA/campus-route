@@ -158,8 +158,9 @@ function FloorPlan({ plan, selectedCode, onSelect, route, floorRequest }) {
         </svg>
       </div>
       <p className="hint">
-        Cliquez sur une salle pour la sélectionner. Sur un petit écran, faites
-        glisser le plan pour voir toute la largeur.
+        {selectedCode === null
+          ? 'Cliquez sur une salle du plan pour la choisir comme destination.'
+          : 'Sur un petit écran, faites glisser le plan pour voir toute la largeur.'}
       </p>
     </>
   )

@@ -19,6 +19,7 @@ function RouteSteps({ steps, onStepClick }) {
           <button
             type="button"
             className={index === activeIndex ? 'step active' : 'step'}
+            aria-current={index === activeIndex ? 'step' : undefined}
             onClick={() => handleClick(index, step.floor)}
           >
             <span className="ic" aria-hidden="true">

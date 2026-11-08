@@ -57,6 +57,7 @@ function SearchPage({ selectedCode, onSelect }) {
           status={detailStatus}
           room={detailResult?.room}
           error={detailResult?.error}
+          onClear={() => onSelect(null)}
         />
       </section>
     </>
