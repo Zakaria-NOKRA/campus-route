@@ -1,11 +1,12 @@
 // Controlled text input: the parent owns the text, we only display it and report changes.
-function SearchInput({ value, onChange }) {
+// `label` and `id` are props so the page can have several search fields (unique ids).
+function SearchInput({ id, label, value, onChange }) {
   return (
     <>
-      <label htmlFor="room-search">Destination (code, nom ou type)</label>
+      <label htmlFor={id}>{label}</label>
       <input
         type="text"
-        id="room-search"
+        id={id}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="ex. B204, amphi, labo…"
