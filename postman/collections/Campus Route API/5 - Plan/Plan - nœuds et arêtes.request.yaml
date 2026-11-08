@@ -1,0 +1,24 @@
+$kind: http-request
+name: "Plan : nœuds et arêtes"
+description: Cohérence du graphe renvoyé.
+url: "{{baseUrl}}/api/plan"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      const ids = body.nodes.map(n => n.id);
+      pm.test("Champs d'un nœud", () => body.nodes.forEach(n => pm.expect(n).to.have.all.keys("id","floor","x","y","type","label")));
+      pm.test("Identifiants de nœuds uniques", () => pm.expect(new Set(ids).size).to.eql(ids.length));
+      pm.test("Chaque salle correspond à un nœud (même identifiant)", () => body.rooms.forEach(r => pm.expect(ids).to.include(r.code)));
+      pm.test("Champs d'une arête", () => body.edges.forEach(e => pm.expect(e).to.have.all.keys("from","to","kind")));
+      pm.test("Chaque arête relie deux nœuds existants", () => body.edges.forEach(e => { pm.expect(ids).to.include(e.from); pm.expect(ids).to.include(e.to); }));
+      pm.test("46 WALK, 2 STAIRS, 2 ELEVATOR", () => {
+      const n = k => body.edges.filter(e => e.kind === k).length;
+      pm.expect([n("WALK"), n("STAIRS"), n("ELEVATOR")]).to.eql([46, 2, 2]);
+      });
+    language: text/javascript
+order: 3000

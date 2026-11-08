@@ -1,0 +1,3 @@
+$kind: collection
+description: En-têtes CORS pour le front et contrat OpenAPI (/v3/api-docs)
+order: 6000
