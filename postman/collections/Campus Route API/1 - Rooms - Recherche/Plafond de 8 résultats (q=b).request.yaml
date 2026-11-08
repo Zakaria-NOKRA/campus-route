@@ -1,0 +1,17 @@
+$kind: http-request
+description: "Toutes les salles matchent « b » : la réponse est limitée à 8, triée par code."
+url: "{{baseUrl}}/api/rooms/search?q=b"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: b
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const codes = pm.response.json().map(r => r.code);
+      pm.test("Exactement 8 résultats", () => pm.expect(codes).to.have.lengthOf(8));
+      pm.test("Triés par code", () => pm.expect(codes).to.eql([...codes].sort()));
+    language: text/javascript
+order: 6000

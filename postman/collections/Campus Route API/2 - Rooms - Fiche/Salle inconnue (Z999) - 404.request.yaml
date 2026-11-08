@@ -1,0 +1,17 @@
+$kind: http-request
+name: Salle inconnue (Z999) -> 404
+description: Erreur JSON lisible.
+url: "{{baseUrl}}/api/rooms/Z999"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 404", () => pm.response.to.have.status(404));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const e = pm.response.json();
+      pm.test("status = 404 dans le corps", () => pm.expect(e.status).to.eql(404));
+      pm.test("Message mentionnant Z999", () => pm.expect(e.message).to.include("Z999"));
+    language: text/javascript
+order: 4000

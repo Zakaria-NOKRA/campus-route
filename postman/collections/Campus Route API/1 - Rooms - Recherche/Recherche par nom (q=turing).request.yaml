@@ -1,0 +1,17 @@
+$kind: http-request
+description: L'amphithéâtre Turing (B001).
+url: "{{baseUrl}}/api/rooms/search?q=turing"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: turing
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const rooms = pm.response.json();
+      pm.test("Un seul résultat : B001", () => { pm.expect(rooms).to.have.lengthOf(1); pm.expect(rooms[0].code).to.eql("B001"); });
+      pm.test("Type Amphithéâtre", () => pm.expect(rooms[0].type).to.eql("Amphithéâtre"));
+    language: text/javascript
+order: 5000
