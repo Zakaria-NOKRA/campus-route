@@ -30,8 +30,7 @@ function PlanPage() {
   } else if (result.plan.rooms.length === 0) {
     content = <p className="hint">Aucun plan disponible.</p>
   } else {
-    // Floor 0 only for now; floor tabs come in the next step.
-    content = <FloorPlan plan={result.plan} floor={0} />
+    content = <FloorPlan plan={result.plan} />
   }
 
   return (

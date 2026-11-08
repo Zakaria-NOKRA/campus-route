@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   CORRIDOR_HEIGHT,
   CORRIDOR_Y,
@@ -11,6 +12,7 @@ import {
   slotX,
 } from '../utils/planGeometry'
 import { floorLabel } from '../utils/floorLabel'
+import FloorTabs from './FloorTabs'
 import PlanRoom from './PlanRoom'
 
 // Stairs or elevator: a box centred on its node, with a short label.
@@ -32,8 +34,11 @@ function ServiceBox({ node, label }) {
   )
 }
 
-// Draws ONE floor of the building as SVG. `plan` is the answer of GET /api/plan.
-function FloorPlan({ plan, floor }) {
+// Floor tabs + the SVG of the chosen floor. `plan` is the answer of GET /api/plan.
+function FloorPlan({ plan }) {
+  // The floor being shown is view state: it lives here, not in the page.
+  const [floor, setFloor] = useState(plan.floors[0] ?? 0)
+
   const rooms = plan.rooms.filter((room) => room.floor === floor)
   const nodes = plan.nodes.filter((node) => node.floor === floor)
   const stairs = nodes.find((node) => node.type === 'STAIRS')
@@ -45,53 +50,70 @@ function FloorPlan({ plan, floor }) {
   const corridorEnd = elevator ? elevator.x - SERVICE_WIDTH / 2 : VIEW_WIDTH
 
   return (
-    <div className="plan-scroll">
-      <svg
-        className="plan-svg"
-        viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        role="img"
-        aria-label={`Plan : ${floorLabel(floor)}`}
-      >
-        <rect
-          className="corr"
-          x={corridorX}
-          y={CORRIDOR_Y}
-          width={corridorEnd - corridorX}
-          height={CORRIDOR_HEIGHT}
-        />
-        {stairs && <ServiceBox node={stairs} label="Esc." />}
-        {elevator && <ServiceBox node={elevator} label="Asc." />}
+    <>
+      <FloorTabs floors={plan.floors} current={floor} onChange={setFloor} />
+      <div className="plan-scroll">
+        <svg
+          className="plan-svg"
+          viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
+          role="img"
+          aria-label={`Plan : ${floorLabel(floor)}`}
+        >
+          <rect
+            className="corr"
+            x={corridorX}
+            y={CORRIDOR_Y}
+            width={corridorEnd - corridorX}
+            height={CORRIDOR_HEIGHT}
+          />
+          {stairs && <ServiceBox node={stairs} label="Esc." />}
+          {elevator && <ServiceBox node={elevator} label="Asc." />}
 
-        {rooms.map((room) => (
-          <PlanRoom key={room.code} room={room} />
-        ))}
+          {rooms.map((room) => (
+            <PlanRoom key={room.code} room={room} />
+          ))}
 
-        {/* Free spot of the bottom row: entrance hall on the ground floor, empty atrium above. */}
-        {emptyBottomSlots(rooms).map((slot) => {
-          const cx = slotX(slot)
-          const x = cx - ROOM_WIDTH / 2
-          const y = rowY(false)
-          return hasEntrance ? (
-            <g key={`hall-${slot}`}>
-              <rect className="room t-serv" x={x} y={y} width={ROOM_WIDTH} height={ROOM_HEIGHT} rx="6" />
-              <text className="tag" x={cx} y={y + 26} textAnchor="middle">
-                Hall d'entrée
-              </text>
-              <text className="code" x={cx} y={y + 104} textAnchor="middle">
-                ▲ Entrée
-              </text>
-            </g>
-          ) : (
-            <g key={`atrium-${slot}`}>
-              <rect className="atrium" x={x} y={y} width={ROOM_WIDTH} height={ROOM_HEIGHT} rx="6" />
-              <text className="tag" x={cx} y={y + 60} textAnchor="middle">
-                Atrium (vide)
-              </text>
-            </g>
-          )
-        })}
-      </svg>
-    </div>
+          {/* Free spot of the bottom row: entrance hall on the ground floor, empty atrium above. */}
+          {emptyBottomSlots(rooms).map((slot) => {
+            const cx = slotX(slot)
+            const x = cx - ROOM_WIDTH / 2
+            const y = rowY(false)
+            return hasEntrance ? (
+              <g key={`hall-${slot}`}>
+                <rect
+                  className="room t-serv"
+                  x={x}
+                  y={y}
+                  width={ROOM_WIDTH}
+                  height={ROOM_HEIGHT}
+                  rx="6"
+                />
+                <text className="tag" x={cx} y={y + 26} textAnchor="middle">
+                  Hall d'entrée
+                </text>
+                <text className="code" x={cx} y={y + 104} textAnchor="middle">
+                  ▲ Entrée
+                </text>
+              </g>
+            ) : (
+              <g key={`atrium-${slot}`}>
+                <rect
+                  className="atrium"
+                  x={x}
+                  y={y}
+                  width={ROOM_WIDTH}
+                  height={ROOM_HEIGHT}
+                  rx="6"
+                />
+                <text className="tag" x={cx} y={y + 60} textAnchor="middle">
+                  Atrium (vide)
+                </text>
+              </g>
+            )
+          })}
+        </svg>
+      </div>
+    </>
   )
 }
 
