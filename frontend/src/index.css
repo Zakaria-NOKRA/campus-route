@@ -467,3 +467,20 @@ ol.steps small {
 .tabs button.on .dot {
   background: var(--accent-ink);
 }
+
+button.swap {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button.swap:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

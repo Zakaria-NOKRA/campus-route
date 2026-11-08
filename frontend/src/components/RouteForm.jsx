@@ -9,8 +9,12 @@ function RouteForm({
   accessible,
   onAccessibleChange,
   onCalculate,
+  onSwap,
 }) {
   const from = originCode ?? 'ENTREE'
+
+  // Swapping needs two rooms. The entrance cannot become a destination.
+  const canSwap = originCode !== null && destinationCode !== null
 
   // Why the button is disabled (null = it can be used).
   let blockedReason = null
@@ -28,6 +32,16 @@ function RouteForm({
   return (
     <form onSubmit={handleSubmit}>
       <OriginPicker originCode={originCode} onChange={onOriginChange} />
+
+      <button
+        type="button"
+        className="swap"
+        disabled={!canSwap}
+        onClick={onSwap}
+        title={canSwap ? undefined : "Inversion possible quand le départ et la destination sont des salles."}
+      >
+        ⇅ Inverser départ et destination
+      </button>
 
       <p className="route-point">
         Destination : <b>{destinationCode ?? 'aucune'}</b>
