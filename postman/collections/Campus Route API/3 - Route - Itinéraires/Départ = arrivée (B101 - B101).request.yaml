@@ -1,0 +1,20 @@
+$kind: http-request
+name: Départ = arrivée (B101 -> B101)
+description: "Réponse valide : distance 0, un seul nœud, deux instructions."
+url: "{{baseUrl}}/api/route?from=B101&to=B101"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: B101
+  to: B101
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test("Distance et durée nulles", () => { pm.expect(body.distanceMeters).to.eql(0); pm.expect(body.durationSeconds).to.eql(0); });
+      pm.test("Un seul nœud", () => pm.expect(body.path).to.have.lengthOf(1));
+      pm.test("Deux instructions (départ, arrivée)", () => pm.expect(body.steps).to.have.lengthOf(2));
+    language: text/javascript
+order: 9000

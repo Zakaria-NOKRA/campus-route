@@ -1,0 +1,18 @@
+$kind: http-request
+name: ENTREE -> B204 (minuscules)
+description: Les identifiants sont normalisés en majuscules.
+url: "{{baseUrl}}/api/route?from=entree&to=b204"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: entree
+  to: b204
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test("Même chemin qu'en majuscules", () => { const ids = body.path.map(n => n.id); pm.expect(ids[0]).to.eql("ENTREE"); pm.expect(ids[ids.length - 1]).to.eql("B204"); });
+    language: text/javascript
+order: 3000

@@ -1,0 +1,4 @@
+$kind: collection
+name: 3 - Route / Itinéraires
+description: GET /api/route?from=&to=&accessible=
+order: 3000
