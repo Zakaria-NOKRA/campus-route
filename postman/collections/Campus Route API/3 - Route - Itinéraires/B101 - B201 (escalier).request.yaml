@@ -1,0 +1,24 @@
+$kind: http-request
+name: B101 -> B201 (escalier)
+description: Le plus court passe par l'escalier.
+url: "{{baseUrl}}/api/route?from=B101&to=B201&accessible=false"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: B101
+  to: B201
+  accessible: "false"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+
+      pm.test("Distance ≈ 25.34 m", () => pm.expect(body.distanceMeters).to.be.closeTo(25.34, 0.01));
+      pm.test("Durée ≈ 31.5 s", () => pm.expect(body.durationSeconds).to.be.closeTo(31.5, 0.1));
+
+      pm.test("Chemin par l'escalier", () => pm.expect(body.path.map(n => n.id)).to.eql(["B101","C1_0","S1","S2","C2_0","B201"]));
+      pm.test("Une instruction mentionne l'escalier", () => pm.expect(body.steps.some(s => s.text.includes("escalier"))).to.be.true);
+    language: text/javascript
+order: 7000

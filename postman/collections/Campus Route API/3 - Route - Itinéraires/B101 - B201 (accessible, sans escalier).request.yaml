@@ -1,0 +1,24 @@
+$kind: http-request
+name: B101 -> B201 (accessible, sans escalier)
+description: "L'option accessible force l'ascenseur : trajet plus long."
+url: "{{baseUrl}}/api/route?from=B101&to=B201&accessible=true"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: B101
+  to: B201
+  accessible: "true"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+
+      pm.test("Distance ≈ 101.5 m", () => pm.expect(body.distanceMeters).to.be.closeTo(101.5, 0.01));
+      pm.test("Durée ≈ 103.1 s", () => pm.expect(body.durationSeconds).to.be.closeTo(103.1, 0.1));
+
+      pm.test("Aucun nœud d'escalier", () => pm.expect(body.path.some(n => n.type === "STAIRS")).to.be.false);
+      pm.test("Passe par l'ascenseur", () => pm.expect(body.path.some(n => n.type === "ELEVATOR")).to.be.true);
+    language: text/javascript
+order: 8000

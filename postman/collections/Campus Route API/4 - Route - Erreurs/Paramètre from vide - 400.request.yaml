@@ -1,0 +1,20 @@
+$kind: http-request
+name: Paramètre from vide -> 400
+description: from= (valeur vide).
+url: "{{baseUrl}}/api/route?from=&to=B204"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: ""
+  to: B204
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 400", () => pm.response.to.have.status(400));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const e = pm.response.json();
+      pm.test("status = 400 dans le corps", () => pm.expect(e.status).to.eql(400));
+      pm.test("Un message est fourni", () => pm.expect(e.message).to.be.a("string").that.is.not.empty);
+    language: text/javascript
+order: 5000

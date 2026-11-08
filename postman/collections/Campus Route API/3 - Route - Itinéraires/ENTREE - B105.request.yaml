@@ -1,0 +1,20 @@
+$kind: http-request
+name: ENTREE -> B105
+description: Via l'ascenseur, 1er étage.
+url: "{{baseUrl}}/api/route?from=ENTREE&to=B105"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: ENTREE
+  to: B105
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+
+      pm.test("Distance ≈ 45.43 m", () => pm.expect(body.distanceMeters).to.be.closeTo(45.43, 0.01));
+      pm.test("Durée ≈ 59.9 s", () => pm.expect(body.durationSeconds).to.be.closeTo(59.9, 0.1));
+    language: text/javascript
+order: 4000

@@ -1,0 +1,22 @@
+$kind: http-request
+name: B204 -> B009 (cafétéria)
+description: Descente au RDC.
+url: "{{baseUrl}}/api/route?from=B204&to=B009"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: B204
+  to: B009
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+
+      pm.test("Distance ≈ 34.86 m", () => pm.expect(body.distanceMeters).to.be.closeTo(34.86, 0.01));
+      pm.test("Durée ≈ 76.8 s", () => pm.expect(body.durationSeconds).to.be.closeTo(76.8, 0.1));
+
+      pm.test("Arrivée B009", () => pm.expect(body.path[body.path.length - 1].id).to.eql("B009"));
+    language: text/javascript
+order: 5000

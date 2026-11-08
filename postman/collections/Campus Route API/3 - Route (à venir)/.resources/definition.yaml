@@ -1,3 +1,0 @@
-$kind: collection
-description: "GET /api/route?from=&to=&accessible= — pas encore implémenté : ces requêtes échouent tant que l'étape Dijkstra n'est pas faite."
-order: 3000
