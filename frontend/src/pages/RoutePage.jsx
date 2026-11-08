@@ -12,6 +12,7 @@ function RoutePage({
   onAccessibleChange,
   onCalculate,
   onSwap,
+  onStepClick,
   routeState,
 }) {
   let content = null
@@ -36,7 +37,7 @@ function RoutePage({
             durationSeconds={route.durationSeconds}
             accessible={accessible}
           />
-          <RouteSteps steps={route.steps} />
+          <RouteSteps steps={route.steps} onStepClick={onStepClick} />
         </>
       )
     }
