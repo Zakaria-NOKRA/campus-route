@@ -35,9 +35,22 @@ function ServiceBox({ node, label }) {
 }
 
 // Floor tabs + the SVG of the chosen floor. `plan` is the answer of GET /api/plan.
-function FloorPlan({ plan }) {
+function FloorPlan({ plan, selectedCode, onSelect }) {
+  const selectedRoom = plan.rooms.find((room) => room.code === selectedCode)
+
   // The floor being shown is view state: it lives here, not in the page.
-  const [floor, setFloor] = useState(plan.floors[0] ?? 0)
+  // At the start, show the floor of the selected room (if any).
+  const [floor, setFloor] = useState(selectedRoom?.floor ?? plan.floors[0] ?? 0)
+
+  // When the selection changes (from the search list or from a click on the plan),
+  // jump to the floor of the new room. We compare with the previous code during
+  // render instead of using an effect: React re-renders at once, with no flicker.
+  // Clicking a floor tab never changes the selection.
+  const [previousCode, setPreviousCode] = useState(selectedCode)
+  if (selectedCode !== previousCode) {
+    setPreviousCode(selectedCode)
+    if (selectedRoom) setFloor(selectedRoom.floor)
+  }
 
   const rooms = plan.rooms.filter((room) => room.floor === floor)
   const nodes = plan.nodes.filter((node) => node.floor === floor)
@@ -56,7 +69,7 @@ function FloorPlan({ plan }) {
         <svg
           className="plan-svg"
           viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-          role="img"
+          role="group"
           aria-label={`Plan : ${floorLabel(floor)}`}
         >
           <rect
@@ -70,7 +83,12 @@ function FloorPlan({ plan }) {
           {elevator && <ServiceBox node={elevator} label="Asc." />}
 
           {rooms.map((room) => (
-            <PlanRoom key={room.code} room={room} />
+            <PlanRoom
+              key={room.code}
+              room={room}
+              selected={room.code === selectedCode}
+              onSelect={onSelect}
+            />
           ))}
 
           {/* Free spot of the bottom row: entrance hall on the ground floor, empty atrium above. */}

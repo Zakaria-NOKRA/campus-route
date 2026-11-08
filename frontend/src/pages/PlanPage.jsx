@@ -3,7 +3,7 @@ import { getPlan } from '../api/plan'
 import FloorPlan from '../components/FloorPlan'
 
 // Loads the building plan once and shows loading, error, empty or the drawn plan.
-function PlanPage() {
+function PlanPage({ selectedCode, onSelect }) {
   // Last answer received: { plan, error }. null means "still waiting".
   const [result, setResult] = useState(null)
 
@@ -30,7 +30,13 @@ function PlanPage() {
   } else if (result.plan.rooms.length === 0) {
     content = <p className="hint">Aucun plan disponible.</p>
   } else {
-    content = <FloorPlan plan={result.plan} />
+    content = (
+      <FloorPlan
+        plan={result.plan}
+        selectedCode={selectedCode}
+        onSelect={onSelect}
+      />
+    )
   }
 
   return (

@@ -1,15 +1,38 @@
-import { ROOM_HEIGHT, ROOM_WIDTH, roomTypeClass, rowY, slotX } from '../utils/planGeometry'
+import {
+  ROOM_HEIGHT,
+  ROOM_WIDTH,
+  roomTypeClass,
+  rowY,
+  slotX,
+} from '../utils/planGeometry'
 
 // One room of the plan: box, code, short tag and the little door facing the corridor.
-function PlanRoom({ room }) {
+// It behaves like a button: click, or Enter / Space when it has the keyboard focus.
+function PlanRoom({ room, selected, onSelect }) {
   const cx = slotX(room.slot)
   const y0 = rowY(room.top)
   const doorY = room.top ? 167 : 228 // door sits on the corridor side
+
+  function handleKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault() // Space would scroll the page otherwise
+      onSelect(room.code)
+    }
+  }
+
   return (
-    <g>
+    <g
+      className="plan-room"
+      role="button"
+      tabIndex={0}
+      aria-pressed={selected}
+      aria-label={`${room.code}, ${room.name}`}
+      onClick={() => onSelect(room.code)}
+      onKeyDown={handleKeyDown}
+    >
       <title>{room.name}</title>
       <rect
-        className={`room ${roomTypeClass(room.type)}`}
+        className={`room ${roomTypeClass(room.type)}${selected ? ' selected' : ''}`}
         x={cx - ROOM_WIDTH / 2}
         y={y0}
         width={ROOM_WIDTH}

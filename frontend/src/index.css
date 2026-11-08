@@ -85,10 +85,14 @@ body {
   margin: 0 auto;
 }
 
-.app-plan {
-  padding: 0 16px 16px;
-  max-width: 1300px;
-  margin: 0 auto;
+.app-main > * {
+  min-width: 0; /* lets the plan card shrink and scroll inside instead of widening the page */
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 @media (max-width: 900px) {
@@ -298,4 +302,19 @@ ul.results li:last-child {
   background: var(--accent);
   color: var(--accent-ink);
   border-color: var(--accent);
+}
+
+/* Selectable rooms */
+.plan-svg .plan-room {
+  cursor: pointer;
+}
+
+.plan-svg .plan-room:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.plan-svg .room.selected {
+  stroke: var(--dest);
+  stroke-width: 3;
 }
