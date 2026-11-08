@@ -1,0 +1,1086 @@
+{
+  "building": "B",
+  "scale_m_per_px": 0.07,
+  "floors": [
+    0,
+    1,
+    2
+  ],
+  "rooms": [
+    {
+      "code": "B001",
+      "floor": 0,
+      "slot": 0,
+      "top": true,
+      "name": "Amphithéâtre Turing",
+      "type": "Amphithéâtre",
+      "tag": "Amphi",
+      "cap": 120,
+      "eq": [
+        "Vidéoprojecteur",
+        "Sonorisation",
+        "Prises"
+      ]
+    },
+    {
+      "code": "B002",
+      "floor": 0,
+      "slot": 1,
+      "top": true,
+      "name": "Salle de TD B002",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B003",
+      "floor": 0,
+      "slot": 2,
+      "top": true,
+      "name": "Secrétariat pédagogique",
+      "type": "Service",
+      "tag": "Secrétariat",
+      "cap": 8,
+      "eq": [
+        "Accueil"
+      ]
+    },
+    {
+      "code": "B004",
+      "floor": 0,
+      "slot": 3,
+      "top": true,
+      "name": "Salle de TD B004",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B005",
+      "floor": 0,
+      "slot": 4,
+      "top": true,
+      "name": "Salle de TD B005",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B006",
+      "floor": 0,
+      "slot": 0,
+      "top": false,
+      "name": "Salle de TD B006",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B007",
+      "floor": 0,
+      "slot": 1,
+      "top": false,
+      "name": "Salle de TD B007",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B008",
+      "floor": 0,
+      "slot": 3,
+      "top": false,
+      "name": "Salle de TD B008",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B009",
+      "floor": 0,
+      "slot": 4,
+      "top": false,
+      "name": "Cafétéria",
+      "type": "Service",
+      "tag": "Cafétéria",
+      "cap": 60,
+      "eq": [
+        "Distributeurs",
+        "Micro-ondes"
+      ]
+    },
+    {
+      "code": "B101",
+      "floor": 1,
+      "slot": 0,
+      "top": true,
+      "name": "Salle de TD B101",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B102",
+      "floor": 1,
+      "slot": 1,
+      "top": true,
+      "name": "Salle de TD B102",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B103",
+      "floor": 1,
+      "slot": 2,
+      "top": true,
+      "name": "Salle de TD B103",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B104",
+      "floor": 1,
+      "slot": 3,
+      "top": true,
+      "name": "Laboratoire de réseaux",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 24,
+      "eq": [
+        "Postes réseau",
+        "Baies",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B105",
+      "floor": 1,
+      "slot": 4,
+      "top": true,
+      "name": "Salle de TD B105",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B106",
+      "floor": 1,
+      "slot": 0,
+      "top": false,
+      "name": "Salle de TD B106",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B107",
+      "floor": 1,
+      "slot": 1,
+      "top": false,
+      "name": "Salle de TD B107",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B108",
+      "floor": 1,
+      "slot": 3,
+      "top": false,
+      "name": "Salle informatique 1",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B109",
+      "floor": 1,
+      "slot": 4,
+      "top": false,
+      "name": "Salle de TD B109",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B201",
+      "floor": 2,
+      "slot": 0,
+      "top": true,
+      "name": "Salle de TD B201",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B202",
+      "floor": 2,
+      "slot": 1,
+      "top": true,
+      "name": "Salle de TD B202",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B203",
+      "floor": 2,
+      "slot": 2,
+      "top": true,
+      "name": "Laboratoire de sécurité",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes dédiés",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B204",
+      "floor": 2,
+      "slot": 3,
+      "top": true,
+      "name": "Salle de TD B204",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B205",
+      "floor": 2,
+      "slot": 4,
+      "top": true,
+      "name": "Salle de TD B205",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B206",
+      "floor": 2,
+      "slot": 0,
+      "top": false,
+      "name": "Salle de TD B206",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B207",
+      "floor": 2,
+      "slot": 1,
+      "top": false,
+      "name": "Salle informatique 2",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B208",
+      "floor": 2,
+      "slot": 3,
+      "top": false,
+      "name": "Salle de TD B208",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    },
+    {
+      "code": "B209",
+      "floor": 2,
+      "slot": 4,
+      "top": false,
+      "name": "Salle de TD B209",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "C0_0",
+      "floor": 0,
+      "x": 128,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0_1",
+      "floor": 0,
+      "x": 264,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0_2",
+      "floor": 0,
+      "x": 400,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0_3",
+      "floor": 0,
+      "x": 536,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0_4",
+      "floor": 0,
+      "x": 672,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "S0",
+      "floor": 0,
+      "x": 32,
+      "y": 200,
+      "type": "stairs",
+      "label": "Escalier"
+    },
+    {
+      "id": "E0",
+      "floor": 0,
+      "x": 768,
+      "y": 200,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "B001",
+      "floor": 0,
+      "x": 128,
+      "y": 115,
+      "type": "room",
+      "label": "B001"
+    },
+    {
+      "id": "B002",
+      "floor": 0,
+      "x": 264,
+      "y": 115,
+      "type": "room",
+      "label": "B002"
+    },
+    {
+      "id": "B003",
+      "floor": 0,
+      "x": 400,
+      "y": 115,
+      "type": "room",
+      "label": "B003"
+    },
+    {
+      "id": "B004",
+      "floor": 0,
+      "x": 536,
+      "y": 115,
+      "type": "room",
+      "label": "B004"
+    },
+    {
+      "id": "B005",
+      "floor": 0,
+      "x": 672,
+      "y": 115,
+      "type": "room",
+      "label": "B005"
+    },
+    {
+      "id": "B006",
+      "floor": 0,
+      "x": 128,
+      "y": 285,
+      "type": "room",
+      "label": "B006"
+    },
+    {
+      "id": "B007",
+      "floor": 0,
+      "x": 264,
+      "y": 285,
+      "type": "room",
+      "label": "B007"
+    },
+    {
+      "id": "B008",
+      "floor": 0,
+      "x": 536,
+      "y": 285,
+      "type": "room",
+      "label": "B008"
+    },
+    {
+      "id": "B009",
+      "floor": 0,
+      "x": 672,
+      "y": 285,
+      "type": "room",
+      "label": "B009"
+    },
+    {
+      "id": "C1_0",
+      "floor": 1,
+      "x": 128,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1_1",
+      "floor": 1,
+      "x": 264,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1_2",
+      "floor": 1,
+      "x": 400,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1_3",
+      "floor": 1,
+      "x": 536,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1_4",
+      "floor": 1,
+      "x": 672,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "S1",
+      "floor": 1,
+      "x": 32,
+      "y": 200,
+      "type": "stairs",
+      "label": "Escalier"
+    },
+    {
+      "id": "E1",
+      "floor": 1,
+      "x": 768,
+      "y": 200,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "B101",
+      "floor": 1,
+      "x": 128,
+      "y": 115,
+      "type": "room",
+      "label": "B101"
+    },
+    {
+      "id": "B102",
+      "floor": 1,
+      "x": 264,
+      "y": 115,
+      "type": "room",
+      "label": "B102"
+    },
+    {
+      "id": "B103",
+      "floor": 1,
+      "x": 400,
+      "y": 115,
+      "type": "room",
+      "label": "B103"
+    },
+    {
+      "id": "B104",
+      "floor": 1,
+      "x": 536,
+      "y": 115,
+      "type": "room",
+      "label": "B104"
+    },
+    {
+      "id": "B105",
+      "floor": 1,
+      "x": 672,
+      "y": 115,
+      "type": "room",
+      "label": "B105"
+    },
+    {
+      "id": "B106",
+      "floor": 1,
+      "x": 128,
+      "y": 285,
+      "type": "room",
+      "label": "B106"
+    },
+    {
+      "id": "B107",
+      "floor": 1,
+      "x": 264,
+      "y": 285,
+      "type": "room",
+      "label": "B107"
+    },
+    {
+      "id": "B108",
+      "floor": 1,
+      "x": 536,
+      "y": 285,
+      "type": "room",
+      "label": "B108"
+    },
+    {
+      "id": "B109",
+      "floor": 1,
+      "x": 672,
+      "y": 285,
+      "type": "room",
+      "label": "B109"
+    },
+    {
+      "id": "C2_0",
+      "floor": 2,
+      "x": 128,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2_1",
+      "floor": 2,
+      "x": 264,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2_2",
+      "floor": 2,
+      "x": 400,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2_3",
+      "floor": 2,
+      "x": 536,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2_4",
+      "floor": 2,
+      "x": 672,
+      "y": 200,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "S2",
+      "floor": 2,
+      "x": 32,
+      "y": 200,
+      "type": "stairs",
+      "label": "Escalier"
+    },
+    {
+      "id": "E2",
+      "floor": 2,
+      "x": 768,
+      "y": 200,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "B201",
+      "floor": 2,
+      "x": 128,
+      "y": 115,
+      "type": "room",
+      "label": "B201"
+    },
+    {
+      "id": "B202",
+      "floor": 2,
+      "x": 264,
+      "y": 115,
+      "type": "room",
+      "label": "B202"
+    },
+    {
+      "id": "B203",
+      "floor": 2,
+      "x": 400,
+      "y": 115,
+      "type": "room",
+      "label": "B203"
+    },
+    {
+      "id": "B204",
+      "floor": 2,
+      "x": 536,
+      "y": 115,
+      "type": "room",
+      "label": "B204"
+    },
+    {
+      "id": "B205",
+      "floor": 2,
+      "x": 672,
+      "y": 115,
+      "type": "room",
+      "label": "B205"
+    },
+    {
+      "id": "B206",
+      "floor": 2,
+      "x": 128,
+      "y": 285,
+      "type": "room",
+      "label": "B206"
+    },
+    {
+      "id": "B207",
+      "floor": 2,
+      "x": 264,
+      "y": 285,
+      "type": "room",
+      "label": "B207"
+    },
+    {
+      "id": "B208",
+      "floor": 2,
+      "x": 536,
+      "y": 285,
+      "type": "room",
+      "label": "B208"
+    },
+    {
+      "id": "B209",
+      "floor": 2,
+      "x": 672,
+      "y": 285,
+      "type": "room",
+      "label": "B209"
+    },
+    {
+      "id": "ENTREE",
+      "floor": 0,
+      "x": 400,
+      "y": 300,
+      "type": "entrance",
+      "label": "Entrée principale"
+    }
+  ],
+  "edges": [
+    {
+      "a": "C0_0",
+      "b": "C0_1",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C0_1",
+      "b": "C0_2",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C0_2",
+      "b": "C0_3",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C0_3",
+      "b": "C0_4",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "S0",
+      "b": "C0_0",
+      "w": 96,
+      "kind": "walk"
+    },
+    {
+      "a": "E0",
+      "b": "C0_4",
+      "w": 96,
+      "kind": "walk"
+    },
+    {
+      "a": "B001",
+      "b": "C0_0",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B002",
+      "b": "C0_1",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B003",
+      "b": "C0_2",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B004",
+      "b": "C0_3",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B005",
+      "b": "C0_4",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B006",
+      "b": "C0_0",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B007",
+      "b": "C0_1",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B008",
+      "b": "C0_3",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B009",
+      "b": "C0_4",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "C1_0",
+      "b": "C1_1",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C1_1",
+      "b": "C1_2",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C1_2",
+      "b": "C1_3",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C1_3",
+      "b": "C1_4",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "S1",
+      "b": "C1_0",
+      "w": 96,
+      "kind": "walk"
+    },
+    {
+      "a": "E1",
+      "b": "C1_4",
+      "w": 96,
+      "kind": "walk"
+    },
+    {
+      "a": "S0",
+      "b": "S1",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "E0",
+      "b": "E1",
+      "w": 90,
+      "kind": "elevator"
+    },
+    {
+      "a": "B101",
+      "b": "C1_0",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B102",
+      "b": "C1_1",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B103",
+      "b": "C1_2",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B104",
+      "b": "C1_3",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B105",
+      "b": "C1_4",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B106",
+      "b": "C1_0",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B107",
+      "b": "C1_1",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B108",
+      "b": "C1_3",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B109",
+      "b": "C1_4",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "C2_0",
+      "b": "C2_1",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C2_1",
+      "b": "C2_2",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C2_2",
+      "b": "C2_3",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "C2_3",
+      "b": "C2_4",
+      "w": 136,
+      "kind": "walk"
+    },
+    {
+      "a": "S2",
+      "b": "C2_0",
+      "w": 96,
+      "kind": "walk"
+    },
+    {
+      "a": "E2",
+      "b": "C2_4",
+      "w": 96,
+      "kind": "walk"
+    },
+    {
+      "a": "S1",
+      "b": "S2",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "E1",
+      "b": "E2",
+      "w": 90,
+      "kind": "elevator"
+    },
+    {
+      "a": "B201",
+      "b": "C2_0",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B202",
+      "b": "C2_1",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B203",
+      "b": "C2_2",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B204",
+      "b": "C2_3",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B205",
+      "b": "C2_4",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B206",
+      "b": "C2_0",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B207",
+      "b": "C2_1",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B208",
+      "b": "C2_3",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "B209",
+      "b": "C2_4",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "ENTREE",
+      "b": "C0_2",
+      "w": 100,
+      "kind": "walk"
+    }
+  ]
+}

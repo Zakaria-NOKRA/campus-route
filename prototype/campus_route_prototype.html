@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Campus Route — Prototype</title>
+<style>
+:root{
+  --bg:#f5f6f8;--panel:#fff;--ink:#1c2430;--muted:#667085;--line:#e3e6eb;
+  --accent:#0b7285;--accent-ink:#fff;--room:#eef2f7;--room-line:#9fb0c3;--corr:#fdf6e3;
+  --svc:#dde7f0;--route:#0b7285;--start:#2f9e44;--dest:#e03131;
+  --amph:#e3edff;--lab:#e6f6ec;--serv:#fff0dc;--info:#f0ecff;--hatch:#d5dbe3;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#12161c;--panel:#1b212a;--ink:#e8ecf2;--muted:#9aa5b4;--line:#2a323d;
+  --accent:#3bc9db;--accent-ink:#06222a;--room:#232b36;--room-line:#56667c;--corr:#2b2a22;
+  --svc:#2c3a48;--route:#3bc9db;--start:#51cf66;--dest:#ff6b6b;
+  --amph:#1f2d4a;--lab:#1f3a2a;--serv:#40301a;--info:#2d2748;--hatch:#2f3844;}
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4}
+header{padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:20px}
+header span{color:var(--muted);font-size:14px}
+header button{margin-left:auto}
+main{display:grid;grid-template-columns:360px 1fr;gap:16px;padding:16px;max-width:1300px;margin:0 auto}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h2{margin:0 0 10px;font-size:15px}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input[type=text],select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px}
+button{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 12px;border-radius:8px;font-size:14px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.check{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink);margin:12px 0 0}
+ul.results{list-style:none;margin:4px 0 0;padding:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+ul.results:empty{display:none}
+ul.results li{padding:8px 10px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--line)}
+ul.results li:last-child{border-bottom:0}
+ul.results li:hover{background:var(--bg)}
+ul.results small{color:var(--muted)}
+.side{display:flex;flex-direction:column;gap:12px}
+.info{background:var(--info);border-radius:10px;padding:10px 12px;font-size:14px}
+.info b{font-size:16px}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--line);margin:4px 4px 0 0}
+.summary{font-size:14px;margin-bottom:8px}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+ol.steps li{display:flex;gap:10px;align-items:flex-start;padding:8px;border-radius:8px;cursor:pointer;font-size:14px}
+ol.steps li:hover{background:var(--bg)}
+ol.steps li.active{background:var(--bg);outline:2px solid var(--accent)}
+ol.steps .ic{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:700;font-size:14px}
+ol.steps small{display:block;color:var(--muted)}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.tabs button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tabs button .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dest);margin-left:6px}
+.seg{margin-left:auto;display:flex;gap:0}
+.seg button{border-radius:0}
+.seg button:first-child{border-radius:8px 0 0 8px}
+.seg button:last-child{border-radius:0 8px 8px 0;border-left:0}
+.seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+svg{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+svg .bg{fill:var(--bg)}
+svg .corr{fill:var(--corr)}
+svg .svc{fill:var(--svc);stroke:var(--room-line)}
+svg .room{fill:var(--room);stroke:var(--room-line);stroke-width:1.5}
+svg .room.t-amph{fill:var(--amph)}
+svg .room.t-lab{fill:var(--lab)}
+svg .room.t-serv{fill:var(--serv)}
+svg .room.dest{stroke:var(--dest);stroke-width:3}
+svg .room.start{stroke:var(--start);stroke-width:3}
+svg .atrium{fill:var(--hatch);stroke:var(--room-line);stroke-dasharray:4 4}
+svg .code{font-size:15px;font-weight:700;fill:var(--ink)}
+svg .tag{font-size:11px;fill:var(--muted)}
+svg .lbl{font-size:12px;fill:var(--muted)}
+svg .door{fill:var(--corr)}
+svg .route{fill:none;stroke:var(--route);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 8;animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-18}}
+svg .mk-start{fill:var(--start);stroke:#fff;stroke-width:2}
+svg .mk-dest{fill:var(--dest);stroke:#fff;stroke-width:2}
+svg .walker{fill:#f08c00;stroke:#fff;stroke-width:3}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <h1>Campus Route</h1>
+  <span>Prototype — simulation du bâtiment B (3 étages)</span>
+  <button id="btnExport" title="Télécharger le graphe de navigation au format JSON">Exporter le graphe (JSON)</button>
+</header>
+
+<main>
+  <div class="side">
+    <div class="card">
+      <h2>Où allez-vous ?</h2>
+      <label for="start">Départ</label>
+      <select id="start"></select>
+
+      <label for="q">Destination (code, nom ou type)</label>
+      <input type="text" id="q" placeholder="ex. B204, amphi, labo, cafétéria…" autocomplete="off">
+      <ul class="results" id="results"></ul>
+
+      <label class="check"><input type="checkbox" id="avoid"> Itinéraire accessible (sans escalier)</label>
+      <div class="row" style="margin-top:12px">
+        <button id="btnWalk" class="primary" disabled>▶ Simuler la marche</button>
+        <button id="btnReset">Réinitialiser</button>
+      </div>
+    </div>
+
+    <div class="card" id="infoCard" hidden>
+      <h2>Lieu</h2>
+      <div class="info" id="info"></div>
+    </div>
+
+    <div class="card" id="routeCard" hidden>
+      <h2>Itinéraire</h2>
+      <div class="summary" id="summary"></div>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tabs" id="tabs"></div>
+    <svg id="plan" viewBox="0 0 800 360" role="img" aria-label="Plan de l'étage"></svg>
+    <div class="legend">
+      <span><i style="background:var(--start)"></i>Départ</span>
+      <span><i style="background:var(--dest)"></i>Destination</span>
+      <span><i style="background:#f08c00"></i>Vous (simulation)</span>
+      <span><i style="background:var(--route)"></i>Trajet</span>
+    </div>
+    <div class="hint">Cliquez sur le plan pour choisir <b>le départ</b> ou <b>la destination</b> selon le mode choisi ci-dessus. Cliquez sur une étape pour afficher son étage.</div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+// ==== CORE ====
+// Moteur pur (sans DOM) : données du bâtiment, graphe, Dijkstra, instructions.
+// Cette logique sera portée telle quelle vers Spring Boot (étape B).
+const SCALE = 0.07;                 // 1 pixel du plan = 0,07 m
+const FLOORS = [0, 1, 2];
+const CX = i => 128 + 136 * i;      // abscisse du centre de chaque "case" du bâtiment
+
+const SPECIAL = {
+  B001:{name:'Amphithéâtre Turing',type:'Amphithéâtre',tag:'Amphi',cap:120,eq:['Vidéoprojecteur','Sonorisation','Prises']},
+  B003:{name:'Secrétariat pédagogique',type:'Service',tag:'Secrétariat',cap:8,eq:['Accueil']},
+  B009:{name:'Cafétéria',type:'Service',tag:'Cafétéria',cap:60,eq:['Distributeurs','Micro-ondes']},
+  B104:{name:'Laboratoire de réseaux',type:'Laboratoire',tag:'Labo',cap:24,eq:['Postes réseau','Baies','Vidéoprojecteur']},
+  B108:{name:'Salle informatique 1',type:'Salle informatique',tag:'Info',cap:30,eq:['30 PC','Vidéoprojecteur']},
+  B203:{name:'Laboratoire de sécurité',type:'Laboratoire',tag:'Labo',cap:20,eq:['Postes dédiés','Vidéoprojecteur']},
+  B207:{name:'Salle informatique 2',type:'Salle informatique',tag:'Info',cap:30,eq:['30 PC','Vidéoprojecteur']},
+};
+
+const nodes = {}, edges = [], rooms = [], adj = {};
+function addNode(id, floor, x, y, type, label){ nodes[id] = {id, floor, x, y, type, label}; adj[id] = []; }
+function addEdge(a, b, w, kind = 'walk'){
+  edges.push({a, b, w, kind});
+  adj[a].push({to: b, w, kind});
+  adj[b].push({to: a, w, kind});
+}
+
+FLOORS.forEach(f => {
+  // couloir
+  for (let i = 0; i < 5; i++){
+    addNode(`C${f}_${i}`, f, CX(i), 200, 'corridor', 'Couloir');
+    if (i > 0) addEdge(`C${f}_${i-1}`, `C${f}_${i}`, 136);
+  }
+  // escalier (gauche) et ascenseur (droite)
+  addNode(`S${f}`, f, 32, 200, 'stairs', 'Escalier');
+  addNode(`E${f}`, f, 768, 200, 'elevator', 'Ascenseur');
+  addEdge(`S${f}`, `C${f}_0`, 96);
+  addEdge(`E${f}`, `C${f}_4`, 96);
+  if (f > 0){
+    addEdge(`S${f-1}`, `S${f}`, 140, 'stairs');     // monter à pied coûte plus cher
+    addEdge(`E${f-1}`, `E${f}`, 90, 'elevator');    // attente + trajet
+  }
+  // salles : 5 en haut, 4 en bas (le centre du bas est le hall / l'atrium)
+  for (let k = 0; k < 9; k++){
+    const top = k < 5;
+    const slot = top ? k : [0, 1, 3, 4][k - 5];
+    const code = `B${f}0${k + 1}`;
+    const sp = SPECIAL[code] || {};
+    const room = {
+      code, floor: f, slot, top,
+      name: sp.name || `Salle de TD ${code}`,
+      type: sp.type || 'Salle de TD',
+      tag: sp.tag || 'TD',
+      cap: sp.cap || 30,
+      eq: sp.eq || ['Tableau', 'Vidéoprojecteur'],
+    };
+    rooms.push(room);
+    addNode(code, f, CX(slot), top ? 115 : 285, 'room', code);
+    addEdge(code, `C${f}_${slot}`, 85);
+  }
+});
+addNode('ENTREE', 0, 400, 300, 'entrance', 'Entrée principale');
+addEdge('ENTREE', 'C0_2', 100);
+
+function floorName(f){ return f === 0 ? 'RDC' : f === 1 ? '1er étage' : `${f}e étage`; }
+function roomByCode(c){ return rooms.find(r => r.code === c); }
+
+// Parse un code de salle selon la convention : lettre = bâtiment, 1er chiffre = étage
+function parseRoomCode(code){
+  const m = /^([A-Z])(\d)(\d{2})$/i.exec(code.replace(/\s+/g, ''));
+  return m ? {building: m[1].toUpperCase(), floor: +m[2], number: m[3]} : null;
+}
+
+// Dijkstra : plus court chemin ; avoid = true exclut les escaliers
+function dijkstra(src, dst, avoid = false){
+  const dist = {}, prev = {}, done = {};
+  Object.keys(nodes).forEach(k => dist[k] = Infinity);
+  dist[src] = 0;
+  for (;;){
+    let u = null, best = Infinity;
+    for (const k in dist) if (!done[k] && dist[k] < best){ best = dist[k]; u = k; }
+    if (u === null || u === dst) break;
+    done[u] = true;
+    for (const e of adj[u]){
+      if (avoid && e.kind === 'stairs') continue;
+      const nd = dist[u] + e.w;
+      if (nd < dist[e.to]){ dist[e.to] = nd; prev[e.to] = {from: u, edge: e}; }
+    }
+  }
+  if (dist[dst] === Infinity) return null;
+  const path = [dst], used = [];
+  for (let c = dst; c !== src;){ const p = prev[c]; used.unshift(p.edge); path.unshift(p.from); c = p.from; }
+  let walk = 0, extra = 0;
+  used.forEach(e => { if (e.kind === 'walk') walk += e.w; else extra += e.kind === 'stairs' ? 12 : 25; });
+  const meters = walk * SCALE;
+  return {path, meters, secs: meters / 1.3 + extra};
+}
+
+// Transforme une liste de nœuds en instructions « façon GPS »
+function buildSteps(path){
+  const segs = [];
+  let prevDir = null;
+  for (let i = 1; i < path.length; i++){
+    const a = nodes[path[i-1]], b = nodes[path[i]];
+    if (a.floor !== b.floor){
+      const last = segs[segs.length - 1];
+      if (last && last.type === 'floor' && last.kind === a.type) last.to = b.floor;
+      else segs.push({type: 'floor', kind: a.type, from: a.floor, to: b.floor, floor: a.floor, node: b.id});
+      prevDir = null;
+      continue;
+    }
+    const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy);
+    const d = [dx / len, dy / len];
+    const last = segs[segs.length - 1];
+    if (last && last.type === 'walk' && prevDir && prevDir[0]*d[0] + prevDir[1]*d[1] > 0.99){
+      last.len += len;
+    } else {
+      let turn = null;
+      if (prevDir){
+        const cross = prevDir[0]*d[1] - prevDir[1]*d[0];   // >0 : virage à droite (axe y vers le bas)
+        const dot = prevDir[0]*d[0] + prevDir[1]*d[1];
+        if (Math.abs(cross) > 0.3) turn = cross > 0 ? 'droite' : 'gauche';
+        else if (dot < 0) turn = 'demi-tour';
+      }
+      segs.push({type: 'walk', len, turn, floor: a.floor, node: a.id});
+    }
+    prevDir = d;
+  }
+
+  const start = nodes[path[0]], dest = nodes[path[path.length - 1]];
+  const steps = [{icon: '●', text: `Départ : ${start.label}`, sub: floorName(start.floor), floor: start.floor}];
+  segs.forEach((s, idx) => {
+    const isLast = idx === segs.length - 1;
+    if (s.type === 'floor'){
+      const up = s.to > s.from;
+      const verb = up ? 'Montez' : 'Descendez';
+      const text = s.kind === 'elevator'
+        ? `Prenez l'ascenseur et ${verb.toLowerCase()} au ${floorName(s.to)}`
+        : `${verb} par l'escalier jusqu'au ${floorName(s.to)}`;
+      steps.push({icon: '↕', text, sub: `${floorName(s.from)} → ${floorName(s.to)}`, floor: s.from});
+      return;
+    }
+    const m = Math.max(1, Math.round(s.len * SCALE));
+    const before = segs[idx - 1];
+    let t;
+    if (s.turn === 'demi-tour') t = `Faites demi-tour et avancez de ${m} m`;
+    else if (s.turn) t = `Tournez à ${s.turn} et avancez de ${m} m`;
+    else if (before && before.type === 'floor')
+      t = `Sortez ${before.kind === 'elevator' ? "de l'ascenseur" : "de l'escalier"} et avancez de ${m} m`;
+    else if (idx === 0 && start.type === 'room') t = `Sortez de la salle ${start.label} et avancez de ${m} m`;
+    else if (idx === 0 && start.type === 'entrance') t = `Depuis l'entrée, avancez de ${m} m jusqu'au couloir`;
+    else t = `Avancez de ${m} m`;
+    if (isLast) t += dest.type === 'room' ? ` jusqu'à la salle ${dest.label}` : ` jusqu'à : ${dest.label}`;
+    const icon = s.turn === 'droite' ? '↱' : s.turn === 'gauche' ? '↰' : s.turn === 'demi-tour' ? '↶' : '↑';
+    steps.push({icon, text: t, sub: floorName(s.floor), floor: s.floor});
+  });
+  const r = dest.type === 'room' ? roomByCode(dest.id) : null;
+  steps.push({icon: '⚑', text: `Vous êtes arrivé : ${dest.label}`, sub: r ? `${r.name} · ${floorName(dest.floor)}` : floorName(dest.floor), floor: dest.floor});
+  return steps;
+}
+
+// ==== END CORE ====
+
+// ==== UI ====
+const $ = s => document.querySelector(s);
+const state = {start: 'ENTREE', dest: null, floor: 0, avoid: false, click: 'start', route: null, steps: null, activeStep: -1};
+let raf = null;
+
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// --- liste de départ
+function fillStartSelect(){
+  const sel = $('#start');
+  let html = `<option value="ENTREE">Entrée principale</option>`;
+  html += rooms.slice().sort((a, b) => a.code.localeCompare(b.code))
+    .map(r => `<option value="${r.code}">${r.code} — ${r.name}</option>`).join('');
+  html += `<option value="__custom" hidden></option>`;
+  sel.innerHTML = html;
+  sel.value = state.start;
+}
+function syncStartSelect(){
+  const sel = $('#start'), opt = sel.querySelector('option[value="__custom"]');
+  if ([...sel.options].some(o => o.value === state.start)) { sel.value = state.start; return; }
+  opt.value = state.start; opt.hidden = false;
+  opt.textContent = `Point choisi sur le plan (${floorName(nodes[state.start].floor)})`;
+  sel.value = state.start;
+}
+
+// --- recherche
+function search(q){
+  q = q.trim().toLowerCase().replace(/\s+/g, '');
+  if (!q) return [];
+  const norm = s => s.toLowerCase().replace(/\s+/g, '');
+  return rooms.filter(r => r.code.toLowerCase().includes(q) || norm(r.name).includes(q) || norm(r.type).includes(q)).slice(0, 8);
+}
+function showResults(){
+  const list = search($('#q').value);
+  $('#results').innerHTML = list.map(r =>
+    `<li data-code="${r.code}"><b>${r.code}</b> · ${r.name}<br><small>${r.type} · ${floorName(r.floor)}</small></li>`).join('');
+}
+function pickDest(code){
+  state.dest = code;
+  $('#q').value = code;
+  $('#results').innerHTML = '';
+  update(true);
+}
+
+// --- mise à jour globale
+function update(focus){
+  stopWalk();
+  state.activeStep = -1;
+  state.route = null; state.steps = null;
+  if (state.dest && state.dest !== state.start){
+    state.route = dijkstra(state.start, state.dest, state.avoid);
+    if (state.route) state.steps = buildSteps(state.route.path);
+    else toast('Aucun itinéraire trouvé.');
+  }
+  if (focus) state.floor = nodes[state.start].floor;
+  renderInfo(); renderRoute(); renderTabs(); renderPlan();
+  $('#btnWalk').disabled = !state.route;
+}
+
+function renderInfo(){
+  const card = $('#infoCard');
+  if (!state.dest){ card.hidden = true; return; }
+  const r = roomByCode(state.dest);
+  card.hidden = false;
+  $('#info').innerHTML =
+    `<b>${r.code}</b> — ${r.name}<br>${r.type} · ${floorName(r.floor)} · bâtiment B` +
+    `<div><span class="badge">Capacité : ${r.cap}</span><span class="badge">Ascenseur : oui</span>` +
+    r.eq.map(e => `<span class="badge">${e}</span>`).join('') + `</div>`;
+}
+
+function renderRoute(){
+  const card = $('#routeCard');
+  if (!state.dest){ card.hidden = true; return; }
+  card.hidden = false;
+  if (state.dest === state.start){
+    $('#summary').textContent = 'Vous êtes déjà sur place.'; $('#steps').innerHTML = ''; return;
+  }
+  if (!state.route){ $('#summary').textContent = 'Aucun itinéraire.'; $('#steps').innerHTML = ''; return; }
+  const min = Math.max(1, Math.round(state.route.secs / 60));
+  $('#summary').innerHTML = `<b>≈ ${Math.round(state.route.meters)} m</b> · environ ${min} min` +
+    (state.avoid ? ' · <span class="badge">sans escalier</span>' : '');
+  $('#steps').innerHTML = state.steps.map((s, i) =>
+    `<li data-i="${i}" class="${i === state.activeStep ? 'active' : ''}"><span class="ic">${s.icon}</span><span>${s.text}<small>${s.sub}</small></span></li>`).join('');
+}
+
+function renderTabs(){
+  const onRoute = new Set(state.route ? state.route.path.map(id => nodes[id].floor) : []);
+  $('#tabs').innerHTML = FLOORS.map(f =>
+    `<button data-f="${f}" class="${f === state.floor ? 'on' : ''}">${floorName(f)}${onRoute.has(f) ? '<span class="dot"></span>' : ''}</button>`).join('') +
+    `<div class="seg"><button data-mode="start" class="${state.click === 'start' ? 'on' : ''}">Clic = départ</button>` +
+    `<button data-mode="dest" class="${state.click === 'dest' ? 'on' : ''}">Clic = destination</button></div>`;
+}
+
+function renderPlan(){
+  const f = state.floor;
+  let s = `<rect class="bg" x="0" y="0" width="800" height="360"/><rect class="corr" x="56" y="170" width="688" height="60"/>`;
+  s += `<rect class="svc" x="8" y="170" width="48" height="60" rx="4"/><text class="lbl" x="32" y="204" text-anchor="middle">Esc.</text>`;
+  s += `<rect class="svc" x="744" y="170" width="48" height="60" rx="4"/><text class="lbl" x="768" y="204" text-anchor="middle">Asc.</text>`;
+
+  rooms.filter(r => r.floor === f).forEach(r => {
+    const cx = CX(r.slot), y0 = r.top ? 60 : 230;
+    const cls = ['room', r.type === 'Amphithéâtre' ? 't-amph' : /Labo|informatique/.test(r.type) ? 't-lab' : r.type === 'Service' ? 't-serv' : '',
+      r.code === state.dest ? 'dest' : '', r.code === state.start ? 'start' : ''].join(' ');
+    s += `<rect class="${cls}" x="${cx - 64}" y="${y0}" width="128" height="110" rx="6"/>`;
+    s += `<text class="code" x="${cx}" y="${y0 + 55}" text-anchor="middle">${r.code}</text>`;
+    s += `<text class="tag" x="${cx}" y="${y0 + 72}" text-anchor="middle">${r.tag}</text>`;
+    s += `<rect class="door" x="${cx - 14}" y="${r.top ? 167 : 228}" width="28" height="5"/>`;
+  });
+  // hall / atrium (case centrale du bas)
+  if (f === 0){
+    s += `<rect class="room t-serv" x="336" y="230" width="128" height="110" rx="6"/>`;
+    s += `<text class="tag" x="400" y="256" text-anchor="middle">Hall d'entrée</text>`;
+    s += `<text class="code" x="400" y="334" text-anchor="middle">▲ Entrée</text>`;
+  } else {
+    s += `<rect class="atrium" x="336" y="230" width="128" height="110" rx="6"/>`;
+    s += `<text class="tag" x="400" y="290" text-anchor="middle">Atrium (vide)</text>`;
+  }
+
+  // trajet
+  if (state.route){
+    let pts = [];
+    const flush = () => { if (pts.length > 1) s += `<polyline class="route" points="${pts.join(' ')}"/>`; pts = []; };
+    state.route.path.forEach(id => {
+      const n = nodes[id];
+      if (n.floor === f) pts.push(`${n.x},${n.y}`); else flush();
+    });
+    flush();
+  }
+  // marqueurs
+  const st = nodes[state.start];
+  if (st.floor === f) s += `<circle class="mk-start" cx="${st.x}" cy="${st.y}" r="9"/>`;
+  if (state.dest){
+    const d = nodes[state.dest];
+    if (d.floor === f) s += `<circle class="mk-dest" cx="${d.x}" cy="${d.y}" r="10"/><circle cx="${d.x}" cy="${d.y}" r="4" fill="#fff"/>`;
+  }
+  s += `<circle id="walker" class="walker" r="9" cx="0" cy="0" visibility="hidden"/>`;
+  $('#plan').innerHTML = s;
+}
+
+// --- clic sur le plan
+function pickNodeAt(f, x, y){
+  if (x >= 60 && x < 740){
+    const slot = Math.floor((x - 60) / 136);
+    if (y >= 60 && y < 170){ const r = rooms.find(r => r.floor === f && r.top && r.slot === slot); if (r) return r.code; }
+    if (y > 230 && y <= 340){
+      const r = rooms.find(r => r.floor === f && !r.top && r.slot === slot); if (r) return r.code;
+      if (f === 0 && slot === 2) return 'ENTREE';
+    }
+    if (y >= 170 && y <= 230) return `C${f}_${Math.max(0, Math.min(4, Math.round((x - 128) / 136)))}`;
+  }
+  if (x < 56 && y >= 170 && y <= 230) return `S${f}`;
+  if (x > 744 && y >= 170 && y <= 230) return `E${f}`;
+  return null;
+}
+function onPlanClick(ev){
+  const svg = $('#plan'), rect = svg.getBoundingClientRect();
+  const x = (ev.clientX - rect.left) / rect.width * 800, y = (ev.clientY - rect.top) / rect.height * 360;
+  const id = pickNodeAt(state.floor, x, y);
+  if (!id){ toast("Cliquez sur une salle, le couloir ou l'entrée."); return; }
+  if (state.click === 'dest'){
+    if (nodes[id].type !== 'room'){ toast('Choisissez une salle comme destination.'); return; }
+    pickDest(id);
+  } else {
+    state.start = id; syncStartSelect(); update(false);
+  }
+}
+
+// --- simulation de marche (point animé, change d'étage automatiquement)
+function stopWalk(){
+  if (raf) cancelAnimationFrame(raf);
+  raf = null;
+  const w = $('#walker'); if (w) w.setAttribute('visibility', 'hidden');
+}
+function startWalk(){
+  if (!state.route) return;
+  stopWalk();
+  const pts = state.route.path.map(id => nodes[id]);
+  let i = 0, t = 0, pause = 0, last = performance.now();
+  const speed = 230;
+  const place = (x, y) => {
+    const w = $('#walker'); if (!w) return;
+    w.setAttribute('cx', x); w.setAttribute('cy', y); w.setAttribute('visibility', 'visible');
+  };
+  state.floor = pts[0].floor; renderTabs(); renderPlan(); place(pts[0].x, pts[0].y);
+  const frame = now => {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    if (pause > 0){ pause -= dt; raf = requestAnimationFrame(frame); return; }
+    const a = pts[i], b = pts[i + 1];
+    if (!b){ raf = null; return; }
+    if (a.floor !== b.floor){
+      i++; t = 0; pause = 0.7;
+      state.floor = b.floor; renderTabs(); renderPlan(); place(b.x, b.y);
+    } else {
+      const len = Math.hypot(b.x - a.x, b.y - a.y);
+      t += speed * dt;
+      if (t >= len){ i++; t = 0; place(b.x, b.y); }
+      else place(a.x + (b.x - a.x) * t / len, a.y + (b.y - a.y) * t / len);
+    }
+    raf = requestAnimationFrame(frame);
+  };
+  raf = requestAnimationFrame(frame);
+}
+
+// --- export du graphe (pour la future base de données / API)
+function exportGraph(){
+  const data = {building: 'B', scale_m_per_px: SCALE, floors: FLOORS, rooms, nodes: Object.values(nodes), edges};
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'campus_route_graph.json'; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// --- événements
+$('#q').addEventListener('input', showResults);
+$('#q').addEventListener('focus', showResults);
+$('#q').addEventListener('keydown', e => {
+  if (e.key === 'Enter'){ const l = search($('#q').value); if (l.length) pickDest(l[0].code); else toast('Aucune salle trouvée.'); }
+});
+$('#results').addEventListener('click', e => { const li = e.target.closest('li'); if (li) pickDest(li.dataset.code); });
+document.addEventListener('click', e => { if (!e.target.closest('#q') && !e.target.closest('#results')) $('#results').innerHTML = ''; });
+$('#start').addEventListener('change', e => { state.start = e.target.value; update(true); });
+$('#avoid').addEventListener('change', e => { state.avoid = e.target.checked; update(true); });
+$('#btnWalk').addEventListener('click', startWalk);
+$('#btnReset').addEventListener('click', () => {
+  state.start = 'ENTREE'; state.dest = null; $('#q').value = ''; $('#avoid').checked = false; state.avoid = false;
+  syncStartSelect(); update(true);
+});
+$('#btnExport').addEventListener('click', exportGraph);
+$('#plan').addEventListener('click', onPlanClick);
+$('#tabs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.mode){ state.click = b.dataset.mode; renderTabs(); return; }
+  if (b.dataset.f !== undefined){ stopWalk(); state.floor = +b.dataset.f; renderTabs(); renderPlan(); }
+});
+$('#steps').addEventListener('click', e => {
+  const li = e.target.closest('li'); if (!li) return;
+  stopWalk();
+  state.activeStep = +li.dataset.i;
+  state.floor = state.steps[state.activeStep].floor;
+  renderRoute(); renderTabs(); renderPlan();
+});
+
+fillStartSelect();
+update(true);
+// ==== END UI ====
+</script>
+</body>
+</html>
