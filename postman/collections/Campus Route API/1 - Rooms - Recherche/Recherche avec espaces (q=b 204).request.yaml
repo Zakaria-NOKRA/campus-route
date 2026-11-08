@@ -1,0 +1,16 @@
+$kind: http-request
+description: "Les espaces sont ignorés : même résultat que b204."
+url: "{{baseUrl}}/api/rooms/search?q=b 204"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: b 204
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const rooms = pm.response.json();
+      pm.test("Un seul résultat : B204", () => { pm.expect(rooms).to.have.lengthOf(1); pm.expect(rooms[0].code).to.eql("B204"); });
+    language: text/javascript
+order: 2000

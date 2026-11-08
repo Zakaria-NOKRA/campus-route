@@ -1,0 +1,15 @@
+$kind: http-request
+description: Renvoie une liste vide.
+url: "{{baseUrl}}/api/rooms/search?q="
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: ""
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Liste vide", () => pm.expect(pm.response.json()).to.eql([]));
+    language: text/javascript
+order: 7000

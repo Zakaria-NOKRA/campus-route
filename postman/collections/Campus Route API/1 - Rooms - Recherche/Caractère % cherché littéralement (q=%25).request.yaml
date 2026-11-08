@@ -1,0 +1,15 @@
+$kind: http-request
+description: "% n'est pas un joker : aucune salle ne contient ce caractère."
+url: "{{baseUrl}}/api/rooms/search?q=%25"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  q: "%25"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Liste vide", () => pm.expect(pm.response.json()).to.eql([]));
+    language: text/javascript
+order: 9000

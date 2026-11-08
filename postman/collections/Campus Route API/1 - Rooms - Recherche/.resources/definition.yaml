@@ -1,0 +1,4 @@
+$kind: collection
+name: 1 - Rooms / Recherche
+description: GET /api/rooms/search?q=
+order: 1000
