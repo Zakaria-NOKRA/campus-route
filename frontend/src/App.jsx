@@ -30,6 +30,14 @@ function App() {
     request.accessible === accessible
   const routeState = isCurrent ? routeResult : NO_ROUTE
 
+  // Click on a step of the route: ask the plan to show that floor. The plan owns the floor
+  // being shown, so we only send a request. It is a new object each time, so clicking
+  // the same floor again works too. Selection and route are untouched.
+  const [floorRequest, setFloorRequest] = useState(null) // { floor } or null
+  function handleStepClick(floor) {
+    setFloorRequest({ floor })
+  }
+
   function handleCalculate() {
     setRequest({ from, to: selectedCode, accessible })
   }
@@ -58,6 +66,7 @@ function App() {
             onAccessibleChange={setAccessible}
             onCalculate={handleCalculate}
             onSwap={handleSwap}
+            onStepClick={handleStepClick}
             routeState={routeState}
           />
         </div>
@@ -65,6 +74,7 @@ function App() {
           selectedCode={selectedCode}
           onSelect={setSelectedCode}
           route={routeState.route}
+          floorRequest={floorRequest}
         />
       </main>
     </>

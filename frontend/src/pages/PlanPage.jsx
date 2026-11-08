@@ -3,8 +3,8 @@ import { getPlan } from '../api/plan'
 import FloorPlan from '../components/FloorPlan'
 
 // Loads the building plan once and shows loading, error, empty or the drawn plan.
-// `route` (or null) is drawn over the plan.
-function PlanPage({ selectedCode, onSelect, route }) {
+// `route` (or null) is drawn over the plan. `floorRequest` ({ floor } or null) asks the plan to show a floor.
+function PlanPage({ selectedCode, onSelect, route, floorRequest }) {
   // Last answer received: { plan, error }. null means "still waiting".
   const [result, setResult] = useState(null)
 
@@ -37,6 +37,7 @@ function PlanPage({ selectedCode, onSelect, route }) {
         selectedCode={selectedCode}
         onSelect={onSelect}
         route={route}
+        floorRequest={floorRequest}
       />
     )
   }

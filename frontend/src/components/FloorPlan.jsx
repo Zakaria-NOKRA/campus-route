@@ -38,7 +38,8 @@ function ServiceBox({ node, label }) {
 
 // Floor tabs + the SVG of the chosen floor. `plan` is the answer of GET /api/plan.
 // `route` is the answer of GET /api/route, or null when there is no route to show.
-function FloorPlan({ plan, selectedCode, onSelect, route }) {
+// `floorRequest` = { floor } sent when a step of the route is clicked, or null.
+function FloorPlan({ plan, selectedCode, onSelect, route, floorRequest }) {
   const selectedRoom = plan.rooms.find((room) => room.code === selectedCode)
 
   // The floor being shown is view state: it lives here, not in the page.
@@ -61,6 +62,13 @@ function FloorPlan({ plan, selectedCode, onSelect, route }) {
   if (route !== previousRoute) {
     setPreviousRoute(route)
     if (route) setFloor(route.path[0].floor)
+  }
+
+  // And when a step of the route is clicked. Each click makes a new `floorRequest` object.
+  const [previousFloorRequest, setPreviousFloorRequest] = useState(floorRequest)
+  if (floorRequest !== previousFloorRequest) {
+    setPreviousFloorRequest(floorRequest)
+    if (floorRequest) setFloor(floorRequest.floor)
   }
 
   const rooms = plan.rooms.filter((room) => room.floor === floor)
