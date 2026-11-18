@@ -5,7 +5,7 @@ import { buildingLabel } from '../utils/place'
 // `markedBuildings` = codes of the buildings crossed by the route: they get a small dot.
 function BuildingTabs({ buildings, current, onChange, markedBuildings = [] }) {
   return (
-    <div className="tabs" role="group" aria-label="Bâtiments">
+    <div className="tabs tabs-building" role="group" aria-label="Bâtiments">
       {buildings.map((building) => (
         <button
           key={building.code}
