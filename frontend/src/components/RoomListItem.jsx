@@ -1,6 +1,8 @@
 import { floorLabel } from '../utils/floorLabel'
+import { buildingLabel } from '../utils/place'
 
-// One search result. It is a <button> so it works with the keyboard too.
+// One search result: code, name, then type, building and floor.
+// It is a <button> so it works with the keyboard too.
 function RoomListItem({ room, selected, onSelect }) {
   return (
     <li>
@@ -11,7 +13,7 @@ function RoomListItem({ room, selected, onSelect }) {
       >
         <strong>{room.code}</strong> {room.name}
         <small>
-          {room.type} · {floorLabel(room.floor)}
+          {room.type} · {buildingLabel(room.building)} · {floorLabel(room.floor)}
         </small>
       </button>
     </li>

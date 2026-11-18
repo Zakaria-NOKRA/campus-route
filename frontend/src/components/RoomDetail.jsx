@@ -1,4 +1,5 @@
 import { floorLabel } from '../utils/floorLabel'
+import { buildingLabel } from '../utils/place'
 
 // Detail panel of the selected room: idle, loading, error or the room itself.
 // `onClear` unselects the room (and so hides the route, which depends on the selection).
@@ -42,7 +43,7 @@ function RoomDetail({ status, room, error, onClear }) {
       </div>
       <p className="hint">{room.type}</p>
       <p>
-        {floorLabel(room.floor)} · {room.capacity} places
+        {buildingLabel(room.building)}, {floorLabel(room.floor)} · {room.capacity} places
       </p>
       <div>
         {room.equipment.length === 0 ? (
