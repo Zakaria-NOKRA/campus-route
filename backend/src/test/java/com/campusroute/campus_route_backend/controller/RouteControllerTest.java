@@ -67,7 +67,7 @@ class RouteControllerTest {
         mvc.perform(get("/api/route").param("from", "").param("to", "A204"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message").exists());
+                .andExpect(jsonPath("$.message").value("Paramètre obligatoire vide : from"));
         mvc.perform(get("/api/route").param("from", "A204").param("to", "   "))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400));
