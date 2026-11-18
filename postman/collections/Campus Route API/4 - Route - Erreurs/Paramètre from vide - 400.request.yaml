@@ -1,13 +1,13 @@
 $kind: http-request
-name: Paramètre from vide -> 400
-description: from= (valeur vide).
-url: "{{baseUrl}}/api/route?from=&to=B204"
+name: "Paramètre from vide -> 400"
+description: "from= (valeur vide)."
+url: "{{baseUrl}}/api/route?from=&to=A204"
 method: GET
 headers:
   Accept: application/json
 queryParams:
   from: ""
-  to: B204
+  to: "A204"
 scripts:
   - type: afterResponse
     code: |-
@@ -15,6 +15,6 @@ scripts:
       pm.test("Réponse JSON", () => pm.response.to.be.json);
       const e = pm.response.json();
       pm.test("status = 400 dans le corps", () => pm.expect(e.status).to.eql(400));
-      pm.test("Un message est fourni", () => pm.expect(e.message).to.be.a("string").that.is.not.empty);
+      pm.test("Message : Paramètre obligatoire vide : from", () => pm.expect(e.message).to.eql("Paramètre obligatoire vide : from"));
     language: text/javascript
 order: 5000

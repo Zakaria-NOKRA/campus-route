@@ -1,16 +1,16 @@
 $kind: http-request
-description: "Deux laboratoires : B104 et B203, triés par code."
+description: "Les 7 laboratoires du campus (bâtiments A et C), triés par code."
 url: "{{baseUrl}}/api/rooms/search?q=labo"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  q: labo
+  q: "labo"
 scripts:
   - type: afterResponse
     code: |-
       pm.test("Statut 200", () => pm.response.to.have.status(200));
       const codes = pm.response.json().map(r => r.code);
-      pm.test("B104 et B203, dans cet ordre", () => pm.expect(codes).to.eql(["B104","B203"]));
+      pm.test("Les 7 laboratoires, dans l'ordre", () => pm.expect(codes).to.eql(["A007","A012","A103","A104","A110","A206","C209"]));
     language: text/javascript
 order: 4000

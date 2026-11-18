@@ -1,0 +1,16 @@
+$kind: http-request
+description: "Une salle spéciale avec ses équipements."
+url: "{{baseUrl}}/api/rooms/A104"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const r = pm.response.json();
+      pm.test("Laboratoire de biologie cellulaire au 1er étage", () => { pm.expect(r.name).to.eql("Laboratoire de biologie cellulaire"); pm.expect(r.floor).to.eql(1); });
+      pm.test("Type Laboratoire", () => pm.expect(r.type).to.eql("Laboratoire"));
+      pm.test("Équipements attendus", () => pm.expect(r.equipment).to.include.members(["Postes de mesure","Vidéoprojecteur"]));
+    language: text/javascript
+order: 3000

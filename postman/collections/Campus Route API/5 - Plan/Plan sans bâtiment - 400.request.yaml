@@ -1,0 +1,17 @@
+$kind: http-request
+name: "Plan sans bâtiment -> 400"
+description: "Le paramètre building est obligatoire."
+url: "{{baseUrl}}/api/plan"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 400", () => pm.response.to.have.status(400));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const e = pm.response.json();
+      pm.test("status = 400 dans le corps", () => pm.expect(e.status).to.eql(400));
+      pm.test("Message : Paramètre obligatoire manquant : building", () => pm.expect(e.message).to.eql("Paramètre obligatoire manquant : building"));
+    language: text/javascript
+order: 5000

@@ -1,0 +1,27 @@
+$kind: http-request
+name: "A101 -> B001 (deux bâtiments)"
+description: "Descend au RDC, sort de A par la porte ouest, traverse la cour et entre dans B."
+url: "{{baseUrl}}/api/route?from=A101&to=B001"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: "A101"
+  to: "B001"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+
+      pm.test("Distance ≈ 219.8 m", () => pm.expect(body.distanceMeters).to.be.closeTo(219.8, 0.01));
+      pm.test("Durée ≈ 181.1 s", () => pm.expect(body.durationSeconds).to.be.closeTo(181.1, 0.1));
+
+      const texts = body.steps.map(s => s.text);
+      const exit = texts.indexOf("Sortez du bâtiment A");
+      const enter = texts.indexOf("Entrez dans le bâtiment B");
+      pm.test("Sort de A puis entre dans B", () => { pm.expect(exit).to.be.above(0); pm.expect(enter).to.be.above(exit); });
+      pm.test("Les deux instructions ont l'icône ⇄", () => { pm.expect(body.steps[exit].icon).to.eql("⇄"); pm.expect(body.steps[enter].icon).to.eql("⇄"); });
+      pm.test("Instructions entre les deux à l'extérieur", () => body.steps.slice(exit + 1, enter).forEach(s => { pm.expect(s.building).to.eql("EXT"); pm.expect(s.sub).to.eql("Extérieur"); }));
+    language: text/javascript
+order: 10000

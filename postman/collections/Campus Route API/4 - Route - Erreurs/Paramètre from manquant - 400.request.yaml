@@ -1,12 +1,12 @@
 $kind: http-request
-name: Paramètre from manquant -> 400
-description: Seul to est fourni.
-url: "{{baseUrl}}/api/route?to=B204"
+name: "Paramètre from manquant -> 400"
+description: "Seul to est fourni."
+url: "{{baseUrl}}/api/route?to=A204"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  to: B204
+  to: "A204"
 scripts:
   - type: afterResponse
     code: |-
@@ -14,6 +14,6 @@ scripts:
       pm.test("Réponse JSON", () => pm.response.to.be.json);
       const e = pm.response.json();
       pm.test("status = 400 dans le corps", () => pm.expect(e.status).to.eql(400));
-      pm.test("Un message est fourni", () => pm.expect(e.message).to.be.a("string").that.is.not.empty);
+      pm.test("Message : Paramètre obligatoire manquant : from", () => pm.expect(e.message).to.eql("Paramètre obligatoire manquant : from"));
     language: text/javascript
 order: 4000
