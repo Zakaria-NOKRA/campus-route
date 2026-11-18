@@ -2,6 +2,7 @@ import { floorLabel } from '../utils/floorLabel'
 import { OUTDOOR, buildingLabel } from '../utils/place'
 import { floorContents } from '../utils/planGeometry'
 import { routeBuildings } from '../utils/routeGeometry'
+import CampusScenery from './CampusScenery'
 import PlanEdges from './PlanEdges'
 import PlanLegend from './PlanLegend'
 import PlanMarkers from './PlanMarkers'
@@ -14,7 +15,8 @@ import SiteBuilding from './SiteBuilding'
 // `route` is the answer of GET /api/route, or null when there is no route to show.
 // The campus plan (EXT) uses the same drawing, plus the buildings (`buildings` = answer of
 // GET /api/buildings), which open with `onOpenBuilding(code)`.
-// Drawing order (later = on top): walls, corridors or paths, buildings, rooms, markers, route.
+// Drawing order (later = on top): walls or grass, scenery (campus only), corridors or paths,
+// buildings, rooms, markers, route.
 function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOpenBuilding }) {
   const { rooms, nodes, edges } = floorContents(plan, floor)
   const isOutdoor = plan.building === OUTDOOR
@@ -30,11 +32,18 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOp
     ? `Plan : ${buildingLabel(plan.building)}`
     : `Plan : ${buildingLabel(plan.building)}, ${floorLabel(floor)}`
 
+  // React keys used only to replay the CSS animations:
+  // - a new key for each building / floor: the <svg> is created again, so it fades in;
+  // - a new key for each route (its list of nodes): the route line draws itself again.
+  const viewKey = `${plan.building}-${floor}`
+  const routeKey = route ? route.path.map((node) => node.id).join('>') : ''
+
   return (
     <>
       <div className="plan-scroll">
         <svg
-          className="plan-svg"
+          key={viewKey}
+          className={isOutdoor ? 'plan-svg plan-outdoor' : 'plan-svg'}
           viewBox={`0 0 ${plan.width} ${plan.height}`}
           style={svgStyle}
           role="group"
@@ -42,6 +51,8 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOp
         >
           {/* outline = "x1,y1 x2,y2 ...": exactly the format of the SVG points attribute */}
           <polygon className={isOutdoor ? 'site' : 'wall'} points={plan.outline} />
+
+          {isOutdoor && <CampusScenery nodes={nodes} width={plan.width} height={plan.height} />}
 
           <PlanEdges edges={edges} k={k} />
 
@@ -69,7 +80,15 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOp
 
           <PlanMarkers nodes={nodes} k={k} />
 
-          {route && <RouteLayer path={route.path} building={plan.building} floor={floor} k={k} />}
+          {route && (
+            <RouteLayer
+              key={routeKey}
+              path={route.path}
+              building={plan.building}
+              floor={floor}
+              k={k}
+            />
+          )}
         </svg>
       </div>
       {!isOutdoor && <PlanLegend />}
