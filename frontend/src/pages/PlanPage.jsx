@@ -79,6 +79,8 @@ function PlanPage({ view, onViewChange, selectedCode, onSelect, route }) {
           selectedCode={selectedCode}
           onSelect={onSelect}
           route={route}
+          buildings={buildings}
+          onOpenBuilding={handleBuildingChange}
         />
       </>
     )

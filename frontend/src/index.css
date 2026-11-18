@@ -321,6 +321,66 @@ button.clear-link {
   stroke-linecap: butt;
 }
 
+/* Campus plan: outdoor paths (60 px = 4 m wide, real size, so not multiplied by --k).
+   Steps: the dashes across the thick line look like the treads of a stair. */
+.plan-svg .path {
+  fill: none;
+  stroke: var(--corr);
+  stroke-width: 60px;
+  stroke-linecap: round;
+}
+
+.plan-svg .steps {
+  fill: none;
+  stroke: var(--room-line);
+  stroke-width: 60px;
+  stroke-dasharray: 10px 10px;
+}
+
+.plan-svg .outdoor {
+  fill: var(--muted);
+}
+
+/* Halo in the background colour: the text stays readable over a path */
+.plan-svg .outdoor-lbl {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: calc(4px * var(--k));
+  stroke-linejoin: round;
+}
+
+/* Buildings on the campus plan: they open the building */
+.plan-svg .site-building {
+  cursor: pointer;
+}
+
+.plan-svg .site-shape {
+  fill: var(--panel);
+  stroke: var(--ink);
+  stroke-width: calc(3px * var(--k));
+  stroke-linejoin: round;
+}
+
+.plan-svg .site-building:hover .site-shape {
+  fill: var(--room);
+}
+
+.plan-svg .site-building:focus-visible {
+  outline: none; /* same as the rooms: we outline the shape instead */
+}
+
+.plan-svg .site-building:focus-visible .site-shape {
+  stroke: var(--accent);
+  stroke-width: calc(6px * var(--k));
+}
+
+.plan-svg .site-code {
+  font-size: calc(22px * var(--k));
+  font-weight: 700;
+  fill: var(--ink);
+  dominant-baseline: hanging;
+}
+
 /* Door of a building, on its outline */
 .plan-svg .entrance {
   fill: var(--accent);
