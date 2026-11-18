@@ -1,52 +1,86 @@
 import { useEffect, useState } from 'react'
-import { getPlan } from '../api/plan'
-import FloorPlan from '../components/FloorPlan'
+import { getBuildings } from '../api/buildings'
+import BuildingTabs from '../components/BuildingTabs'
+import FloorTabs from '../components/FloorTabs'
+import PlanContent from '../components/PlanContent'
+import { routeFloors } from '../utils/routeGeometry'
+import { usePlan } from '../utils/usePlan'
 
-// Loads the building plan once and shows loading, error, empty or the drawn plan.
-// `route` (or null) is drawn over the plan. `floorRequest` ({ floor } or null) asks the plan to show a floor.
-function PlanPage({ selectedCode, onSelect, route, floorRequest }) {
-  // Last answer received: { plan, error }. null means "still waiting".
-  const [result, setResult] = useState(null)
+// Plan card: building tabs, floor tabs, then the drawing of `view` = { building, floor }.
+// The view is owned by App (the search, the route and the steps change it too):
+// here we only ask for a change with onViewChange.
+function PlanPage({ view, onViewChange, selectedCode, onSelect, route }) {
+  // Buildings are loaded once. Last answer received: { buildings, error }, null = still waiting.
+  const [buildingsResult, setBuildingsResult] = useState(null)
+  // Plan of the building shown, fetched again each time the building changes.
+  const planState = usePlan(view.building)
 
   useEffect(() => {
     const controller = new AbortController()
-    getPlan({ signal: controller.signal })
-      .then((plan) => setResult({ plan, error: null }))
+    getBuildings({ signal: controller.signal })
+      .then((buildings) => setBuildingsResult({ buildings, error: null }))
       .catch((error) => {
         if (error.name === 'AbortError') return // cancelled on purpose
-        setResult({ plan: null, error: error.message })
+        setBuildingsResult({ buildings: null, error: error.message })
       })
     return () => controller.abort()
   }, [])
 
+  const buildings = buildingsResult?.buildings ?? []
+  const building = buildings.find((item) => item.code === view.building)
+
+  // Opening another building: show the first floor of it crossed by the route, else its lowest floor.
+  function handleBuildingChange(code) {
+    const target = buildings.find((item) => item.code === code)
+    const floorsOnRoute = route ? routeFloors(route.path, code) : []
+    onViewChange({ building: code, floor: floorsOnRoute[0] ?? target.floors[0] ?? 0 })
+  }
+
+  function handleFloorChange(floor) {
+    onViewChange({ building: view.building, floor })
+  }
+
   let content
-  if (result === null) {
+  if (buildingsResult === null) {
     content = (
       <p className="hint" role="status">
-        Chargement du plan…
+        Chargement des bâtiments…
       </p>
     )
-  } else if (result.error) {
+  } else if (buildingsResult.error) {
     content = (
       <p className="error" role="alert">
-        {result.error}
+        {buildingsResult.error}
       </p>
     )
-  } else if (result.plan.rooms.length === 0) {
+  } else if (buildings.length === 0) {
     content = (
       <p className="hint" role="status">
-        Aucun plan disponible.
+        Aucun bâtiment disponible.
       </p>
     )
   } else {
     content = (
-      <FloorPlan
-        plan={result.plan}
-        selectedCode={selectedCode}
-        onSelect={onSelect}
-        route={route}
-        floorRequest={floorRequest}
-      />
+      <>
+        <BuildingTabs buildings={buildings} current={view.building} onChange={handleBuildingChange} />
+        {/* The outdoor space has a single level: no floor tabs. */}
+        {building && !building.outdoor && (
+          <FloorTabs
+            floors={building.floors}
+            current={view.floor}
+            onChange={handleFloorChange}
+            markedFloors={route ? routeFloors(route.path, view.building) : []}
+          />
+        )}
+        {/* The tabs stay visible while the plan of a building loads. */}
+        <PlanContent
+          planState={planState}
+          floor={view.floor}
+          selectedCode={selectedCode}
+          onSelect={onSelect}
+          route={route}
+        />
+      </>
     )
   }
 
