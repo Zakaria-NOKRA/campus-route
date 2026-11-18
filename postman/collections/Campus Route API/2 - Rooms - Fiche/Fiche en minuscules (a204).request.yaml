@@ -1,6 +1,6 @@
 $kind: http-request
-description: Le code est mis en majuscules par le serveur.
-url: "{{baseUrl}}/api/rooms/b204"
+description: "Le code est mis en majuscules par le serveur."
+url: "{{baseUrl}}/api/rooms/a204"
 method: GET
 headers:
   Accept: application/json
@@ -8,6 +8,6 @@ scripts:
   - type: afterResponse
     code: |-
       pm.test("Statut 200", () => pm.response.to.have.status(200));
-      pm.test("Code B204", () => pm.expect(pm.response.json().code).to.eql("B204"));
+      pm.test("Code A204", () => pm.expect(pm.response.json().code).to.eql("A204"));
     language: text/javascript
 order: 2000

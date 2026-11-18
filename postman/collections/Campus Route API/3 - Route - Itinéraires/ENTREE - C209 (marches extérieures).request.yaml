@@ -1,0 +1,24 @@
+$kind: http-request
+name: "ENTREE -> C209 (marches extérieures)"
+description: "Le bâtiment C est sur une terrasse : le plus court prend les marches."
+url: "{{baseUrl}}/api/route?from=ENTREE&to=C209"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: "ENTREE"
+  to: "C209"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      const ids = body.path.map(n => n.id);
+
+      pm.test("Distance ≈ 210.56 m", () => pm.expect(body.distanceMeters).to.be.closeTo(210.56, 0.01));
+      pm.test("Durée ≈ 198 s", () => pm.expect(body.durationSeconds).to.be.closeTo(198.0, 0.1));
+      pm.test("Passe par les marches P4 -> P5", () => pm.expect(ids.indexOf("EXT-P5")).to.eql(ids.indexOf("EXT-P4") + 1));
+      pm.test("Pas par la rampe", () => pm.expect(ids).to.not.include("EXT-R1"));
+      pm.test("Instruction des marches", () => pm.expect(body.steps.map(s => s.text)).to.include("Empruntez l'escalier extérieur"));
+    language: text/javascript
+order: 8000

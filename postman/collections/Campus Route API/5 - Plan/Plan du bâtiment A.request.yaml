@@ -1,0 +1,25 @@
+$kind: http-request
+description: "Toutes les données pour dessiner le bâtiment A : taille, contour, étages, salles, nœuds, arêtes."
+url: "{{baseUrl}}/api/plan?building=A"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  building: "A"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const body = pm.response.json();
+      pm.test("Champs de la réponse", () => pm.expect(body).to.have.all.keys("building","name","scaleMetersPerPixel","width","height","outline","floors","rooms","nodes","edges"));
+      pm.test("Bâtiment A – Sciences", () => { pm.expect(body.building).to.eql("A"); pm.expect(body.name).to.eql("Bâtiment A – Sciences"); });
+      pm.test("Échelle 0.07 m/pixel", () => pm.expect(body.scaleMetersPerPixel).to.eql(0.07));
+      pm.test("Plan 1000 x 800 px", () => { pm.expect(body.width).to.eql(1000); pm.expect(body.height).to.eql(800); });
+      pm.test("Contour en L", () => pm.expect(body.outline).to.eql("0,0 1000,0 1000,800 700,800 700,300 0,300"));
+      pm.test("Étages [0, 1, 2]", () => pm.expect(body.floors).to.eql([0, 1, 2]));
+      pm.test("32 salles", () => pm.expect(body.rooms).to.have.lengthOf(32));
+      pm.test("97 nœuds", () => pm.expect(body.nodes).to.have.lengthOf(97));
+      pm.test("100 arêtes", () => pm.expect(body.edges).to.have.lengthOf(100));
+    language: text/javascript
+order: 1000

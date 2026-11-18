@@ -1,0 +1,37 @@
+$kind: http-request
+name: "ENTREE -> A204 (ascenseur)"
+description: "Traverse le bâtiment B puis la cour, entre dans A et monte en ascenseur : 181.65 m, 189.7 s."
+url: "{{baseUrl}}/api/route?from=ENTREE&to=A204&accessible=false"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: "ENTREE"
+  to: "A204"
+  accessible: "false"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+
+      const body = pm.response.json();
+      pm.test("Champs de la réponse", () => pm.expect(body).to.have.all.keys("distanceMeters","durationSeconds","path","steps"));
+      pm.test("Nœuds du chemin : id, building, floor, x, y, type, label", () => body.path.forEach(n => pm.expect(n).to.have.all.keys("id","building","floor","x","y","type","label")));
+      pm.test("Instructions : text, sub, building, floor, icon", () => body.steps.forEach(s => pm.expect(s).to.have.all.keys("text","sub","building","floor","icon")));
+
+      pm.test("Distance ≈ 181.65 m", () => pm.expect(body.distanceMeters).to.be.closeTo(181.65, 0.01));
+      pm.test("Durée ≈ 189.7 s", () => pm.expect(body.durationSeconds).to.be.closeTo(189.7, 0.1));
+
+      const ids = body.path.map(n => n.id);
+      pm.test("Départ ENTREE, arrivée A204", () => { pm.expect(ids[0]).to.eql("ENTREE"); pm.expect(ids[ids.length - 1]).to.eql("A204"); });
+      pm.test("Passe par B, la cour et la porte cour de A", () => pm.expect(ids).to.include.members(["B0-D1","B0-D2","EXT-P2","A0-D2"]));
+
+      const texts = body.steps.map(s => s.text);
+      pm.test("Instructions de changement de bâtiment", () => pm.expect(texts).to.include.members(["Entrez dans le bâtiment B","Sortez du bâtiment B","Entrez dans le bâtiment A"]));
+      pm.test("Instruction ascenseur", () => pm.expect(texts).to.include("Prenez l'ascenseur et montez au 2e étage"));
+      pm.test("Première instruction de marche", () => pm.expect(texts[1]).to.match(/^Depuis l'entrée du campus, avancez de \d+ m/));
+      pm.test("Dernière instruction", () => pm.expect(texts[texts.length - 1]).to.eql("Vous êtes arrivé : A204"));
+      pm.test("Instructions dans EXT, B et A", () => pm.expect(body.steps.map(s => s.building)).to.include.members(["EXT","B","A"]));
+    language: text/javascript
+order: 1000

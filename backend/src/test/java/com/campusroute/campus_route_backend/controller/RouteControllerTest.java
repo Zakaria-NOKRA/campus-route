@@ -18,29 +18,29 @@ class RouteControllerTest {
 
     @Test
     void returnsRouteWithDefaultAccessibleFalse() throws Exception {
-        mvc.perform(get("/api/route").param("from", "b101").param("to", " b201 "))
+        mvc.perform(get("/api/route").param("from", "a101").param("to", " a201 "))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.distanceMeters").value(25.34))
-                .andExpect(jsonPath("$.durationSeconds").value(31.5))
-                .andExpect(jsonPath("$.path[0].id").value("B101"))
+                .andExpect(jsonPath("$.distanceMeters").value(18.9))
+                .andExpect(jsonPath("$.durationSeconds").value(26.5))
+                .andExpect(jsonPath("$.path[0].id").value("A101"))
                 .andExpect(jsonPath("$.path[0].type").value("ROOM"))
-                .andExpect(jsonPath("$.path[2].id").value("S1"))
-                .andExpect(jsonPath("$.steps[0].text").value("Départ : B101"))
+                .andExpect(jsonPath("$.path[3].id").value("A1-S1"))
+                .andExpect(jsonPath("$.steps[0].text").value("Départ : A101"))
                 .andExpect(jsonPath("$.steps[0].icon").exists())
                 .andExpect(jsonPath("$.steps[0].floor").value(1));
     }
 
     @Test
     void accessibleTrueAvoidsStairs() throws Exception {
-        mvc.perform(get("/api/route").param("from", "B101").param("to", "B201").param("accessible", "true"))
+        mvc.perform(get("/api/route").param("from", "A101").param("to", "A201").param("accessible", "true"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.distanceMeters").value(101.5))
-                .andExpect(jsonPath("$.path[?(@.id == 'S1')]").isEmpty());
+                .andExpect(jsonPath("$.distanceMeters").value(119.7))
+                .andExpect(jsonPath("$.path[?(@.type == 'STAIRS')]").isEmpty());
     }
 
     @Test
     void sameStartAndDestinationIsValid() throws Exception {
-        mvc.perform(get("/api/route").param("from", "B101").param("to", "B101"))
+        mvc.perform(get("/api/route").param("from", "A101").param("to", "A101"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.distanceMeters").value(0))
                 .andExpect(jsonPath("$.path.length()").value(1));
@@ -48,7 +48,7 @@ class RouteControllerTest {
 
     @Test
     void unknownNodeGivesJson404() throws Exception {
-        mvc.perform(get("/api/route").param("from", "ZZZ").param("to", "B204"))
+        mvc.perform(get("/api/route").param("from", "ZZZ").param("to", "A204"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.message").value("Point ZZZ introuvable"));
@@ -56,7 +56,7 @@ class RouteControllerTest {
 
     @Test
     void missingParameterGivesJson400() throws Exception {
-        mvc.perform(get("/api/route").param("to", "B204"))
+        mvc.perform(get("/api/route").param("to", "A204"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.message").value("Paramètre obligatoire manquant : from"));
@@ -64,11 +64,11 @@ class RouteControllerTest {
 
     @Test
     void emptyOrBlankParameterGivesJson400() throws Exception {
-        mvc.perform(get("/api/route").param("from", "").param("to", "B204"))
+        mvc.perform(get("/api/route").param("from", "").param("to", "A204"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message").exists());
-        mvc.perform(get("/api/route").param("from", "B204").param("to", "   "))
+                .andExpect(jsonPath("$.message").value("Paramètre obligatoire vide : from"));
+        mvc.perform(get("/api/route").param("from", "A204").param("to", "   "))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400));
     }

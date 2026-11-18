@@ -17,7 +17,6 @@
   --amph: #e3edff;
   --lab: #e6f6ec;
   --serv: #fff0dc;
-  --hatch: #d5dbe3;
   --dest: #e03131;
   --route: #0b7285;
   --start: #2f9e44;
@@ -41,7 +40,6 @@
     --amph: #1f2d4a;
     --lab: #1f3a2a;
     --serv: #40301a;
-    --hatch: #2f3844;
     --dest: #ff6b6b;
     --route: #3bc9db;
     --start: #51cf66;
@@ -295,8 +293,104 @@ button.clear-link {
   background: var(--bg);
 }
 
+/* --k = plan width / 1000 (set on the <svg>): texts and lines keep the same size on screen
+   whether the plan is 1000 px wide (a building) or 3000 px (the campus). */
+.plan-svg .wall {
+  fill: var(--panel);
+  stroke: var(--ink);
+  stroke-width: calc(4px * var(--k));
+  stroke-linejoin: round;
+}
+
+.plan-svg .site {
+  fill: var(--bg);
+  stroke: none;
+}
+
+/* Corridors: thick lines in plan pixels (50 px = 3.5 m), so NOT multiplied by --k.
+   Round ends make the lines merge at the junctions. */
 .plan-svg .corr {
-  fill: var(--corr);
+  fill: none;
+  stroke: var(--corr);
+  stroke-width: 50px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.plan-svg .corr.to-door {
+  stroke-linecap: butt;
+}
+
+/* Campus plan: outdoor paths (60 px = 4 m wide, real size, so not multiplied by --k).
+   Steps: the dashes across the thick line look like the treads of a stair. */
+.plan-svg .path {
+  fill: none;
+  stroke: var(--corr);
+  stroke-width: 60px;
+  stroke-linecap: round;
+}
+
+.plan-svg .steps {
+  fill: none;
+  stroke: var(--room-line);
+  stroke-width: 60px;
+  stroke-dasharray: 10px 10px;
+}
+
+.plan-svg .outdoor {
+  fill: var(--muted);
+}
+
+/* Halo in the background colour: the text stays readable over a path */
+.plan-svg .outdoor-lbl {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: calc(4px * var(--k));
+  stroke-linejoin: round;
+}
+
+/* Buildings on the campus plan: they open the building */
+.plan-svg .site-building {
+  cursor: pointer;
+}
+
+.plan-svg .site-shape {
+  fill: var(--panel);
+  stroke: var(--ink);
+  stroke-width: calc(3px * var(--k));
+  stroke-linejoin: round;
+}
+
+.plan-svg .site-shape.on-route {
+  stroke: var(--route);
+  stroke-width: calc(6px * var(--k));
+}
+
+.plan-svg .site-building:hover .site-shape {
+  fill: var(--room);
+}
+
+.plan-svg .site-building:focus-visible {
+  outline: none; /* same as the rooms: we outline the shape instead */
+}
+
+.plan-svg .site-building:focus-visible .site-shape {
+  stroke: var(--accent);
+  stroke-width: calc(6px * var(--k));
+}
+
+.plan-svg .site-code {
+  font-size: calc(22px * var(--k));
+  font-weight: 700;
+  fill: var(--ink);
+  dominant-baseline: hanging;
+}
+
+/* Door of a building, on its outline */
+.plan-svg .entrance {
+  fill: var(--accent);
+  stroke: var(--panel);
+  stroke-width: calc(2px * var(--k));
 }
 
 .plan-svg .svc {
@@ -322,29 +416,23 @@ button.clear-link {
   fill: var(--serv);
 }
 
-.plan-svg .atrium {
-  fill: var(--hatch);
-  stroke: var(--room-line);
-  stroke-dasharray: 4 4;
-}
-
 .plan-svg .door {
   fill: var(--corr);
 }
 
 .plan-svg .code {
-  font-size: 15px;
+  font-size: calc(15px * var(--k));
   font-weight: 700;
   fill: var(--ink);
 }
 
 .plan-svg .tag {
-  font-size: 11px;
+  font-size: calc(11px * var(--k));
   fill: var(--muted);
 }
 
 .plan-svg .lbl {
-  font-size: 12px;
+  font-size: calc(12px * var(--k));
   fill: var(--muted);
 }
 
@@ -511,16 +599,16 @@ ol.steps small {
 .plan-svg .route {
   fill: none;
   stroke: var(--route);
-  stroke-width: 5;
+  stroke-width: calc(5px * var(--k));
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 10 8;
+  stroke-dasharray: calc(10px * var(--k)) calc(8px * var(--k));
   animation: route-dash 1s linear infinite;
 }
 
 @keyframes route-dash {
   to {
-    stroke-dashoffset: -18;
+    stroke-dashoffset: calc(-18px * var(--k));
   }
 }
 
@@ -542,7 +630,7 @@ ol.steps small {
   stroke-width: 2;
 }
 
-/* Dot on the floor tabs crossed by the route */
+/* Dot on the building and floor tabs crossed by the route */
 .tabs button .dot {
   display: inline-block;
   width: 7px;

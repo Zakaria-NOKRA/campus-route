@@ -1,11 +1,13 @@
 $kind: http-request
 name: "CORS : origine React (3000) autorisée"
-description: Le front Create React App peut appeler l'API.
-url: "{{baseUrl}}/api/plan"
+description: "Le front Create React App peut appeler l'API."
+url: "{{baseUrl}}/api/plan?building=A"
 method: GET
 headers:
   Accept: application/json
   Origin: http://localhost:3000
+queryParams:
+  building: "A"
 scripts:
   - type: afterResponse
     code: |-

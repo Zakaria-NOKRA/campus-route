@@ -1,0 +1,25 @@
+$kind: http-request
+name: "ENTREE -> C209 (accessible, rampe)"
+description: "Sans escalier : la rampe remplace les marches, et l'ascenseur de C remplace l'escalier S2."
+url: "{{baseUrl}}/api/route?from=ENTREE&to=C209&accessible=true"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: "ENTREE"
+  to: "C209"
+  accessible: "true"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      const ids = body.path.map(n => n.id);
+
+      pm.test("Distance ≈ 331.94 m", () => pm.expect(body.distanceMeters).to.be.closeTo(331.94, 0.01));
+      pm.test("Durée ≈ 305.3 s", () => pm.expect(body.durationSeconds).to.be.closeTo(305.3, 0.1));
+      pm.test("Passe par la rampe", () => pm.expect(ids).to.include.members(["EXT-R1","EXT-R2"]));
+      pm.test("Pas d'instruction de marches", () => pm.expect(body.steps.map(s => s.text)).to.not.include("Empruntez l'escalier extérieur"));
+      pm.test("Aucun nœud d'escalier", () => pm.expect(body.path.some(n => n.type === "STAIRS")).to.be.false);
+    language: text/javascript
+order: 9000

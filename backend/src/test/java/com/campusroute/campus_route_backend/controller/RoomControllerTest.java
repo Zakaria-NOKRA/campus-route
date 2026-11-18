@@ -34,18 +34,19 @@ class RoomControllerTest {
 
     @Test
     void searchReturnsAtMostEightRooms() throws Exception {
-        mvc.perform(get("/api/rooms/search").param("q", "b"))
+        mvc.perform(get("/api/rooms/search").param("q", "a"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(8))
-                .andExpect(jsonPath("$[0].code").value("B001"));
+                .andExpect(jsonPath("$[0].code").value("A001"));
     }
 
     @Test
     void getReturnsTheRoomSheet() throws Exception {
-        mvc.perform(get("/api/rooms/B204"))
+        mvc.perform(get("/api/rooms/A204"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value("B204"))
-                .andExpect(jsonPath("$.name").value("Salle de TD B204"))
+                .andExpect(jsonPath("$.code").value("A204"))
+                .andExpect(jsonPath("$.name").value("Salle de TD A204"))
+                .andExpect(jsonPath("$.building").value("A"))
                 .andExpect(jsonPath("$.type").value("Salle de TD"))
                 .andExpect(jsonPath("$.floor").value(2))
                 .andExpect(jsonPath("$.capacity").value(30))

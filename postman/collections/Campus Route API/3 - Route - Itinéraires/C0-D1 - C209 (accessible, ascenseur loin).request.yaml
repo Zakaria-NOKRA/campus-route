@@ -1,0 +1,23 @@
+$kind: http-request
+name: "C0-D1 -> C209 (accessible, ascenseur loin)"
+description: "L'unique ascenseur de C est au bout de l'aile ouest : il faut faire tout le tour du U."
+url: "{{baseUrl}}/api/route?from=C0-D1&to=C209&accessible=true"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: "C0-D1"
+  to: "C209"
+  accessible: "true"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+
+      pm.test("Distance ≈ 159.74 m", () => pm.expect(body.distanceMeters).to.be.closeTo(159.74, 0.01));
+      pm.test("Durée ≈ 172.9 s", () => pm.expect(body.durationSeconds).to.be.closeTo(172.9, 0.1));
+      pm.test("Ascenseur de l'aile ouest", () => pm.expect(body.path.map(n => n.id)).to.include.members(["C0-E","C1-E","C2-E"]));
+      pm.test("Aucun nœud d'escalier", () => pm.expect(body.path.some(n => n.type === "STAIRS")).to.be.false);
+    language: text/javascript
+order: 7000

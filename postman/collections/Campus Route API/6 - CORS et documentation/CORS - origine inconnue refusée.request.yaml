@@ -1,11 +1,13 @@
 $kind: http-request
 name: "CORS : origine inconnue refusée"
-description: Une autre origine est rejetée (403), sans en-tête CORS.
-url: "{{baseUrl}}/api/plan"
+description: "Une autre origine est rejetée (403), sans en-tête CORS."
+url: "{{baseUrl}}/api/plan?building=A"
 method: GET
 headers:
   Accept: application/json
   Origin: http://evil.example
+queryParams:
+  building: "A"
 scripts:
   - type: afterResponse
     code: |-

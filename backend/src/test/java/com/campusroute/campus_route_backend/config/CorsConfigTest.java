@@ -21,21 +21,21 @@ class CorsConfigTest {
 
     @Test
     void viteOriginIsAllowed() throws Exception {
-        mvc.perform(get("/api/plan").header("Origin", "http://localhost:5173"))
+        mvc.perform(get("/api/plan").param("building", "A").header("Origin", "http://localhost:5173"))
                 .andExpect(status().isOk())
                 .andExpect(header().string(ALLOW_ORIGIN, "http://localhost:5173"));
     }
 
     @Test
     void createReactAppOriginIsAllowed() throws Exception {
-        mvc.perform(get("/api/rooms/search").param("q", "b204").header("Origin", "http://localhost:3000"))
+        mvc.perform(get("/api/rooms/search").param("q", "a204").header("Origin", "http://localhost:3000"))
                 .andExpect(status().isOk())
                 .andExpect(header().string(ALLOW_ORIGIN, "http://localhost:3000"));
     }
 
     @Test
     void otherOriginIsRejected() throws Exception {
-        mvc.perform(get("/api/plan").header("Origin", "http://evil.example"))
+        mvc.perform(get("/api/plan").param("building", "A").header("Origin", "http://evil.example"))
                 .andExpect(header().doesNotExist(ALLOW_ORIGIN));
     }
 

@@ -13,7 +13,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-/** A room, with the graph node where its door opens. Code = building letter + floor digit + 2 digits. */
+/**
+ * A room, with the graph node of its door. Code = building letter + floor digit + 2 digits (A204).
+ * The room is drawn as a rectangle (x, y, width, height) on the plan of its building and floor.
+ */
 @Entity
 @Table(name = "room")
 public class Room {
@@ -21,12 +24,14 @@ public class Room {
     @Id
     private String code;
 
+    private String building;
     private int floor;
 
-    // Only used to draw the plan: column in the building grid, and top/bottom row
-    private int slot;
-    @Column(name = "top_row")
-    private boolean top;
+    // Rectangle on the plan, in pixels: top-left corner and size
+    private int x;
+    private int y;
+    private int width;
+    private int height;
 
     private String name;
     private String type;
@@ -38,18 +43,22 @@ public class Room {
     @Column(name = "equipment")
     private List<String> equipment = new ArrayList<>();
 
+    // The node of the door: it has the same id as the room code
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "node_id")
     private Node node;
 
     protected Room() { } // required by JPA
 
-    public Room(String code, int floor, int slot, boolean top, String name, String type,
-                String tag, int capacity, List<String> equipment, Node node) {
+    public Room(String code, String building, int floor, int x, int y, int width, int height,
+                String name, String type, String tag, int capacity, List<String> equipment, Node node) {
         this.code = code;
+        this.building = building;
         this.floor = floor;
-        this.slot = slot;
-        this.top = top;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
         this.name = name;
         this.type = type;
         this.tag = tag;
@@ -59,9 +68,12 @@ public class Room {
     }
 
     public String getCode() { return code; }
+    public String getBuilding() { return building; }
     public int getFloor() { return floor; }
-    public int getSlot() { return slot; }
-    public boolean isTop() { return top; }
+    public int getX() { return x; }
+    public int getY() { return y; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
     public String getName() { return name; }
     public String getType() { return type; }
     public String getTag() { return tag; }

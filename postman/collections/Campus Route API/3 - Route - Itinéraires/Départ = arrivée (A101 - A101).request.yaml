@@ -1,13 +1,13 @@
 $kind: http-request
-name: Départ = arrivée (B101 -> B101)
+name: "Départ = arrivée (A101 -> A101)"
 description: "Réponse valide : distance 0, un seul nœud, deux instructions."
-url: "{{baseUrl}}/api/route?from=B101&to=B101"
+url: "{{baseUrl}}/api/route?from=A101&to=A101"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  from: B101
-  to: B101
+  from: "A101"
+  to: "A101"
 scripts:
   - type: afterResponse
     code: |-
@@ -17,4 +17,4 @@ scripts:
       pm.test("Un seul nœud", () => pm.expect(body.path).to.have.lengthOf(1));
       pm.test("Deux instructions (départ, arrivée)", () => pm.expect(body.steps).to.have.lengthOf(2));
     language: text/javascript
-order: 9000
+order: 11000

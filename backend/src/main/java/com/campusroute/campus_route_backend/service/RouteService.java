@@ -65,7 +65,7 @@ public class RouteService {
 
         List<Node> nodes = result.nodes();
         String destinationName = roomRepository.findById(toId).map(Room::getName).orElse(null);
-        List<RouteStepDto> steps = instructions.build(nodes, destinationName);
+        List<RouteStepDto> steps = instructions.build(nodes, result.edges(), destinationName);
 
         return new RouteDto(round(meters, 100), round(seconds, 10),
                 nodes.stream().map(RouteNodeDto::from).toList(), steps);
