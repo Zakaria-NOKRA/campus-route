@@ -1,37 +1,35 @@
-// Geometry of the floor plan, copied from prototype/campus_route_prototype.html.
-//
-// NOTE: the API only sends `slot` (column) and `top` (row) for each room, so these
-// constants rebuild the drawing from that grid. This layout (5 columns, 2 rows around
-// one central corridor) only fits the current sample building. A real building would
-// need real coordinates or shapes from the API.
-//
-// Units: SVG units = plan pixels. The <svg> uses viewBox "0 0 800 360", so the
-// browser does the scaling and we never convert anything ourselves.
+// Helpers to draw a plan sent by GET /api/plan?building=.
+// All coordinates are plan pixels (1 px = 0.07 m). The <svg> uses viewBox "0 0 width height"
+// of the plan, so SVG units = plan pixels: we never convert anything ourselves.
 
-export const VIEW_WIDTH = 800
-export const VIEW_HEIGHT = 360
+// Thickness of a door mark, and its length along the wall.
+const DOOR_THICKNESS = 6
+const DOOR_LENGTH = 28
 
-export const SLOT_COUNT = 5 // columns of rooms
-const SLOT_X0 = 128 // x of the centre of column 0
-const SLOT_STEP = 136 // distance between two column centres
+// What to draw for ONE floor: its rooms, its nodes, and the edges whose two ends are both on
+// this floor. Stairs / elevator edges join two floors, so they are left out automatically.
+// Each edge comes back with its two nodes ({ from, to, kind }) so it can be drawn as a line.
+export function floorContents(plan, floor) {
+  const rooms = plan.rooms.filter((room) => room.floor === floor)
+  const nodes = plan.nodes.filter((node) => node.floor === floor)
 
-export const ROOM_WIDTH = 128
-export const ROOM_HEIGHT = 110
-const TOP_Y = 60 // y of the top edge of the top row
-const BOTTOM_Y = 230 // y of the top edge of the bottom row
-
-export const CORRIDOR_Y = 170
-export const CORRIDOR_HEIGHT = 60
-export const SERVICE_WIDTH = 48 // stairs / elevator boxes at both ends
-
-// x of the centre of a column. For a room it equals `room.x` sent by the API.
-export function slotX(slot) {
-  return SLOT_X0 + SLOT_STEP * slot
+  const nodeById = new Map(nodes.map((node) => [node.id, node]))
+  const edges = []
+  for (const edge of plan.edges) {
+    const from = nodeById.get(edge.from)
+    const to = nodeById.get(edge.to)
+    if (from && to) edges.push({ from, to, kind: edge.kind })
+  }
+  return { rooms, nodes, edges }
 }
 
-// Top edge of a row.
-export function rowY(top) {
-  return top ? TOP_Y : BOTTOM_Y
+// Small rectangle of the door, centred on (doorX, doorY). The door lies on one wall of the
+// room: on the top or bottom wall it is horizontal, on the left or right wall it is vertical.
+export function doorRect(room) {
+  const onTopOrBottom = room.doorY === room.y || room.doorY === room.y + room.height
+  const width = onTopOrBottom ? DOOR_LENGTH : DOOR_THICKNESS
+  const height = onTopOrBottom ? DOOR_THICKNESS : DOOR_LENGTH
+  return { x: room.doorX - width / 2, y: room.doorY - height / 2, width, height }
 }
 
 // Colour class of a room, from its type (same rules as the prototype).
@@ -41,14 +39,4 @@ export function roomTypeClass(type) {
   if (/Labo|informatique/.test(type)) return 't-lab'
   if (type === 'Service') return 't-serv'
   return ''
-}
-
-// Columns of the bottom row with no room on this floor (the hall / atrium).
-export function emptyBottomSlots(rooms) {
-  const used = new Set(rooms.filter((room) => !room.top).map((room) => room.slot))
-  const empty = []
-  for (let slot = 0; slot < SLOT_COUNT; slot++) {
-    if (!used.has(slot)) empty.push(slot)
-  }
-  return empty
 }
