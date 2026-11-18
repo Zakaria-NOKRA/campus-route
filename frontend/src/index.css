@@ -361,6 +361,11 @@ button.clear-link {
   stroke-linejoin: round;
 }
 
+.plan-svg .site-shape.on-route {
+  stroke: var(--route);
+  stroke-width: calc(6px * var(--k));
+}
+
 .plan-svg .site-building:hover .site-shape {
   fill: var(--room);
 }
@@ -625,7 +630,7 @@ ol.steps small {
   stroke-width: 2;
 }
 
-/* Dot on the floor tabs crossed by the route */
+/* Dot on the building and floor tabs crossed by the route */
 .tabs button .dot {
   display: inline-block;
   width: 7px;

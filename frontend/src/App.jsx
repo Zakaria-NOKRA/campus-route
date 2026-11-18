@@ -9,7 +9,7 @@ const NO_ROUTE = { status: 'idle', route: null, error: null }
 
 function App() {
   // The ONE place that remembers which room is selected (a room code, or null).
-  // The search page and the plan both read it and change it through setSelectedCode.
+  // The search page and the plan both read it and change it through handleSelect.
   const [selectedCode, setSelectedCode] = useState(null)
 
   // What the plan shows: a building (A, B, C or EXT = outdoor) and a floor.
@@ -42,6 +42,17 @@ function App() {
     request.to === selectedCode &&
     request.accessible === accessible
   const routeState = isCurrent ? routeResult : NO_ROUTE
+
+  // When a new route arrives, show where it starts (building and floor of its first node).
+  // Same idea as for the selection: we compare with the previous route during render instead
+  // of using an effect, so React re-renders at once, with no flicker. A new calculation gives
+  // a new route object, so this runs once per route.
+  const [previousRoute, setPreviousRoute] = useState(routeState.route)
+  if (routeState.route !== previousRoute) {
+    setPreviousRoute(routeState.route)
+    const start = routeState.route?.path[0]
+    if (start) setView({ building: start.building, floor: start.floor })
+  }
 
   // Click on a step of the route: show the building and floor of that step.
   // Selection and route are untouched.

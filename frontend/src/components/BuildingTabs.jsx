@@ -2,7 +2,8 @@ import { buildingLabel } from '../utils/place'
 
 // One button per building, plus "Extérieur" for the outdoor space. Same look as the floor tabs.
 // `buildings` is the answer of GET /api/buildings, `current` the code of the building shown.
-function BuildingTabs({ buildings, current, onChange }) {
+// `markedBuildings` = codes of the buildings crossed by the route: they get a small dot.
+function BuildingTabs({ buildings, current, onChange, markedBuildings = [] }) {
   return (
     <div className="tabs" role="group" aria-label="Bâtiments">
       {buildings.map((building) => (
@@ -15,6 +16,9 @@ function BuildingTabs({ buildings, current, onChange }) {
           onClick={() => onChange(building.code)}
         >
           {buildingLabel(building.code)}
+          {markedBuildings.includes(building.code) && (
+            <span className="dot" role="img" aria-label="sur l'itinéraire" />
+          )}
         </button>
       ))}
     </div>
