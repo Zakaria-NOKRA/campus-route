@@ -27,6 +27,12 @@ function SiteBuilding({ building, onRoute, onOpen, k }) {
       onKeyDown={handleKeyDown}
     >
       <title>{building.name}</title>
+      {/* Soft shadow: the same shape, moved a little down-right (sun from the top-left) */}
+      <polygon
+        className="site-shadow"
+        points={building.siteOutline}
+        transform={`translate(${6 * k} ${8 * k})`}
+      />
       <polygon
         className={onRoute ? 'site-shape on-route' : 'site-shape'}
         points={building.siteOutline}

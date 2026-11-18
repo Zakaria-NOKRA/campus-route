@@ -42,6 +42,28 @@
   --elevator-bg: var(--accent-soft);
   --dest: var(--route);
 
+  /* Campus plan (seen from above) */
+  --grass: #cfe3b4;
+  --lawn: #bcd89c;
+  --path: #f6efe2;
+  --path-edge: #ddd1bc;
+  --steps: #8f8270; /* treads of the outdoor steps */
+  --tree-1: #4a8a45;
+  --tree-2: #5e9c4f;
+  --tree-3: #7bb35f;
+  --tree-shadow: rgb(30 50 20 / 0.22);
+  --roof: #d6cfc4;
+  --roof-edge: #8f8676;
+  --roof-hover: #e4ddd2;
+  --building-shadow: rgb(40 45 30 / 0.2);
+  --water: #9fd3e6;
+  --stone: #e2ddd3;
+  --soil: #9b7653;
+  --flower-1: #e8799b;
+  --flower-2: #f2c14e;
+  --bench: #8b5e3c;
+  --campus-wall: #b9ae9c;
+
   /* Shapes */
   --r-sm: 8px;
   --r-md: 12px;
@@ -755,6 +777,21 @@ ol.steps small {
   border-radius: var(--r-md);
   border: 1px solid var(--line);
   background: var(--bg);
+  /* Changing building or floor creates a new <svg> (React key): it fades in. */
+  animation: plan-in var(--dur) var(--ease);
+}
+
+/* The campus is 3 times wider than a building: below 900px its labels would be too small,
+   so it scrolls sideways sooner. */
+.plan-svg.plan-outdoor {
+  min-width: 900px;
+}
+
+@keyframes plan-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
 }
 
 /* --k = plan width / 1000 (set on the <svg>): texts and lines keep the same size on screen
@@ -767,7 +804,7 @@ ol.steps small {
 }
 
 .plan-svg .site {
-  fill: var(--bg);
+  fill: var(--grass);
   stroke: none;
 }
 
@@ -786,43 +823,143 @@ ol.steps small {
 }
 
 /* Campus plan: outdoor paths (60 px = 4 m wide, real size, so not multiplied by --k).
+   A wider darker border is drawn first under every path (PlanEdges), then the light surface.
    Steps: the dashes across the thick line look like the treads of a stair. */
+.plan-svg .path-border {
+  fill: none;
+  stroke: var(--path-edge);
+  stroke-width: 76px;
+  stroke-linecap: round;
+}
+
 .plan-svg .path {
   fill: none;
-  stroke: var(--corr);
+  stroke: var(--path);
   stroke-width: 60px;
   stroke-linecap: round;
 }
 
 .plan-svg .steps {
   fill: none;
-  stroke: var(--room-line);
+  stroke: var(--steps);
   stroke-width: 60px;
-  stroke-dasharray: 10px 10px;
+  stroke-dasharray: 8px 8px;
 }
 
 .plan-svg .outdoor {
   fill: var(--muted);
 }
 
-/* Halo in the background colour: the text stays readable over a path */
-.plan-svg .outdoor-lbl {
+/* White halo behind the text: it stays readable over grass, paths and trees.
+   (.lbl.outdoor-lbl, more precise than .lbl defined below, so these values win.) */
+.plan-svg .lbl.outdoor-lbl {
+  font-size: calc(14px * var(--k));
+  font-weight: 600;
+  fill: var(--ink);
   paint-order: stroke;
-  stroke: var(--bg);
-  stroke-width: calc(4px * var(--k));
+  stroke: var(--surface);
+  stroke-width: calc(5px * var(--k));
   stroke-linejoin: round;
 }
 
-/* Buildings on the campus plan: they open the building */
+/* Decoration of the campus (CampusScenery): never catches a click */
+.plan-svg .scenery {
+  pointer-events: none;
+}
+
+.plan-svg .lawn {
+  fill: var(--lawn);
+}
+
+.plan-svg .tree-shadow {
+  fill: var(--tree-shadow);
+}
+
+.plan-svg .tree {
+  stroke: rgb(0 0 0 / 0.08);
+  stroke-width: 2;
+}
+
+.plan-svg .tree-1 {
+  fill: var(--tree-1);
+}
+
+.plan-svg .tree-2 {
+  fill: var(--tree-2);
+}
+
+.plan-svg .tree-3 {
+  fill: var(--tree-3);
+}
+
+.plan-svg .tree-light {
+  fill: #fff;
+  opacity: 0.16;
+}
+
+.plan-svg .bed {
+  fill: var(--soil);
+}
+
+.plan-svg .flower {
+  stroke: rgb(255 255 255 / 0.7);
+  stroke-width: 2;
+}
+
+.plan-svg .flower-1 {
+  fill: var(--flower-1);
+}
+
+.plan-svg .flower-2 {
+  fill: var(--flower-2);
+}
+
+.plan-svg .bench {
+  fill: var(--bench);
+}
+
+.plan-svg .fountain-stone {
+  fill: var(--stone);
+  stroke: var(--path-edge);
+  stroke-width: 4;
+}
+
+.plan-svg .fountain-water {
+  fill: var(--water);
+}
+
+.plan-svg .fountain-jet {
+  fill: #fff;
+  opacity: 0.75;
+}
+
+.plan-svg .campus-wall {
+  fill: var(--campus-wall);
+}
+
+.plan-svg .gate-pillar {
+  fill: var(--roof-edge);
+}
+
+/* Buildings on the campus plan, seen from above: roof colour and a soft shadow.
+   They open the building. */
 .plan-svg .site-building {
   cursor: pointer;
 }
 
+.plan-svg .site-shadow {
+  fill: var(--building-shadow);
+  pointer-events: none;
+}
+
 .plan-svg .site-shape {
-  fill: var(--surface);
-  stroke: var(--ink);
-  stroke-width: calc(3px * var(--k));
+  fill: var(--roof);
+  stroke: var(--roof-edge);
+  stroke-width: calc(2.5px * var(--k));
   stroke-linejoin: round;
+  transition:
+    fill var(--dur-fast) var(--ease),
+    stroke var(--dur-fast) var(--ease);
 }
 
 .plan-svg .site-shape.on-route {
@@ -831,7 +968,7 @@ ol.steps small {
 }
 
 .plan-svg .site-building:hover .site-shape {
-  fill: var(--room);
+  fill: var(--roof-hover);
 }
 
 .plan-svg .site-building:focus-visible {
@@ -1031,32 +1168,97 @@ ol.steps small {
   pointer-events: none; /* clicks go through to the rooms below */
 }
 
-.plan-svg .route {
+.plan-svg .route-casing,
+.plan-svg .route,
+.plan-svg .route-flow {
   fill: none;
-  stroke: var(--route);
-  stroke-width: calc(5px * var(--k));
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: calc(10px * var(--k)) calc(8px * var(--k));
-  animation: route-dash 1s linear infinite;
 }
 
-@keyframes route-dash {
+/* White border under the line: the route stays visible on any colour */
+.plan-svg .route-casing {
+  stroke: #fff;
+  stroke-width: calc(10px * var(--k));
+  opacity: 0.9;
+}
+
+/* The line draws itself: with pathLength="1", one dash of length 1 covers the whole line,
+   and moving it (dashoffset 1 -> 0) reveals it from the start to the end. */
+.plan-svg .route {
+  stroke: var(--route);
+  stroke-width: calc(6px * var(--k));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: route-draw var(--dur-route) var(--ease) both;
+}
+
+@keyframes route-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+/* Small white dashes moving in the walking direction, once the line is drawn */
+.plan-svg .route-flow {
+  stroke: rgb(255 255 255 / 0.9);
+  stroke-width: calc(1.8px * var(--k));
+  stroke-dasharray: calc(3px * var(--k)) calc(12px * var(--k));
+  animation:
+    route-flow-in var(--dur) linear var(--dur-route) both,
+    route-flow 0.9s linear var(--dur-route) infinite;
+}
+
+@keyframes route-flow-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes route-flow {
   to {
-    stroke-dashoffset: calc(-18px * var(--k));
+    stroke-dashoffset: calc(-15px * var(--k));
   }
 }
 
 .plan-svg .mk-start {
   fill: var(--start);
   stroke: #fff;
-  stroke-width: 2;
+  stroke-width: calc(3px * var(--k));
 }
 
+/* Destination: a pin (DestinationPin) with a ring that grows and fades on the ground */
 .plan-svg .mk-dest {
   fill: var(--dest);
   stroke: #fff;
-  stroke-width: 2;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.3));
+}
+
+.plan-svg .mk-dest-spot {
+  fill: var(--dest);
+  opacity: 0.45;
+}
+
+.plan-svg .mk-pulse {
+  fill: none;
+  stroke: var(--dest);
+  stroke-width: calc(2px * var(--k));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse 1.8s ease-out infinite;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 /* ---------------------------------------------------------------- reduced motion */
@@ -1067,7 +1269,14 @@ ol.steps small {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* The pulse ends invisible (opacity 0): with no motion, show a still ring instead. */
+  .plan-svg .mk-pulse {
+    animation: none !important;
+    opacity: 0.5;
   }
 }
