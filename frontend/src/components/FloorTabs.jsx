@@ -4,7 +4,7 @@ import { floorLabel } from '../utils/floorLabel'
 // `markedFloors` = floors crossed by the route: they get a small dot.
 function FloorTabs({ floors, current, onChange, markedFloors = [] }) {
   return (
-    <div className="tabs" role="group" aria-label="Étages">
+    <div className="tabs tabs-floor" role="group" aria-label="Étages">
       {floors.map((floor) => (
         <button
           key={floor}

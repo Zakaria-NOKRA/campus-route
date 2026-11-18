@@ -31,7 +31,7 @@ function PlanRoom({ room, selected, onSelect }) {
         y={room.y}
         width={room.width}
         height={room.height}
-        rx="4"
+        rx="6"
       />
       <text className="code" x={cx} y={cy} textAnchor="middle">
         {room.code}

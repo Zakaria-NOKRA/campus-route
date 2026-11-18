@@ -23,14 +23,23 @@
   --error: #b42318;
   --error-soft: #fdecea;
 
-  /* Plan colours (restyled in the next steps) */
-  --room: #eef2f7;
+  /* Indoor plan */
+  --floor: #fbfaf7; /* inside of the building */
+  --wall: #3d4652;
+  --corr: #f1ece2; /* corridors */
+  --room: #eef2f6; /* default room = TD */
   --room-line: #b8c0cc;
-  --corr: #f1ece2;
-  --svc: #dde7f0;
-  --amph: #e3edff;
-  --lab: #e6f6ec;
-  --serv: #fff0dc;
+  --room-line-strong: #8a94a3;
+  /* Room categories (soft fills, labels stay >= 4.5:1) */
+  --r-amphi: #e3ecff;
+  --r-td: #eef2f6;
+  --r-lab: #e3f4e8;
+  --r-info: #ebe6fb;
+  --r-admin: #fdf0dc;
+  --r-commons: #fce7ef;
+  /* Markers */
+  --stairs-bg: #e9edf2;
+  --elevator-bg: var(--accent-soft);
   --dest: var(--route);
 
   /* Shapes */
@@ -649,29 +658,71 @@ ol.steps small {
   font-size: var(--fs-xs);
 }
 
-/* ---------------------------------------------------------------- tabs (restyled in step 2) */
+/* ---------------------------------------------------------------- tabs */
 .tabs {
   display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
   flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--s-3);
 }
 
 .tabs button {
   cursor: pointer;
-  border: 1px solid var(--line);
-  background: var(--surface);
   color: var(--ink);
-  padding: 8px 12px;
-  min-height: 36px;
-  border-radius: var(--r-sm);
   font-size: var(--fs-base);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
 }
 
-.tabs button.on {
+/* Buildings: a segmented control (grey track, the open building is a white "key") */
+.tabs-building {
+  display: inline-flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.tabs-building button {
+  min-height: 36px;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+}
+
+.tabs-building button:hover:not(.on) {
+  background: rgb(255 255 255 / 0.6);
+}
+
+.tabs-building button.on {
+  background: var(--surface);
+  color: var(--accent-strong);
+  font-weight: 600;
+  box-shadow: var(--shadow-1);
+}
+
+/* Floors: small pills under the buildings */
+.tabs-floor button {
+  min-height: 32px;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--fs-sm);
+}
+
+.tabs-floor button:hover:not(.on) {
+  background: var(--surface-2);
+}
+
+.tabs-floor button.on {
   background: var(--accent);
-  color: var(--accent-ink);
   border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 
 /* Dot on the building and floor tabs crossed by the route */
@@ -685,8 +736,8 @@ ol.steps small {
   vertical-align: middle;
 }
 
-.tabs button.on .dot {
-  background: var(--accent-ink);
+.tabs-floor button.on .dot {
+  background: var(--accent-ink); /* orange on teal would be hard to see */
 }
 
 /* ---------------------------------------------------------------- floor plan (SVG) */
@@ -709,9 +760,9 @@ ol.steps small {
 /* --k = plan width / 1000 (set on the <svg>): texts and lines keep the same size on screen
    whether the plan is 1000 px wide (a building) or 3000 px (the campus). */
 .plan-svg .wall {
-  fill: var(--surface);
-  stroke: var(--ink);
-  stroke-width: calc(4px * var(--k));
+  fill: var(--floor);
+  stroke: var(--wall);
+  stroke-width: calc(2.5px * var(--k));
   stroke-linejoin: round;
 }
 
@@ -799,43 +850,85 @@ ol.steps small {
   dominant-baseline: hanging;
 }
 
-/* Door of a building, on its outline */
+/* Door of a building, on its outline: teal disc with a small white door inside */
 .plan-svg .entrance {
   fill: var(--accent);
   stroke: var(--surface);
   stroke-width: calc(2px * var(--k));
 }
 
-.plan-svg .svc {
-  fill: var(--svc);
-  stroke: var(--room-line);
+.plan-svg .entrance-door {
+  fill: var(--surface);
 }
 
+/* Stairs and elevator symbols (MarkerIcon). Line widths are set in the component
+   (fractions of the box size), so only colours are here. */
+.mk-box {
+  fill: var(--stairs-bg);
+  stroke: var(--room-line-strong);
+}
+
+.mk-elevator .mk-box {
+  fill: var(--elevator-bg);
+  stroke: var(--accent);
+}
+
+.mk-symbol-line {
+  fill: none;
+  stroke: var(--wall);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mk-symbol {
+  fill: var(--accent-strong);
+}
+
+/* Rooms: soft fill by category, thin border */
 .plan-svg .room {
   fill: var(--room);
   stroke: var(--room-line);
-  stroke-width: 1.5;
+  stroke-width: 1.25;
+  transition:
+    fill var(--dur-fast) var(--ease),
+    stroke var(--dur-fast) var(--ease),
+    filter var(--dur-fast) var(--ease);
 }
 
 .plan-svg .room.t-amph {
-  fill: var(--amph);
+  fill: var(--r-amphi);
+}
+
+.plan-svg .room.t-td {
+  fill: var(--r-td);
 }
 
 .plan-svg .room.t-lab {
-  fill: var(--lab);
+  fill: var(--r-lab);
 }
 
-.plan-svg .room.t-serv {
-  fill: var(--serv);
+.plan-svg .room.t-info {
+  fill: var(--r-info);
 }
 
+.plan-svg .room.t-admin {
+  fill: var(--r-admin);
+}
+
+.plan-svg .room.t-commons {
+  fill: var(--r-commons);
+}
+
+/* Door of a room: a small opening in the corridor colour, with a thin frame */
 .plan-svg .door {
   fill: var(--corr);
+  stroke: var(--room-line-strong);
+  stroke-width: 1;
 }
 
 .plan-svg .code {
   font-size: calc(15px * var(--k));
-  font-weight: 700;
+  font-weight: 650;
   fill: var(--ink);
 }
 
@@ -858,14 +951,79 @@ ol.steps small {
   outline: none; /* an outline on an SVG <g> is unreliable: we outline the room box instead */
 }
 
+/* Hover: the room gets a little darker and its border stronger */
+.plan-svg .plan-room:hover .room {
+  filter: brightness(0.95);
+  stroke: var(--room-line-strong);
+}
+
+/* Selected room (the destination): warm fill and border, like the route */
+.plan-svg .room.selected {
+  fill: var(--warm-soft);
+  stroke: var(--dest);
+  stroke-width: 3;
+}
+
+/* Keyboard focus last, so it stays visible even on the selected room */
 .plan-svg .plan-room:focus-visible .room {
   stroke: var(--accent);
   stroke-width: 4;
 }
 
-.plan-svg .room.selected {
-  stroke: var(--dest);
-  stroke-width: 3;
+/* Legend under a building plan */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend .swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--room-line);
+  background: var(--room);
+}
+
+.legend .swatch.t-amph {
+  background: var(--r-amphi);
+}
+
+.legend .swatch.t-td {
+  background: var(--r-td);
+}
+
+.legend .swatch.t-lab {
+  background: var(--r-lab);
+}
+
+.legend .swatch.t-info {
+  background: var(--r-info);
+}
+
+.legend .swatch.t-admin {
+  background: var(--r-admin);
+}
+
+.legend .swatch.t-commons {
+  background: var(--r-commons);
+}
+
+.legend-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 /* Route on the plan */
