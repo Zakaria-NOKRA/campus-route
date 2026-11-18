@@ -6,7 +6,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/** A point of the navigation graph. The id is a business key such as "C0_1" or "B204". */
+/** A point of the navigation graph. The id is a business key such as "A1-K", "A104_C" or "A104". */
 @Entity
 @Table(name = "node")
 public class Node {
@@ -14,9 +14,12 @@ public class Node {
     @Id
     private String id;
 
+    // Plan space of the node: building code (A, B, C) or EXT for outdoor points
+    private String building;
+
     private int floor;
 
-    // Position on the floor plan, in pixels (1 px = 0.07 m)
+    // Position on the plan of its building and floor, in pixels (1 px = 0.07 m)
     private int x;
     private int y;
 
@@ -27,8 +30,9 @@ public class Node {
 
     protected Node() { } // required by JPA
 
-    public Node(String id, int floor, int x, int y, NodeType type, String label) {
+    public Node(String id, String building, int floor, int x, int y, NodeType type, String label) {
         this.id = id;
+        this.building = building;
         this.floor = floor;
         this.x = x;
         this.y = y;
@@ -37,6 +41,7 @@ public class Node {
     }
 
     public String getId() { return id; }
+    public String getBuilding() { return building; }
     public int getFloor() { return floor; }
     public int getX() { return x; }
     public int getY() { return y; }
