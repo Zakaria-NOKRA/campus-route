@@ -5,12 +5,15 @@ import PlanEdges from './PlanEdges'
 import PlanMarkers from './PlanMarkers'
 import PlanRoom from './PlanRoom'
 import RouteLayer from './RouteLayer'
+import SiteBuilding from './SiteBuilding'
 
 // The SVG of one floor of one plan (a building, or the outdoor space EXT).
 // `plan` is the answer of GET /api/plan?building=, `floor` the floor to draw.
 // `route` is the answer of GET /api/route, or null when there is no route to show.
-// Drawing order (later = on top): walls, corridors, rooms, markers, route.
-function FloorPlan({ plan, floor, selectedCode, onSelect, route }) {
+// The campus plan (EXT) uses the same drawing, plus the buildings (`buildings` = answer of
+// GET /api/buildings), which open with `onOpenBuilding(code)`.
+// Drawing order (later = on top): walls, corridors or paths, buildings, rooms, markers, route.
+function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOpenBuilding }) {
   const { rooms, nodes, edges } = floorContents(plan, floor)
   const isOutdoor = plan.building === OUTDOOR
 
@@ -36,7 +39,14 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route }) {
           {/* outline = "x1,y1 x2,y2 ...": exactly the format of the SVG points attribute */}
           <polygon className={isOutdoor ? 'site' : 'wall'} points={plan.outline} />
 
-          <PlanEdges edges={edges} />
+          <PlanEdges edges={edges} k={k} />
+
+          {isOutdoor &&
+            buildings
+              .filter((building) => !building.outdoor)
+              .map((building) => (
+                <SiteBuilding key={building.code} building={building} onOpen={onOpenBuilding} k={k} />
+              ))}
 
           {rooms.map((room) => (
             <PlanRoom
@@ -53,9 +63,11 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route }) {
         </svg>
       </div>
       <p className="hint">
-        {selectedCode === null
-          ? 'Cliquez sur une salle du plan pour la choisir comme destination.'
-          : 'Sur un petit écran, faites glisser le plan pour voir toute la largeur.'}
+        {isOutdoor
+          ? 'Cliquez sur un bâtiment pour voir ses étages.'
+          : selectedCode === null
+            ? 'Cliquez sur une salle du plan pour la choisir comme destination.'
+            : 'Sur un petit écran, faites glisser le plan pour voir toute la largeur.'}
       </p>
     </>
   )

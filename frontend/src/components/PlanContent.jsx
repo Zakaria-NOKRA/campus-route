@@ -1,7 +1,8 @@
 import FloorPlan from './FloorPlan'
 
 // Loading, error, empty or the drawn plan. `planState` = { status, plan, error } from usePlan.
-function PlanContent({ planState, floor, selectedCode, onSelect, route }) {
+// `buildings` and `onOpenBuilding` are only used by the campus plan (clickable buildings).
+function PlanContent({ planState, floor, selectedCode, onSelect, route, buildings, onOpenBuilding }) {
   if (planState.status === 'loading') {
     return (
       <p className="hint" role="status">
@@ -32,6 +33,8 @@ function PlanContent({ planState, floor, selectedCode, onSelect, route }) {
       selectedCode={selectedCode}
       onSelect={onSelect}
       route={route}
+      buildings={buildings}
+      onOpenBuilding={onOpenBuilding}
     />
   )
 }

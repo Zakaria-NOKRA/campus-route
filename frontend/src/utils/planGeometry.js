@@ -23,16 +23,21 @@ export function floorContents(plan, floor) {
   return { rooms, nodes, edges }
 }
 
-// How to draw a walking link of one floor (an edge from floorContents), as a CSS class,
+// How to draw a link of one floor (an edge from floorContents), as a CSS class,
 // or null when no line is needed:
+// - outdoor (between outdoor points or the campus entrance): a path, or steps for kind STAIRS
+//   (the ramp is made of ordinary paths);
 // - corridor to corridor: a piece of corridor;
 // - corridor to stairs or elevator: the short piece of corridor that leads to it;
 // - corridor to building door: same, with a flat end that stops on the wall (it looks like an opening);
 // - corridor to room: nothing, the door of the room is drawn by PlanRoom.
 // Stairs / elevator links between two floors never get here (see floorContents).
 export function edgeClass(edge) {
-  if (edge.kind !== 'WALK') return null
   const types = [edge.from.type, edge.to.type]
+  const isOutdoor = types.every((type) => type === 'OUTDOOR' || type === 'ENTRANCE')
+  if (isOutdoor) return edge.kind === 'STAIRS' ? 'steps' : 'path'
+
+  if (edge.kind !== 'WALK') return null
   if (!types.includes('CORRIDOR') || types.includes('ROOM')) return null
   if (types.includes('ENTRANCE')) return 'corr to-door'
   return 'corr'
@@ -45,6 +50,15 @@ export function doorRect(room) {
   const width = onTopOrBottom ? DOOR_LENGTH : DOOR_THICKNESS
   const height = onTopOrBottom ? DOOR_THICKNESS : DOOR_LENGTH
   return { x: room.doorX - width / 2, y: room.doorY - height / 2, width, height }
+}
+
+// Top-left corner of the box around an outline "x1,y1 x2,y2 ..." (smallest x, smallest y).
+export function outlineTopLeft(outline) {
+  const points = outline.split(' ').map((point) => point.split(',').map(Number))
+  return {
+    x: Math.min(...points.map(([x]) => x)),
+    y: Math.min(...points.map(([, y]) => y)),
+  }
 }
 
 // Colour class of a room, from its type (same rules as the prototype).
