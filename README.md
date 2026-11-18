@@ -183,7 +183,9 @@ Le campus est fictif. L'échelle des plans est de 1 pixel = 0,07 m.
   par des marches, ou par une rampe plus longue pour un itinéraire accessible.
 - Chaque bâtiment a son propre plan ; la cour a le sien (code `EXT`).
 
-Le front-end n'est pas encore adapté à ce campus : son affichage du plan sera mis à jour à la prochaine étape.
+Dans le front-end, des onglets permettent de choisir un bâtiment ou l'extérieur, puis l'étage. Le plan de l'extérieur
+montre les bâtiments (cliquables), les allées, les marches et la rampe. Un itinéraire est tracé bâtiment par bâtiment
+et étage par étage ; les onglets traversés sont marqués d'un point.
 
 ### Modifier ou régénérer les données
 
