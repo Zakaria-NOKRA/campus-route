@@ -1,6 +1,7 @@
 import { floorLabel } from '../utils/floorLabel'
 import { OUTDOOR, buildingLabel } from '../utils/place'
 import { floorContents } from '../utils/planGeometry'
+import { routeBuildings } from '../utils/routeGeometry'
 import PlanEdges from './PlanEdges'
 import PlanMarkers from './PlanMarkers'
 import PlanRoom from './PlanRoom'
@@ -16,6 +17,8 @@ import SiteBuilding from './SiteBuilding'
 function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOpenBuilding }) {
   const { rooms, nodes, edges } = floorContents(plan, floor)
   const isOutdoor = plan.building === OUTDOOR
+  // Buildings crossed by the route: highlighted on the campus plan.
+  const buildingsOnRoute = route ? routeBuildings(route.path) : []
 
   // Plans have different sizes (about 1000 px wide for a building, 3000 px for the campus).
   // --k scales texts and line widths in the CSS, so they look the same size on every plan.
@@ -45,7 +48,13 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOp
             buildings
               .filter((building) => !building.outdoor)
               .map((building) => (
-                <SiteBuilding key={building.code} building={building} onOpen={onOpenBuilding} k={k} />
+                <SiteBuilding
+                  key={building.code}
+                  building={building}
+                  onRoute={buildingsOnRoute.includes(building.code)}
+                  onOpen={onOpenBuilding}
+                  k={k}
+                />
               ))}
 
           {rooms.map((room) => (

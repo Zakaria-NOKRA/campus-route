@@ -17,6 +17,12 @@ export function splitByPlace(path) {
   return runs
 }
 
+// Buildings crossed by the route (EXT included), without duplicates, in the order of the route.
+// Used to mark the building tabs and to highlight the buildings on the campus plan.
+export function routeBuildings(path) {
+  return [...new Set(path.map((node) => node.building))]
+}
+
 // Floors of `building` crossed by the route, without duplicates (used to mark the floor tabs).
 export function routeFloors(path, building) {
   const floors = path.filter((node) => node.building === building).map((node) => node.floor)

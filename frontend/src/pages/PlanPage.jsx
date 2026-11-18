@@ -3,7 +3,7 @@ import { getBuildings } from '../api/buildings'
 import BuildingTabs from '../components/BuildingTabs'
 import FloorTabs from '../components/FloorTabs'
 import PlanContent from '../components/PlanContent'
-import { routeFloors } from '../utils/routeGeometry'
+import { routeBuildings, routeFloors } from '../utils/routeGeometry'
 import { usePlan } from '../utils/usePlan'
 
 // Plan card: building tabs, floor tabs, then the drawing of `view` = { building, floor }.
@@ -62,7 +62,12 @@ function PlanPage({ view, onViewChange, selectedCode, onSelect, route }) {
   } else {
     content = (
       <>
-        <BuildingTabs buildings={buildings} current={view.building} onChange={handleBuildingChange} />
+        <BuildingTabs
+          buildings={buildings}
+          current={view.building}
+          onChange={handleBuildingChange}
+          markedBuildings={route ? routeBuildings(route.path) : []}
+        />
         {/* The outdoor space has a single level: no floor tabs. */}
         {building && !building.outdoor && (
           <FloorTabs
