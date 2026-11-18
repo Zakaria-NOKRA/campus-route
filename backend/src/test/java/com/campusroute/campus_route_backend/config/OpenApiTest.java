@@ -25,7 +25,8 @@ class OpenApiTest {
                 .andExpect(jsonPath("$.paths['/api/rooms/search']").exists())
                 .andExpect(jsonPath("$.paths['/api/rooms/{code}']").exists())
                 .andExpect(jsonPath("$.paths['/api/route']").exists())
-                .andExpect(jsonPath("$.paths['/api/plan']").exists());
+                .andExpect(jsonPath("$.paths['/api/plan']").exists())
+                .andExpect(jsonPath("$.paths['/api/buildings']").exists());
     }
 
     @Test
