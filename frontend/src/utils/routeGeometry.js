@@ -1,25 +1,32 @@
 // Helpers to draw a route on the plan. `path` is the list of nodes sent by GET /api/route,
-// from the start to the arrival: [{ id, floor, x, y, ... }].
+// from the start to the arrival: [{ id, building, floor, x, y, ... }].
 
-// Cuts the path into runs of consecutive nodes that are on the same floor.
-// A change of floor (stairs / elevator) ends a run and starts the next one.
-// Example: floor 0, 0, 0, 2, 2  ->  [{ floor: 0, nodes: [3 nodes] }, { floor: 2, nodes: [2 nodes] }]
-export function splitByFloor(path) {
+// Cuts the path into runs of consecutive nodes on the same plan (same building AND floor).
+// Changing floor (stairs / elevator) or leaving / entering a building ends a run.
+// Example: A0, A0, EXT0, EXT0, C0, C2  ->  4 runs (A 0, EXT 0, C 0, C 2)
+export function splitByPlace(path) {
   const runs = []
   for (const node of path) {
     const last = runs[runs.length - 1]
-    if (last && last.floor === node.floor) {
+    if (last && last.building === node.building && last.floor === node.floor) {
       last.nodes.push(node)
     } else {
-      runs.push({ floor: node.floor, nodes: [node] })
+      runs.push({ building: node.building, floor: node.floor, nodes: [node] })
     }
   }
   return runs
 }
 
-// Floors crossed by the route, without duplicates (used to mark the floor tabs).
-export function routeFloors(path) {
-  return [...new Set(path.map((node) => node.floor))]
+// Buildings crossed by the route (EXT included), without duplicates, in the order of the route.
+// Used to mark the building tabs and to highlight the buildings on the campus plan.
+export function routeBuildings(path) {
+  return [...new Set(path.map((node) => node.building))]
+}
+
+// Floors of `building` crossed by the route, without duplicates (used to mark the floor tabs).
+export function routeFloors(path, building) {
+  const floors = path.filter((node) => node.building === building).map((node) => node.floor)
+  return [...new Set(floors)]
 }
 
 // Value of the SVG `points` attribute for a run: "x1,y1 x2,y2 ...".

@@ -1,9 +1,11 @@
-import { splitByFloor, toPoints } from '../utils/routeGeometry'
+import { splitByPlace, toPoints } from '../utils/routeGeometry'
 
-// Route drawn over the plan, for ONE floor: the line(s) of that floor, then the markers.
+// Route drawn over the plan, for ONE building and ONE floor: the line(s) there, then the markers.
 // It goes inside the <svg>, after the rooms, so it is drawn on top of them.
-function RouteLayer({ path, floor }) {
-  const runs = splitByFloor(path).filter((run) => run.floor === floor)
+// `k` = plan width / 1000: the markers get bigger on a bigger plan, to keep the same size on screen.
+function RouteLayer({ path, building, floor, k }) {
+  const isHere = (item) => item.building === building && item.floor === floor
+  const runs = splitByPlace(path).filter(isHere)
   const start = path[0]
   const destination = path[path.length - 1]
 
@@ -15,13 +17,11 @@ function RouteLayer({ path, floor }) {
           <polyline key={index} className="route" points={toPoints(run.nodes)} />
         ) : null,
       )}
-      {start.floor === floor && (
-        <circle className="mk-start" cx={start.x} cy={start.y} r="9" />
-      )}
-      {destination.floor === floor && (
+      {isHere(start) && <circle className="mk-start" cx={start.x} cy={start.y} r={9 * k} />}
+      {isHere(destination) && (
         <>
-          <circle className="mk-dest" cx={destination.x} cy={destination.y} r="10" />
-          <circle cx={destination.x} cy={destination.y} r="4" fill="#fff" />
+          <circle className="mk-dest" cx={destination.x} cy={destination.y} r={10 * k} />
+          <circle cx={destination.x} cy={destination.y} r={4 * k} fill="#fff" />
         </>
       )}
     </g>

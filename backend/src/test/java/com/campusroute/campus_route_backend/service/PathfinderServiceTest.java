@@ -18,7 +18,7 @@ class PathfinderServiceTest {
     private final PathfinderService pathfinder = new PathfinderService();
 
     private static Node node(String id, int floor) {
-        return new Node(id, floor, 0, 0, NodeType.CORRIDOR, id);
+        return new Node(id, "A", floor, 0, 0, NodeType.CORRIDOR, id);
     }
 
     private final Node a = node("A", 0);

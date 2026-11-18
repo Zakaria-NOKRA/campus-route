@@ -1,0 +1,19 @@
+$kind: http-request
+description: "Les 3 bâtiments puis l'extérieur (EXT), avec leurs étages et leurs contours."
+url: "{{baseUrl}}/api/buildings"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      pm.test("Réponse JSON", () => pm.response.to.be.json);
+      const list = pm.response.json();
+      pm.test("A, B, C puis EXT", () => pm.expect(list.map(b => b.code)).to.eql(["A","B","C","EXT"]));
+      pm.test("Champs d'un bâtiment", () => list.forEach(b => pm.expect(b).to.have.all.keys("code","name","outdoor","floors","width","height","outline","siteOutline")));
+      pm.test("Étages de chaque bâtiment", () => pm.expect(list.map(b => b.floors)).to.eql([[0, 1, 2], [0, 1], [0, 1, 2], [0]]));
+      pm.test("Seul EXT est extérieur", () => pm.expect(list.map(b => b.outdoor)).to.eql([false, false, false, true]));
+      pm.test("Contour de A placé sur le plan du campus", () => pm.expect(list[0].siteOutline).to.eql("200,200 1200,200 1200,1000 900,1000 900,500 200,500"));
+    language: text/javascript
+order: 1000

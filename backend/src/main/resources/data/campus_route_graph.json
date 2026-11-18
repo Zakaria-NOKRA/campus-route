@@ -1,1085 +1,5215 @@
 {
-  "building": "B",
   "scale_m_per_px": 0.07,
-  "floors": [
-    0,
-    1,
-    2
+  "buildings": [
+    {
+      "code": "A",
+      "name": "Bâtiment A – Sciences",
+      "outdoor": false,
+      "width": 1000,
+      "height": 800,
+      "origin": [
+        200,
+        200
+      ],
+      "outline": "0,0 1000,0 1000,800 700,800 700,300 0,300",
+      "siteOutline": "200,200 1200,200 1200,1000 900,1000 900,500 200,500"
+    },
+    {
+      "code": "B",
+      "name": "Bâtiment B – Amphithéâtres et administration",
+      "outdoor": false,
+      "width": 900,
+      "height": 500,
+      "origin": [
+        1100,
+        1300
+      ],
+      "outline": "0,0 900,0 900,500 0,500",
+      "siteOutline": "1100,1300 2000,1300 2000,1800 1100,1800"
+    },
+    {
+      "code": "C",
+      "name": "Bâtiment C – Bibliothèque",
+      "outdoor": false,
+      "width": 900,
+      "height": 700,
+      "origin": [
+        1900,
+        200
+      ],
+      "outline": "0,0 300,0 300,450 600,450 600,0 900,0 900,700 0,700",
+      "siteOutline": "1900,200 2200,200 2200,650 2500,650 2500,200 2800,200 2800,900 1900,900"
+    },
+    {
+      "code": "EXT",
+      "name": "Campus (extérieur)",
+      "outdoor": true,
+      "width": 3000,
+      "height": 2000,
+      "origin": [
+        0,
+        0
+      ],
+      "outline": "0,0 3000,0 3000,2000 0,2000",
+      "siteOutline": "0,0 3000,0 3000,2000 0,2000"
+    }
   ],
   "rooms": [
     {
-      "code": "B001",
+      "code": "A001",
+      "building": "A",
       "floor": 0,
-      "slot": 0,
-      "top": true,
-      "name": "Amphithéâtre Turing",
-      "type": "Amphithéâtre",
-      "tag": "Amphi",
-      "cap": 120,
-      "eq": [
-        "Vidéoprojecteur",
-        "Sonorisation",
-        "Prises"
-      ]
-    },
-    {
-      "code": "B002",
-      "floor": 0,
-      "slot": 1,
-      "top": true,
-      "name": "Salle de TD B002",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B003",
-      "floor": 0,
-      "slot": 2,
-      "top": true,
-      "name": "Secrétariat pédagogique",
-      "type": "Service",
-      "tag": "Secrétariat",
-      "cap": 8,
-      "eq": [
-        "Accueil"
-      ]
-    },
-    {
-      "code": "B004",
-      "floor": 0,
-      "slot": 3,
-      "top": true,
-      "name": "Salle de TD B004",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B005",
-      "floor": 0,
-      "slot": 4,
-      "top": true,
-      "name": "Salle de TD B005",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B006",
-      "floor": 0,
-      "slot": 0,
-      "top": false,
-      "name": "Salle de TD B006",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B007",
-      "floor": 0,
-      "slot": 1,
-      "top": false,
-      "name": "Salle de TD B007",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B008",
-      "floor": 0,
-      "slot": 3,
-      "top": false,
-      "name": "Salle de TD B008",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B009",
-      "floor": 0,
-      "slot": 4,
-      "top": false,
-      "name": "Cafétéria",
-      "type": "Service",
-      "tag": "Cafétéria",
-      "cap": 60,
-      "eq": [
-        "Distributeurs",
-        "Micro-ondes"
-      ]
-    },
-    {
-      "code": "B101",
-      "floor": 1,
-      "slot": 0,
-      "top": true,
-      "name": "Salle de TD B101",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B102",
-      "floor": 1,
-      "slot": 1,
-      "top": true,
-      "name": "Salle de TD B102",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B103",
-      "floor": 1,
-      "slot": 2,
-      "top": true,
-      "name": "Salle de TD B103",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B104",
-      "floor": 1,
-      "slot": 3,
-      "top": true,
-      "name": "Laboratoire de réseaux",
-      "type": "Laboratoire",
-      "tag": "Labo",
+      "name": "TP de chimie",
+      "type": "Salle de TP",
+      "tag": "TP",
       "cap": 24,
       "eq": [
-        "Postes réseau",
-        "Baies",
-        "Vidéoprojecteur"
-      ]
+        "Paillasses",
+        "Hotte",
+        "Tableau"
+      ],
+      "x": 20,
+      "y": 20,
+      "w": 200,
+      "h": 100
     },
     {
-      "code": "B105",
-      "floor": 1,
-      "slot": 4,
-      "top": true,
-      "name": "Salle de TD B105",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
+      "code": "A002",
+      "building": "A",
+      "floor": 0,
+      "name": "TP de biologie",
+      "type": "Salle de TP",
+      "tag": "TP",
+      "cap": 24,
       "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
+        "Paillasses",
+        "Hotte",
+        "Tableau"
+      ],
+      "x": 230,
+      "y": 20,
+      "w": 200,
+      "h": 100
     },
     {
-      "code": "B106",
-      "floor": 1,
-      "slot": 0,
-      "top": false,
-      "name": "Salle de TD B106",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B107",
-      "floor": 1,
-      "slot": 1,
-      "top": false,
-      "name": "Salle de TD B107",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B108",
-      "floor": 1,
-      "slot": 3,
-      "top": false,
-      "name": "Salle informatique 1",
+      "code": "A003",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle informatique A003",
       "type": "Salle informatique",
       "tag": "Info",
       "cap": 30,
       "eq": [
         "30 PC",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 440,
+      "y": 20,
+      "w": 180,
+      "h": 100
     },
     {
-      "code": "B109",
-      "floor": 1,
-      "slot": 4,
-      "top": false,
-      "name": "Salle de TD B109",
+      "code": "A004",
+      "building": "A",
+      "floor": 0,
+      "name": "Secrétariat des sciences",
+      "type": "Secrétariat",
+      "tag": "Secrétariat",
+      "cap": 6,
+      "eq": [
+        "Accueil"
+      ],
+      "x": 630,
+      "y": 20,
+      "w": 160,
+      "h": 100
+    },
+    {
+      "code": "A005",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle de TD A005",
       "type": "Salle de TD",
       "tag": "TD",
       "cap": 30,
       "eq": [
         "Tableau",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 800,
+      "y": 20,
+      "w": 180,
+      "h": 100
     },
     {
-      "code": "B201",
-      "floor": 2,
-      "slot": 0,
-      "top": true,
-      "name": "Salle de TD B201",
+      "code": "A006",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle de TD A006",
       "type": "Salle de TD",
       "tag": "TD",
       "cap": 30,
       "eq": [
         "Tableau",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 90,
+      "y": 180,
+      "w": 180,
+      "h": 100
     },
     {
-      "code": "B202",
-      "floor": 2,
-      "slot": 1,
-      "top": true,
-      "name": "Salle de TD B202",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B203",
-      "floor": 2,
-      "slot": 2,
-      "top": true,
-      "name": "Laboratoire de sécurité",
+      "code": "A007",
+      "building": "A",
+      "floor": 0,
+      "name": "Laboratoire de physique",
       "type": "Laboratoire",
       "tag": "Labo",
       "cap": 20,
       "eq": [
-        "Postes dédiés",
+        "Postes de mesure",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 280,
+      "y": 180,
+      "w": 240,
+      "h": 100
     },
     {
-      "code": "B204",
-      "floor": 2,
-      "slot": 3,
-      "top": true,
-      "name": "Salle de TD B204",
+      "code": "A008",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle de réunion des sciences",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 12,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 530,
+      "y": 180,
+      "w": 150,
+      "h": 100
+    },
+    {
+      "code": "A009",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle de TD A009",
       "type": "Salle de TD",
       "tag": "TD",
       "cap": 30,
       "eq": [
         "Tableau",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 690,
+      "y": 180,
+      "w": 120,
+      "h": 100
     },
     {
-      "code": "B205",
-      "floor": 2,
-      "slot": 4,
-      "top": true,
-      "name": "Salle de TD B205",
+      "code": "A010",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle de TD A010",
       "type": "Salle de TD",
       "tag": "TD",
       "cap": 30,
       "eq": [
         "Tableau",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 720,
+      "y": 320,
+      "w": 100,
+      "h": 200
     },
     {
-      "code": "B206",
-      "floor": 2,
-      "slot": 0,
-      "top": false,
-      "name": "Salle de TD B206",
-      "type": "Salle de TD",
-      "tag": "TD",
-      "cap": 30,
-      "eq": [
-        "Tableau",
-        "Vidéoprojecteur"
-      ]
-    },
-    {
-      "code": "B207",
-      "floor": 2,
-      "slot": 1,
-      "top": false,
-      "name": "Salle informatique 2",
+      "code": "A011",
+      "building": "A",
+      "floor": 0,
+      "name": "Salle informatique A011",
       "type": "Salle informatique",
       "tag": "Info",
       "cap": 30,
       "eq": [
         "30 PC",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 880,
+      "y": 270,
+      "w": 100,
+      "h": 220
     },
     {
-      "code": "B208",
-      "floor": 2,
-      "slot": 3,
-      "top": false,
-      "name": "Salle de TD B208",
+      "code": "A012",
+      "building": "A",
+      "floor": 0,
+      "name": "Laboratoire d'électronique",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes de mesure",
+        "Vidéoprojecteur"
+      ],
+      "x": 880,
+      "y": 500,
+      "w": 100,
+      "h": 240
+    },
+    {
+      "code": "A101",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle de TD A101",
       "type": "Salle de TD",
       "tag": "TD",
       "cap": 30,
       "eq": [
         "Tableau",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 20,
+      "y": 20,
+      "w": 180,
+      "h": 100
     },
     {
-      "code": "B209",
-      "floor": 2,
-      "slot": 4,
-      "top": false,
-      "name": "Salle de TD B209",
+      "code": "A102",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle de TD A102",
       "type": "Salle de TD",
       "tag": "TD",
       "cap": 30,
       "eq": [
         "Tableau",
         "Vidéoprojecteur"
-      ]
+      ],
+      "x": 210,
+      "y": 20,
+      "w": 180,
+      "h": 100
+    },
+    {
+      "code": "A103",
+      "building": "A",
+      "floor": 1,
+      "name": "Laboratoire de chimie organique",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes de mesure",
+        "Vidéoprojecteur"
+      ],
+      "x": 400,
+      "y": 20,
+      "w": 250,
+      "h": 100
+    },
+    {
+      "code": "A104",
+      "building": "A",
+      "floor": 1,
+      "name": "Laboratoire de biologie cellulaire",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes de mesure",
+        "Vidéoprojecteur"
+      ],
+      "x": 660,
+      "y": 20,
+      "w": 320,
+      "h": 100
+    },
+    {
+      "code": "A105",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle de TD A105",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 90,
+      "y": 180,
+      "w": 200,
+      "h": 100
+    },
+    {
+      "code": "A106",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle informatique A106",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ],
+      "x": 300,
+      "y": 180,
+      "w": 200,
+      "h": 100
+    },
+    {
+      "code": "A107",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle de TD A107",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 40,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 510,
+      "y": 180,
+      "w": 300,
+      "h": 100
+    },
+    {
+      "code": "A108",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle de TD A108",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 720,
+      "y": 320,
+      "w": 100,
+      "h": 200
+    },
+    {
+      "code": "A109",
+      "building": "A",
+      "floor": 1,
+      "name": "Salle de réunion A109",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 12,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 720,
+      "y": 540,
+      "w": 100,
+      "h": 200
+    },
+    {
+      "code": "A110",
+      "building": "A",
+      "floor": 1,
+      "name": "Laboratoire de mathématiques appliquées",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes de mesure",
+        "Vidéoprojecteur"
+      ],
+      "x": 880,
+      "y": 270,
+      "w": 100,
+      "h": 470
+    },
+    {
+      "code": "A201",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle de TD A201",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 20,
+      "y": 20,
+      "w": 240,
+      "h": 100
+    },
+    {
+      "code": "A202",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle de TD A202",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 270,
+      "y": 20,
+      "w": 240,
+      "h": 100
+    },
+    {
+      "code": "A203",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle informatique A203",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ],
+      "x": 520,
+      "y": 20,
+      "w": 220,
+      "h": 100
+    },
+    {
+      "code": "A204",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle de TD A204",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 750,
+      "y": 20,
+      "w": 230,
+      "h": 100
+    },
+    {
+      "code": "A205",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle de réunion A205",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 12,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 90,
+      "y": 180,
+      "w": 240,
+      "h": 100
+    },
+    {
+      "code": "A206",
+      "building": "A",
+      "floor": 2,
+      "name": "Laboratoire d'informatique",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes de mesure",
+        "Vidéoprojecteur"
+      ],
+      "x": 340,
+      "y": 180,
+      "w": 240,
+      "h": 100
+    },
+    {
+      "code": "A207",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle de TD A207",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 30,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 590,
+      "y": 180,
+      "w": 220,
+      "h": 100
+    },
+    {
+      "code": "A208",
+      "building": "A",
+      "floor": 2,
+      "name": "Salle de TD A208",
+      "type": "Salle de TD",
+      "tag": "TD",
+      "cap": 40,
+      "eq": [
+        "Tableau",
+        "Vidéoprojecteur"
+      ],
+      "x": 720,
+      "y": 320,
+      "w": 100,
+      "h": 420
+    },
+    {
+      "code": "A209",
+      "building": "A",
+      "floor": 2,
+      "name": "TP de physique",
+      "type": "Salle de TP",
+      "tag": "TP",
+      "cap": 24,
+      "eq": [
+        "Paillasses",
+        "Hotte",
+        "Tableau"
+      ],
+      "x": 880,
+      "y": 270,
+      "w": 100,
+      "h": 220
+    },
+    {
+      "code": "A210",
+      "building": "A",
+      "floor": 2,
+      "name": "Bureau des enseignants-chercheurs",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 880,
+      "y": 500,
+      "w": 100,
+      "h": 240
+    },
+    {
+      "code": "B001",
+      "building": "B",
+      "floor": 0,
+      "name": "Amphithéâtre Turing",
+      "type": "Amphithéâtre",
+      "tag": "Amphi",
+      "cap": 250,
+      "eq": [
+        "Vidéoprojecteur",
+        "Sonorisation",
+        "Prises"
+      ],
+      "x": 20,
+      "y": 20,
+      "w": 300,
+      "h": 200
+    },
+    {
+      "code": "B002",
+      "building": "B",
+      "floor": 0,
+      "name": "Accueil du campus",
+      "type": "Accueil",
+      "tag": "Accueil",
+      "cap": 4,
+      "eq": [
+        "Accueil",
+        "Plans du campus"
+      ],
+      "x": 20,
+      "y": 280,
+      "w": 140,
+      "h": 200
+    },
+    {
+      "code": "B003",
+      "building": "B",
+      "floor": 0,
+      "name": "Scolarité",
+      "type": "Scolarité",
+      "tag": "Scolarité",
+      "cap": 8,
+      "eq": [
+        "Accueil",
+        "Guichets"
+      ],
+      "x": 170,
+      "y": 280,
+      "w": 150,
+      "h": 200
+    },
+    {
+      "code": "B004",
+      "building": "B",
+      "floor": 0,
+      "name": "Amphithéâtre Lovelace",
+      "type": "Amphithéâtre",
+      "tag": "Amphi",
+      "cap": 180,
+      "eq": [
+        "Vidéoprojecteur",
+        "Sonorisation",
+        "Prises"
+      ],
+      "x": 580,
+      "y": 20,
+      "w": 270,
+      "h": 200
+    },
+    {
+      "code": "B005",
+      "building": "B",
+      "floor": 0,
+      "name": "Cafétéria",
+      "type": "Cafétéria",
+      "tag": "Cafétéria",
+      "cap": 80,
+      "eq": [
+        "Distributeurs",
+        "Micro-ondes"
+      ],
+      "x": 580,
+      "y": 280,
+      "w": 180,
+      "h": 200
+    },
+    {
+      "code": "B006",
+      "building": "B",
+      "floor": 0,
+      "name": "Secrétariat pédagogique",
+      "type": "Secrétariat",
+      "tag": "Secrétariat",
+      "cap": 6,
+      "eq": [
+        "Accueil"
+      ],
+      "x": 770,
+      "y": 280,
+      "w": 90,
+      "h": 200
+    },
+    {
+      "code": "B007",
+      "building": "B",
+      "floor": 0,
+      "name": "Reprographie",
+      "type": "Service",
+      "tag": "Service",
+      "cap": 4,
+      "eq": [
+        "Photocopieurs"
+      ],
+      "x": 340,
+      "y": 380,
+      "w": 90,
+      "h": 90
+    },
+    {
+      "code": "B008",
+      "building": "B",
+      "floor": 0,
+      "name": "Bureau des associations",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 470,
+      "y": 380,
+      "w": 90,
+      "h": 90
+    },
+    {
+      "code": "B101",
+      "building": "B",
+      "floor": 1,
+      "name": "Salle du conseil",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 40,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 20,
+      "y": 20,
+      "w": 300,
+      "h": 200
+    },
+    {
+      "code": "B102",
+      "building": "B",
+      "floor": 1,
+      "name": "Direction du campus",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 20,
+      "y": 280,
+      "w": 150,
+      "h": 200
+    },
+    {
+      "code": "B103",
+      "building": "B",
+      "floor": 1,
+      "name": "Ressources humaines",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 180,
+      "y": 280,
+      "w": 140,
+      "h": 200
+    },
+    {
+      "code": "B104",
+      "building": "B",
+      "floor": 1,
+      "name": "Relations internationales",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 580,
+      "y": 20,
+      "w": 140,
+      "h": 200
+    },
+    {
+      "code": "B105",
+      "building": "B",
+      "floor": 1,
+      "name": "Salle de réunion B105",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 12,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 730,
+      "y": 20,
+      "w": 120,
+      "h": 200
+    },
+    {
+      "code": "B106",
+      "building": "B",
+      "floor": 1,
+      "name": "Service financier",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 580,
+      "y": 280,
+      "w": 140,
+      "h": 200
+    },
+    {
+      "code": "B107",
+      "building": "B",
+      "floor": 1,
+      "name": "Bureau des enseignants",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 730,
+      "y": 280,
+      "w": 120,
+      "h": 200
+    },
+    {
+      "code": "B108",
+      "building": "B",
+      "floor": 1,
+      "name": "Salle de visioconférence",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 12,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 380,
+      "y": 420,
+      "w": 140,
+      "h": 60
+    },
+    {
+      "code": "C001",
+      "building": "C",
+      "floor": 0,
+      "name": "Bibliothèque universitaire",
+      "type": "Bibliothèque",
+      "tag": "Biblio",
+      "cap": 200,
+      "eq": [
+        "Rayonnages",
+        "Postes de consultation",
+        "Wi-Fi"
+      ],
+      "x": 10,
+      "y": 90,
+      "w": 110,
+      "h": 455
+    },
+    {
+      "code": "C002",
+      "building": "C",
+      "floor": 0,
+      "name": "Accueil de la bibliothèque",
+      "type": "Accueil",
+      "tag": "Accueil",
+      "cap": 4,
+      "eq": [
+        "Accueil",
+        "Plans du campus"
+      ],
+      "x": 180,
+      "y": 160,
+      "w": 110,
+      "h": 150
+    },
+    {
+      "code": "C003",
+      "building": "C",
+      "floor": 0,
+      "name": "Salle de travail en groupe C003",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 180,
+      "y": 320,
+      "w": 110,
+      "h": 120
+    },
+    {
+      "code": "C004",
+      "building": "C",
+      "floor": 0,
+      "name": "Salle informatique C004",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ],
+      "x": 310,
+      "y": 460,
+      "w": 180,
+      "h": 85
+    },
+    {
+      "code": "C005",
+      "building": "C",
+      "floor": 0,
+      "name": "Salle de lecture C005",
+      "type": "Salle de lecture",
+      "tag": "Lecture",
+      "cap": 60,
+      "eq": [
+        "Tables",
+        "Prises",
+        "Wi-Fi"
+      ],
+      "x": 500,
+      "y": 460,
+      "w": 220,
+      "h": 85
+    },
+    {
+      "code": "C006",
+      "building": "C",
+      "floor": 0,
+      "name": "Médiathèque",
+      "type": "Bibliothèque",
+      "tag": "Biblio",
+      "cap": 60,
+      "eq": [
+        "Rayonnages",
+        "Postes de consultation",
+        "Wi-Fi"
+      ],
+      "x": 10,
+      "y": 605,
+      "w": 300,
+      "h": 85
+    },
+    {
+      "code": "C007",
+      "building": "C",
+      "floor": 0,
+      "name": "Point d'impression",
+      "type": "Service",
+      "tag": "Service",
+      "cap": 4,
+      "eq": [
+        "Photocopieurs"
+      ],
+      "x": 320,
+      "y": 605,
+      "w": 90,
+      "h": 85
+    },
+    {
+      "code": "C008",
+      "building": "C",
+      "floor": 0,
+      "name": "Salle de formation C008",
+      "type": "Salle de formation",
+      "tag": "Formation",
+      "cap": 20,
+      "eq": [
+        "Vidéoprojecteur",
+        "20 PC"
+      ],
+      "x": 490,
+      "y": 605,
+      "w": 150,
+      "h": 85
+    },
+    {
+      "code": "C009",
+      "building": "C",
+      "floor": 0,
+      "name": "Salle de travail en groupe C009",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 650,
+      "y": 605,
+      "w": 190,
+      "h": 85
+    },
+    {
+      "code": "C010",
+      "building": "C",
+      "floor": 0,
+      "name": "Salle de travail en groupe C010",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 610,
+      "y": 160,
+      "w": 110,
+      "h": 280
+    },
+    {
+      "code": "C011",
+      "building": "C",
+      "floor": 0,
+      "name": "Espace presse",
+      "type": "Salle de lecture",
+      "tag": "Lecture",
+      "cap": 60,
+      "eq": [
+        "Tables",
+        "Prises",
+        "Wi-Fi"
+      ],
+      "x": 780,
+      "y": 90,
+      "w": 110,
+      "h": 455
+    },
+    {
+      "code": "C101",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle de lecture silencieuse",
+      "type": "Salle de lecture",
+      "tag": "Lecture",
+      "cap": 80,
+      "eq": [
+        "Tables",
+        "Prises",
+        "Wi-Fi"
+      ],
+      "x": 10,
+      "y": 90,
+      "w": 110,
+      "h": 455
+    },
+    {
+      "code": "C102",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle de travail en groupe C102",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 180,
+      "y": 160,
+      "w": 110,
+      "h": 130
+    },
+    {
+      "code": "C103",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle de travail en groupe C103",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 180,
+      "y": 300,
+      "w": 110,
+      "h": 140
+    },
+    {
+      "code": "C104",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle informatique C104",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ],
+      "x": 190,
+      "y": 460,
+      "w": 250,
+      "h": 85
+    },
+    {
+      "code": "C105",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle de formation C105",
+      "type": "Salle de formation",
+      "tag": "Formation",
+      "cap": 20,
+      "eq": [
+        "Vidéoprojecteur",
+        "20 PC"
+      ],
+      "x": 450,
+      "y": 460,
+      "w": 270,
+      "h": 85
+    },
+    {
+      "code": "C106",
+      "building": "C",
+      "floor": 1,
+      "name": "Fonds patrimoniaux",
+      "type": "Bibliothèque",
+      "tag": "Biblio",
+      "cap": 40,
+      "eq": [
+        "Rayonnages",
+        "Postes de consultation",
+        "Wi-Fi"
+      ],
+      "x": 10,
+      "y": 605,
+      "w": 440,
+      "h": 85
+    },
+    {
+      "code": "C107",
+      "building": "C",
+      "floor": 1,
+      "name": "Espace de coworking",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 40,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 460,
+      "y": 605,
+      "w": 430,
+      "h": 85
+    },
+    {
+      "code": "C108",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle de travail en groupe C108",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 610,
+      "y": 160,
+      "w": 110,
+      "h": 280
+    },
+    {
+      "code": "C109",
+      "building": "C",
+      "floor": 1,
+      "name": "Salle de lecture C109",
+      "type": "Salle de lecture",
+      "tag": "Lecture",
+      "cap": 60,
+      "eq": [
+        "Tables",
+        "Prises",
+        "Wi-Fi"
+      ],
+      "x": 780,
+      "y": 90,
+      "w": 110,
+      "h": 455
+    },
+    {
+      "code": "C201",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle de lecture C201",
+      "type": "Salle de lecture",
+      "tag": "Lecture",
+      "cap": 60,
+      "eq": [
+        "Tables",
+        "Prises",
+        "Wi-Fi"
+      ],
+      "x": 10,
+      "y": 90,
+      "w": 110,
+      "h": 455
+    },
+    {
+      "code": "C202",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle de réunion C202",
+      "type": "Salle de réunion",
+      "tag": "Réunion",
+      "cap": 12,
+      "eq": [
+        "Écran",
+        "Visioconférence"
+      ],
+      "x": 180,
+      "y": 160,
+      "w": 110,
+      "h": 280
+    },
+    {
+      "code": "C203",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle informatique C203",
+      "type": "Salle informatique",
+      "tag": "Info",
+      "cap": 30,
+      "eq": [
+        "30 PC",
+        "Vidéoprojecteur"
+      ],
+      "x": 190,
+      "y": 460,
+      "w": 260,
+      "h": 85
+    },
+    {
+      "code": "C204",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle de travail en groupe C204",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 460,
+      "y": 460,
+      "w": 260,
+      "h": 85
+    },
+    {
+      "code": "C205",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle de formation C205",
+      "type": "Salle de formation",
+      "tag": "Formation",
+      "cap": 20,
+      "eq": [
+        "Vidéoprojecteur",
+        "20 PC"
+      ],
+      "x": 10,
+      "y": 605,
+      "w": 440,
+      "h": 85
+    },
+    {
+      "code": "C206",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle de travail en groupe C206",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 460,
+      "y": 605,
+      "w": 240,
+      "h": 85
+    },
+    {
+      "code": "C207",
+      "building": "C",
+      "floor": 2,
+      "name": "Bureau des bibliothécaires",
+      "type": "Bureau",
+      "tag": "Bureau",
+      "cap": 6,
+      "eq": [
+        "Postes de travail"
+      ],
+      "x": 710,
+      "y": 605,
+      "w": 180,
+      "h": 85
+    },
+    {
+      "code": "C208",
+      "building": "C",
+      "floor": 2,
+      "name": "Salle de travail en groupe C208",
+      "type": "Salle de travail en groupe",
+      "tag": "Groupe",
+      "cap": 8,
+      "eq": [
+        "Écran",
+        "Tableau blanc"
+      ],
+      "x": 610,
+      "y": 160,
+      "w": 110,
+      "h": 280
+    },
+    {
+      "code": "C209",
+      "building": "C",
+      "floor": 2,
+      "name": "Laboratoire de langues",
+      "type": "Laboratoire",
+      "tag": "Labo",
+      "cap": 20,
+      "eq": [
+        "Postes de mesure",
+        "Vidéoprojecteur"
+      ],
+      "x": 780,
+      "y": 90,
+      "w": 110,
+      "h": 455
     }
   ],
   "nodes": [
     {
-      "id": "C0_0",
+      "id": "A0-D1",
+      "building": "A",
       "floor": 0,
-      "x": 128,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
+      "x": 0,
+      "y": 150,
+      "type": "entrance",
+      "label": "Bâtiment A – porte ouest"
     },
     {
-      "id": "C0_1",
+      "id": "A0-D2",
+      "building": "A",
       "floor": 0,
-      "x": 264,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
+      "x": 700,
+      "y": 560,
+      "type": "entrance",
+      "label": "Bâtiment A – porte cour"
     },
     {
-      "id": "C0_2",
+      "id": "A0-E",
+      "building": "A",
       "floor": 0,
-      "x": 400,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "C0_3",
-      "floor": 0,
-      "x": 536,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "C0_4",
-      "floor": 0,
-      "x": 672,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "S0",
-      "floor": 0,
-      "x": 32,
-      "y": 200,
-      "type": "stairs",
-      "label": "Escalier"
-    },
-    {
-      "id": "E0",
-      "floor": 0,
-      "x": 768,
-      "y": 200,
+      "x": 880,
+      "y": 220,
       "type": "elevator",
       "label": "Ascenseur"
     },
     {
-      "id": "B001",
+      "id": "A0-E_C",
+      "building": "A",
       "floor": 0,
-      "x": 128,
-      "y": 115,
+      "x": 850,
+      "y": 220,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-G",
+      "building": "A",
+      "floor": 0,
+      "x": 730,
+      "y": 560,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-K",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-S",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 720,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-S1",
+      "building": "A",
+      "floor": 0,
+      "x": 50,
+      "y": 180,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "A0-S1_C",
+      "building": "A",
+      "floor": 0,
+      "x": 50,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-S2",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 750,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "A0-V",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 560,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-W",
+      "building": "A",
+      "floor": 0,
+      "x": 30,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A0-X",
+      "building": "A",
+      "floor": 0,
+      "x": 950,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A001",
+      "building": "A",
+      "floor": 0,
+      "x": 120,
+      "y": 120,
+      "type": "room",
+      "label": "A001"
+    },
+    {
+      "id": "A001_C",
+      "building": "A",
+      "floor": 0,
+      "x": 120,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A002",
+      "building": "A",
+      "floor": 0,
+      "x": 330,
+      "y": 120,
+      "type": "room",
+      "label": "A002"
+    },
+    {
+      "id": "A002_C",
+      "building": "A",
+      "floor": 0,
+      "x": 330,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A003",
+      "building": "A",
+      "floor": 0,
+      "x": 530,
+      "y": 120,
+      "type": "room",
+      "label": "A003"
+    },
+    {
+      "id": "A003_C",
+      "building": "A",
+      "floor": 0,
+      "x": 530,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A004",
+      "building": "A",
+      "floor": 0,
+      "x": 710,
+      "y": 120,
+      "type": "room",
+      "label": "A004"
+    },
+    {
+      "id": "A004_C",
+      "building": "A",
+      "floor": 0,
+      "x": 710,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A005",
+      "building": "A",
+      "floor": 0,
+      "x": 890,
+      "y": 120,
+      "type": "room",
+      "label": "A005"
+    },
+    {
+      "id": "A005_C",
+      "building": "A",
+      "floor": 0,
+      "x": 890,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A006",
+      "building": "A",
+      "floor": 0,
+      "x": 180,
+      "y": 180,
+      "type": "room",
+      "label": "A006"
+    },
+    {
+      "id": "A006_C",
+      "building": "A",
+      "floor": 0,
+      "x": 180,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A007",
+      "building": "A",
+      "floor": 0,
+      "x": 400,
+      "y": 180,
+      "type": "room",
+      "label": "A007"
+    },
+    {
+      "id": "A007_C",
+      "building": "A",
+      "floor": 0,
+      "x": 400,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A008",
+      "building": "A",
+      "floor": 0,
+      "x": 605,
+      "y": 180,
+      "type": "room",
+      "label": "A008"
+    },
+    {
+      "id": "A008_C",
+      "building": "A",
+      "floor": 0,
+      "x": 605,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A009",
+      "building": "A",
+      "floor": 0,
+      "x": 750,
+      "y": 180,
+      "type": "room",
+      "label": "A009"
+    },
+    {
+      "id": "A009_C",
+      "building": "A",
+      "floor": 0,
+      "x": 750,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A010",
+      "building": "A",
+      "floor": 0,
+      "x": 820,
+      "y": 420,
+      "type": "room",
+      "label": "A010"
+    },
+    {
+      "id": "A010_C",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 420,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A011",
+      "building": "A",
+      "floor": 0,
+      "x": 880,
+      "y": 380,
+      "type": "room",
+      "label": "A011"
+    },
+    {
+      "id": "A011_C",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 380,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A012",
+      "building": "A",
+      "floor": 0,
+      "x": 880,
+      "y": 620,
+      "type": "room",
+      "label": "A012"
+    },
+    {
+      "id": "A012_C",
+      "building": "A",
+      "floor": 0,
+      "x": 850,
+      "y": 620,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-E",
+      "building": "A",
+      "floor": 1,
+      "x": 880,
+      "y": 220,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "A1-E_C",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 220,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-K",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-S",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 720,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-S1",
+      "building": "A",
+      "floor": 1,
+      "x": 50,
+      "y": 180,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "A1-S1_C",
+      "building": "A",
+      "floor": 1,
+      "x": 50,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-S2",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 750,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "A1-V",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 560,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-W",
+      "building": "A",
+      "floor": 1,
+      "x": 30,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A1-X",
+      "building": "A",
+      "floor": 1,
+      "x": 950,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A101",
+      "building": "A",
+      "floor": 1,
+      "x": 110,
+      "y": 120,
+      "type": "room",
+      "label": "A101"
+    },
+    {
+      "id": "A101_C",
+      "building": "A",
+      "floor": 1,
+      "x": 110,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A102",
+      "building": "A",
+      "floor": 1,
+      "x": 300,
+      "y": 120,
+      "type": "room",
+      "label": "A102"
+    },
+    {
+      "id": "A102_C",
+      "building": "A",
+      "floor": 1,
+      "x": 300,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A103",
+      "building": "A",
+      "floor": 1,
+      "x": 525,
+      "y": 120,
+      "type": "room",
+      "label": "A103"
+    },
+    {
+      "id": "A103_C",
+      "building": "A",
+      "floor": 1,
+      "x": 525,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A104",
+      "building": "A",
+      "floor": 1,
+      "x": 820,
+      "y": 120,
+      "type": "room",
+      "label": "A104"
+    },
+    {
+      "id": "A104_C",
+      "building": "A",
+      "floor": 1,
+      "x": 820,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A105",
+      "building": "A",
+      "floor": 1,
+      "x": 190,
+      "y": 180,
+      "type": "room",
+      "label": "A105"
+    },
+    {
+      "id": "A105_C",
+      "building": "A",
+      "floor": 1,
+      "x": 190,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A106",
+      "building": "A",
+      "floor": 1,
+      "x": 400,
+      "y": 180,
+      "type": "room",
+      "label": "A106"
+    },
+    {
+      "id": "A106_C",
+      "building": "A",
+      "floor": 1,
+      "x": 400,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A107",
+      "building": "A",
+      "floor": 1,
+      "x": 660,
+      "y": 180,
+      "type": "room",
+      "label": "A107"
+    },
+    {
+      "id": "A107_C",
+      "building": "A",
+      "floor": 1,
+      "x": 660,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A108",
+      "building": "A",
+      "floor": 1,
+      "x": 820,
+      "y": 420,
+      "type": "room",
+      "label": "A108"
+    },
+    {
+      "id": "A108_C",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 420,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A109",
+      "building": "A",
+      "floor": 1,
+      "x": 820,
+      "y": 640,
+      "type": "room",
+      "label": "A109"
+    },
+    {
+      "id": "A109_C",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 640,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A110",
+      "building": "A",
+      "floor": 1,
+      "x": 880,
+      "y": 505,
+      "type": "room",
+      "label": "A110"
+    },
+    {
+      "id": "A110_C",
+      "building": "A",
+      "floor": 1,
+      "x": 850,
+      "y": 505,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-E",
+      "building": "A",
+      "floor": 2,
+      "x": 880,
+      "y": 220,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "A2-E_C",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 220,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-K",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-S",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 720,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-S1",
+      "building": "A",
+      "floor": 2,
+      "x": 50,
+      "y": 180,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "A2-S1_C",
+      "building": "A",
+      "floor": 2,
+      "x": 50,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-S2",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 750,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "A2-V",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 560,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-W",
+      "building": "A",
+      "floor": 2,
+      "x": 30,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A2-X",
+      "building": "A",
+      "floor": 2,
+      "x": 950,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A201",
+      "building": "A",
+      "floor": 2,
+      "x": 140,
+      "y": 120,
+      "type": "room",
+      "label": "A201"
+    },
+    {
+      "id": "A201_C",
+      "building": "A",
+      "floor": 2,
+      "x": 140,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A202",
+      "building": "A",
+      "floor": 2,
+      "x": 390,
+      "y": 120,
+      "type": "room",
+      "label": "A202"
+    },
+    {
+      "id": "A202_C",
+      "building": "A",
+      "floor": 2,
+      "x": 390,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A203",
+      "building": "A",
+      "floor": 2,
+      "x": 630,
+      "y": 120,
+      "type": "room",
+      "label": "A203"
+    },
+    {
+      "id": "A203_C",
+      "building": "A",
+      "floor": 2,
+      "x": 630,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A204",
+      "building": "A",
+      "floor": 2,
+      "x": 865,
+      "y": 120,
+      "type": "room",
+      "label": "A204"
+    },
+    {
+      "id": "A204_C",
+      "building": "A",
+      "floor": 2,
+      "x": 865,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A205",
+      "building": "A",
+      "floor": 2,
+      "x": 210,
+      "y": 180,
+      "type": "room",
+      "label": "A205"
+    },
+    {
+      "id": "A205_C",
+      "building": "A",
+      "floor": 2,
+      "x": 210,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A206",
+      "building": "A",
+      "floor": 2,
+      "x": 460,
+      "y": 180,
+      "type": "room",
+      "label": "A206"
+    },
+    {
+      "id": "A206_C",
+      "building": "A",
+      "floor": 2,
+      "x": 460,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A207",
+      "building": "A",
+      "floor": 2,
+      "x": 700,
+      "y": 180,
+      "type": "room",
+      "label": "A207"
+    },
+    {
+      "id": "A207_C",
+      "building": "A",
+      "floor": 2,
+      "x": 700,
+      "y": 150,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A208",
+      "building": "A",
+      "floor": 2,
+      "x": 820,
+      "y": 530,
+      "type": "room",
+      "label": "A208"
+    },
+    {
+      "id": "A208_C",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 530,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A209",
+      "building": "A",
+      "floor": 2,
+      "x": 880,
+      "y": 380,
+      "type": "room",
+      "label": "A209"
+    },
+    {
+      "id": "A209_C",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 380,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "A210",
+      "building": "A",
+      "floor": 2,
+      "x": 880,
+      "y": 620,
+      "type": "room",
+      "label": "A210"
+    },
+    {
+      "id": "A210_C",
+      "building": "A",
+      "floor": 2,
+      "x": 850,
+      "y": 620,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-BE",
+      "building": "B",
+      "floor": 0,
+      "x": 830,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-BW",
+      "building": "B",
+      "floor": 0,
+      "x": 30,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-D1",
+      "building": "B",
+      "floor": 0,
+      "x": 450,
+      "y": 500,
+      "type": "entrance",
+      "label": "Bâtiment B – entrée principale"
+    },
+    {
+      "id": "B0-D2",
+      "building": "B",
+      "floor": 0,
+      "x": 450,
+      "y": 0,
+      "type": "entrance",
+      "label": "Bâtiment B – porte cour"
+    },
+    {
+      "id": "B0-E",
+      "building": "B",
+      "floor": 0,
+      "x": 500,
+      "y": 70,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "B0-H",
+      "building": "B",
+      "floor": 0,
+      "x": 450,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-HN",
+      "building": "B",
+      "floor": 0,
+      "x": 450,
+      "y": 30,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-HS",
+      "building": "B",
+      "floor": 0,
+      "x": 450,
+      "y": 470,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-S1",
+      "building": "B",
+      "floor": 0,
+      "x": 400,
+      "y": 70,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "B0-S1_C",
+      "building": "B",
+      "floor": 0,
+      "x": 450,
+      "y": 70,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B0-S2",
+      "building": "B",
+      "floor": 0,
+      "x": 850,
+      "y": 250,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "B001",
+      "building": "B",
+      "floor": 0,
+      "x": 170,
+      "y": 220,
       "type": "room",
       "label": "B001"
     },
     {
-      "id": "B002",
+      "id": "B001_C",
+      "building": "B",
       "floor": 0,
-      "x": 264,
-      "y": 115,
+      "x": 170,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B002",
+      "building": "B",
+      "floor": 0,
+      "x": 90,
+      "y": 280,
       "type": "room",
       "label": "B002"
     },
     {
-      "id": "B003",
+      "id": "B002_C",
+      "building": "B",
       "floor": 0,
-      "x": 400,
-      "y": 115,
+      "x": 90,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B003",
+      "building": "B",
+      "floor": 0,
+      "x": 245,
+      "y": 280,
       "type": "room",
       "label": "B003"
     },
     {
-      "id": "B004",
+      "id": "B003_C",
+      "building": "B",
       "floor": 0,
-      "x": 536,
-      "y": 115,
+      "x": 245,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B004",
+      "building": "B",
+      "floor": 0,
+      "x": 715,
+      "y": 220,
       "type": "room",
       "label": "B004"
     },
     {
-      "id": "B005",
+      "id": "B004_C",
+      "building": "B",
       "floor": 0,
-      "x": 672,
-      "y": 115,
+      "x": 715,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B005",
+      "building": "B",
+      "floor": 0,
+      "x": 670,
+      "y": 280,
       "type": "room",
       "label": "B005"
     },
     {
-      "id": "B006",
+      "id": "B005_C",
+      "building": "B",
       "floor": 0,
-      "x": 128,
-      "y": 285,
+      "x": 670,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B006",
+      "building": "B",
+      "floor": 0,
+      "x": 815,
+      "y": 280,
       "type": "room",
       "label": "B006"
     },
     {
-      "id": "B007",
+      "id": "B006_C",
+      "building": "B",
       "floor": 0,
-      "x": 264,
-      "y": 285,
+      "x": 815,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B007",
+      "building": "B",
+      "floor": 0,
+      "x": 430,
+      "y": 425,
       "type": "room",
       "label": "B007"
     },
     {
-      "id": "B008",
+      "id": "B007_C",
+      "building": "B",
       "floor": 0,
-      "x": 536,
-      "y": 285,
+      "x": 450,
+      "y": 425,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B008",
+      "building": "B",
+      "floor": 0,
+      "x": 470,
+      "y": 425,
       "type": "room",
       "label": "B008"
     },
     {
-      "id": "B009",
-      "floor": 0,
-      "x": 672,
-      "y": 285,
-      "type": "room",
-      "label": "B009"
-    },
-    {
-      "id": "C1_0",
+      "id": "B1-BE",
+      "building": "B",
       "floor": 1,
-      "x": 128,
-      "y": 200,
+      "x": 830,
+      "y": 250,
       "type": "corridor",
       "label": "Couloir"
     },
     {
-      "id": "C1_1",
+      "id": "B1-BW",
+      "building": "B",
       "floor": 1,
-      "x": 264,
-      "y": 200,
+      "x": 30,
+      "y": 250,
       "type": "corridor",
       "label": "Couloir"
     },
     {
-      "id": "C1_2",
+      "id": "B1-E",
+      "building": "B",
       "floor": 1,
-      "x": 400,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "C1_3",
-      "floor": 1,
-      "x": 536,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "C1_4",
-      "floor": 1,
-      "x": 672,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "S1",
-      "floor": 1,
-      "x": 32,
-      "y": 200,
-      "type": "stairs",
-      "label": "Escalier"
-    },
-    {
-      "id": "E1",
-      "floor": 1,
-      "x": 768,
-      "y": 200,
+      "x": 500,
+      "y": 70,
       "type": "elevator",
       "label": "Ascenseur"
     },
     {
-      "id": "B101",
+      "id": "B1-E_C",
+      "building": "B",
       "floor": 1,
-      "x": 128,
-      "y": 115,
+      "x": 500,
+      "y": 100,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-GE",
+      "building": "B",
+      "floor": 1,
+      "x": 550,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-GW",
+      "building": "B",
+      "floor": 1,
+      "x": 350,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-NE",
+      "building": "B",
+      "floor": 1,
+      "x": 550,
+      "y": 100,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-NW",
+      "building": "B",
+      "floor": 1,
+      "x": 350,
+      "y": 100,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-S1",
+      "building": "B",
+      "floor": 1,
+      "x": 400,
+      "y": 70,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "B1-S1_C",
+      "building": "B",
+      "floor": 1,
+      "x": 400,
+      "y": 100,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-S2",
+      "building": "B",
+      "floor": 1,
+      "x": 850,
+      "y": 250,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "B1-SE",
+      "building": "B",
+      "floor": 1,
+      "x": 550,
+      "y": 400,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B1-SW",
+      "building": "B",
+      "floor": 1,
+      "x": 350,
+      "y": 400,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B101",
+      "building": "B",
+      "floor": 1,
+      "x": 170,
+      "y": 220,
       "type": "room",
       "label": "B101"
     },
     {
-      "id": "B102",
+      "id": "B101_C",
+      "building": "B",
       "floor": 1,
-      "x": 264,
-      "y": 115,
+      "x": 170,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B102",
+      "building": "B",
+      "floor": 1,
+      "x": 95,
+      "y": 280,
       "type": "room",
       "label": "B102"
     },
     {
-      "id": "B103",
+      "id": "B102_C",
+      "building": "B",
       "floor": 1,
-      "x": 400,
-      "y": 115,
+      "x": 95,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B103",
+      "building": "B",
+      "floor": 1,
+      "x": 250,
+      "y": 280,
       "type": "room",
       "label": "B103"
     },
     {
-      "id": "B104",
+      "id": "B103_C",
+      "building": "B",
       "floor": 1,
-      "x": 536,
-      "y": 115,
+      "x": 250,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B104",
+      "building": "B",
+      "floor": 1,
+      "x": 650,
+      "y": 220,
       "type": "room",
       "label": "B104"
     },
     {
-      "id": "B105",
+      "id": "B104_C",
+      "building": "B",
       "floor": 1,
-      "x": 672,
-      "y": 115,
+      "x": 650,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B105",
+      "building": "B",
+      "floor": 1,
+      "x": 790,
+      "y": 220,
       "type": "room",
       "label": "B105"
     },
     {
-      "id": "B106",
+      "id": "B105_C",
+      "building": "B",
       "floor": 1,
-      "x": 128,
-      "y": 285,
+      "x": 790,
+      "y": 250,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "B106",
+      "building": "B",
+      "floor": 1,
+      "x": 650,
+      "y": 280,
       "type": "room",
       "label": "B106"
     },
     {
       "id": "B107",
+      "building": "B",
       "floor": 1,
-      "x": 264,
-      "y": 285,
+      "x": 790,
+      "y": 280,
       "type": "room",
       "label": "B107"
     },
     {
       "id": "B108",
+      "building": "B",
       "floor": 1,
-      "x": 536,
-      "y": 285,
+      "x": 450,
+      "y": 420,
       "type": "room",
       "label": "B108"
     },
     {
-      "id": "B109",
+      "id": "B108_C",
+      "building": "B",
       "floor": 1,
-      "x": 672,
-      "y": 285,
-      "type": "room",
-      "label": "B109"
-    },
-    {
-      "id": "C2_0",
-      "floor": 2,
-      "x": 128,
-      "y": 200,
+      "x": 450,
+      "y": 400,
       "type": "corridor",
       "label": "Couloir"
     },
     {
-      "id": "C2_1",
-      "floor": 2,
-      "x": 264,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
+      "id": "C0-D1",
+      "building": "C",
+      "floor": 0,
+      "x": 450,
+      "y": 700,
+      "type": "entrance",
+      "label": "Bâtiment C – entrée"
     },
     {
-      "id": "C2_2",
-      "floor": 2,
-      "x": 400,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "C2_3",
-      "floor": 2,
-      "x": 536,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "C2_4",
-      "floor": 2,
-      "x": 672,
-      "y": 200,
-      "type": "corridor",
-      "label": "Couloir"
-    },
-    {
-      "id": "S2",
-      "floor": 2,
-      "x": 32,
-      "y": 200,
-      "type": "stairs",
-      "label": "Escalier"
-    },
-    {
-      "id": "E2",
-      "floor": 2,
-      "x": 768,
-      "y": 200,
+      "id": "C0-E",
+      "building": "C",
+      "floor": 0,
+      "x": 180,
+      "y": 120,
       "type": "elevator",
       "label": "Ascenseur"
     },
     {
-      "id": "B201",
-      "floor": 2,
-      "x": 128,
-      "y": 115,
-      "type": "room",
-      "label": "B201"
+      "id": "C0-EN",
+      "building": "C",
+      "floor": 0,
+      "x": 750,
+      "y": 80,
+      "type": "corridor",
+      "label": "Couloir"
     },
     {
-      "id": "B202",
-      "floor": 2,
-      "x": 264,
-      "y": 115,
-      "type": "room",
-      "label": "B202"
+      "id": "C0-ES",
+      "building": "C",
+      "floor": 0,
+      "x": 750,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
     },
     {
-      "id": "B203",
-      "floor": 2,
+      "id": "C0-E_C",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 120,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0-MD",
+      "building": "C",
+      "floor": 0,
+      "x": 450,
+      "y": 670,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0-MS",
+      "building": "C",
+      "floor": 0,
+      "x": 450,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0-S1",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 50,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "C0-S2",
+      "building": "C",
+      "floor": 0,
+      "x": 750,
+      "y": 50,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "C0-WN",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 80,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C0-WS",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C001",
+      "building": "C",
+      "floor": 0,
+      "x": 120,
+      "y": 318,
+      "type": "room",
+      "label": "C001"
+    },
+    {
+      "id": "C001_C",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 318,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C002",
+      "building": "C",
+      "floor": 0,
+      "x": 180,
+      "y": 235,
+      "type": "room",
+      "label": "C002"
+    },
+    {
+      "id": "C002_C",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 235,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C003",
+      "building": "C",
+      "floor": 0,
+      "x": 180,
+      "y": 380,
+      "type": "room",
+      "label": "C003"
+    },
+    {
+      "id": "C003_C",
+      "building": "C",
+      "floor": 0,
+      "x": 150,
+      "y": 380,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C004",
+      "building": "C",
+      "floor": 0,
       "x": 400,
-      "y": 115,
+      "y": 545,
       "type": "room",
-      "label": "B203"
+      "label": "C004"
     },
     {
-      "id": "B204",
-      "floor": 2,
-      "x": 536,
-      "y": 115,
-      "type": "room",
-      "label": "B204"
+      "id": "C004_C",
+      "building": "C",
+      "floor": 0,
+      "x": 400,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
     },
     {
-      "id": "B205",
-      "floor": 2,
-      "x": 672,
-      "y": 115,
+      "id": "C005",
+      "building": "C",
+      "floor": 0,
+      "x": 610,
+      "y": 545,
       "type": "room",
-      "label": "B205"
+      "label": "C005"
     },
     {
-      "id": "B206",
-      "floor": 2,
-      "x": 128,
-      "y": 285,
-      "type": "room",
-      "label": "B206"
+      "id": "C005_C",
+      "building": "C",
+      "floor": 0,
+      "x": 610,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
     },
     {
-      "id": "B207",
-      "floor": 2,
-      "x": 264,
-      "y": 285,
+      "id": "C006",
+      "building": "C",
+      "floor": 0,
+      "x": 160,
+      "y": 605,
       "type": "room",
-      "label": "B207"
+      "label": "C006"
     },
     {
-      "id": "B208",
-      "floor": 2,
-      "x": 536,
-      "y": 285,
-      "type": "room",
-      "label": "B208"
+      "id": "C006_C",
+      "building": "C",
+      "floor": 0,
+      "x": 160,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
     },
     {
-      "id": "B209",
-      "floor": 2,
-      "x": 672,
-      "y": 285,
+      "id": "C007",
+      "building": "C",
+      "floor": 0,
+      "x": 365,
+      "y": 605,
       "type": "room",
-      "label": "B209"
+      "label": "C007"
+    },
+    {
+      "id": "C007_C",
+      "building": "C",
+      "floor": 0,
+      "x": 365,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C008",
+      "building": "C",
+      "floor": 0,
+      "x": 565,
+      "y": 605,
+      "type": "room",
+      "label": "C008"
+    },
+    {
+      "id": "C008_C",
+      "building": "C",
+      "floor": 0,
+      "x": 565,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C009",
+      "building": "C",
+      "floor": 0,
+      "x": 745,
+      "y": 605,
+      "type": "room",
+      "label": "C009"
+    },
+    {
+      "id": "C009_C",
+      "building": "C",
+      "floor": 0,
+      "x": 745,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C010",
+      "building": "C",
+      "floor": 0,
+      "x": 720,
+      "y": 300,
+      "type": "room",
+      "label": "C010"
+    },
+    {
+      "id": "C010_C",
+      "building": "C",
+      "floor": 0,
+      "x": 750,
+      "y": 300,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C011",
+      "building": "C",
+      "floor": 0,
+      "x": 780,
+      "y": 318,
+      "type": "room",
+      "label": "C011"
+    },
+    {
+      "id": "C011_C",
+      "building": "C",
+      "floor": 0,
+      "x": 750,
+      "y": 318,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1-E",
+      "building": "C",
+      "floor": 1,
+      "x": 180,
+      "y": 120,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "C1-EN",
+      "building": "C",
+      "floor": 1,
+      "x": 750,
+      "y": 80,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1-ES",
+      "building": "C",
+      "floor": 1,
+      "x": 750,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1-E_C",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 120,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1-MS",
+      "building": "C",
+      "floor": 1,
+      "x": 450,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1-S1",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 50,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "C1-S2",
+      "building": "C",
+      "floor": 1,
+      "x": 750,
+      "y": 50,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "C1-WN",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 80,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C1-WS",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C101",
+      "building": "C",
+      "floor": 1,
+      "x": 120,
+      "y": 318,
+      "type": "room",
+      "label": "C101"
+    },
+    {
+      "id": "C101_C",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 318,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C102",
+      "building": "C",
+      "floor": 1,
+      "x": 180,
+      "y": 225,
+      "type": "room",
+      "label": "C102"
+    },
+    {
+      "id": "C102_C",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 225,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C103",
+      "building": "C",
+      "floor": 1,
+      "x": 180,
+      "y": 370,
+      "type": "room",
+      "label": "C103"
+    },
+    {
+      "id": "C103_C",
+      "building": "C",
+      "floor": 1,
+      "x": 150,
+      "y": 370,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C104",
+      "building": "C",
+      "floor": 1,
+      "x": 315,
+      "y": 545,
+      "type": "room",
+      "label": "C104"
+    },
+    {
+      "id": "C104_C",
+      "building": "C",
+      "floor": 1,
+      "x": 315,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C105",
+      "building": "C",
+      "floor": 1,
+      "x": 585,
+      "y": 545,
+      "type": "room",
+      "label": "C105"
+    },
+    {
+      "id": "C105_C",
+      "building": "C",
+      "floor": 1,
+      "x": 585,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C106",
+      "building": "C",
+      "floor": 1,
+      "x": 230,
+      "y": 605,
+      "type": "room",
+      "label": "C106"
+    },
+    {
+      "id": "C106_C",
+      "building": "C",
+      "floor": 1,
+      "x": 230,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C107",
+      "building": "C",
+      "floor": 1,
+      "x": 675,
+      "y": 605,
+      "type": "room",
+      "label": "C107"
+    },
+    {
+      "id": "C107_C",
+      "building": "C",
+      "floor": 1,
+      "x": 675,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C108",
+      "building": "C",
+      "floor": 1,
+      "x": 720,
+      "y": 300,
+      "type": "room",
+      "label": "C108"
+    },
+    {
+      "id": "C108_C",
+      "building": "C",
+      "floor": 1,
+      "x": 750,
+      "y": 300,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C109",
+      "building": "C",
+      "floor": 1,
+      "x": 780,
+      "y": 318,
+      "type": "room",
+      "label": "C109"
+    },
+    {
+      "id": "C109_C",
+      "building": "C",
+      "floor": 1,
+      "x": 750,
+      "y": 318,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2-E",
+      "building": "C",
+      "floor": 2,
+      "x": 180,
+      "y": 120,
+      "type": "elevator",
+      "label": "Ascenseur"
+    },
+    {
+      "id": "C2-EN",
+      "building": "C",
+      "floor": 2,
+      "x": 750,
+      "y": 80,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2-ES",
+      "building": "C",
+      "floor": 2,
+      "x": 750,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2-E_C",
+      "building": "C",
+      "floor": 2,
+      "x": 150,
+      "y": 120,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2-MS",
+      "building": "C",
+      "floor": 2,
+      "x": 450,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2-S1",
+      "building": "C",
+      "floor": 2,
+      "x": 150,
+      "y": 50,
+      "type": "stairs",
+      "label": "Escalier S1"
+    },
+    {
+      "id": "C2-S2",
+      "building": "C",
+      "floor": 2,
+      "x": 750,
+      "y": 50,
+      "type": "stairs",
+      "label": "Escalier S2"
+    },
+    {
+      "id": "C2-WN",
+      "building": "C",
+      "floor": 2,
+      "x": 150,
+      "y": 80,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C2-WS",
+      "building": "C",
+      "floor": 2,
+      "x": 150,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C201",
+      "building": "C",
+      "floor": 2,
+      "x": 120,
+      "y": 318,
+      "type": "room",
+      "label": "C201"
+    },
+    {
+      "id": "C201_C",
+      "building": "C",
+      "floor": 2,
+      "x": 150,
+      "y": 318,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C202",
+      "building": "C",
+      "floor": 2,
+      "x": 180,
+      "y": 300,
+      "type": "room",
+      "label": "C202"
+    },
+    {
+      "id": "C202_C",
+      "building": "C",
+      "floor": 2,
+      "x": 150,
+      "y": 300,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C203",
+      "building": "C",
+      "floor": 2,
+      "x": 320,
+      "y": 545,
+      "type": "room",
+      "label": "C203"
+    },
+    {
+      "id": "C203_C",
+      "building": "C",
+      "floor": 2,
+      "x": 320,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C204",
+      "building": "C",
+      "floor": 2,
+      "x": 590,
+      "y": 545,
+      "type": "room",
+      "label": "C204"
+    },
+    {
+      "id": "C204_C",
+      "building": "C",
+      "floor": 2,
+      "x": 590,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C205",
+      "building": "C",
+      "floor": 2,
+      "x": 230,
+      "y": 605,
+      "type": "room",
+      "label": "C205"
+    },
+    {
+      "id": "C205_C",
+      "building": "C",
+      "floor": 2,
+      "x": 230,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C206",
+      "building": "C",
+      "floor": 2,
+      "x": 580,
+      "y": 605,
+      "type": "room",
+      "label": "C206"
+    },
+    {
+      "id": "C206_C",
+      "building": "C",
+      "floor": 2,
+      "x": 580,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C207",
+      "building": "C",
+      "floor": 2,
+      "x": 746,
+      "y": 605,
+      "type": "room",
+      "label": "C207"
+    },
+    {
+      "id": "C207_C",
+      "building": "C",
+      "floor": 2,
+      "x": 746,
+      "y": 575,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C208",
+      "building": "C",
+      "floor": 2,
+      "x": 720,
+      "y": 300,
+      "type": "room",
+      "label": "C208"
+    },
+    {
+      "id": "C208_C",
+      "building": "C",
+      "floor": 2,
+      "x": 750,
+      "y": 300,
+      "type": "corridor",
+      "label": "Couloir"
+    },
+    {
+      "id": "C209",
+      "building": "C",
+      "floor": 2,
+      "x": 780,
+      "y": 318,
+      "type": "room",
+      "label": "C209"
+    },
+    {
+      "id": "C209_C",
+      "building": "C",
+      "floor": 2,
+      "x": 750,
+      "y": 318,
+      "type": "corridor",
+      "label": "Couloir"
     },
     {
       "id": "ENTREE",
+      "building": "EXT",
       "floor": 0,
-      "x": 400,
-      "y": 300,
+      "x": 1550,
+      "y": 1960,
       "type": "entrance",
-      "label": "Entrée principale"
+      "label": "Entrée du campus"
+    },
+    {
+      "id": "EXT-P1",
+      "building": "EXT",
+      "floor": 0,
+      "x": 1550,
+      "y": 1840,
+      "type": "outdoor",
+      "label": "Parvis du bâtiment B"
+    },
+    {
+      "id": "EXT-P2",
+      "building": "EXT",
+      "floor": 0,
+      "x": 1550,
+      "y": 1100,
+      "type": "outdoor",
+      "label": "Cour centrale"
+    },
+    {
+      "id": "EXT-P3",
+      "building": "EXT",
+      "floor": 0,
+      "x": 1550,
+      "y": 1260,
+      "type": "outdoor",
+      "label": "Cour – côté B"
+    },
+    {
+      "id": "EXT-P4",
+      "building": "EXT",
+      "floor": 0,
+      "x": 2350,
+      "y": 1100,
+      "type": "outdoor",
+      "label": "Bas des marches"
+    },
+    {
+      "id": "EXT-P5",
+      "building": "EXT",
+      "floor": 0,
+      "x": 2350,
+      "y": 1000,
+      "type": "outdoor",
+      "label": "Haut des marches"
+    },
+    {
+      "id": "EXT-P6",
+      "building": "EXT",
+      "floor": 0,
+      "x": 2350,
+      "y": 940,
+      "type": "outdoor",
+      "label": "Parvis du bâtiment C"
+    },
+    {
+      "id": "EXT-PA",
+      "building": "EXT",
+      "floor": 0,
+      "x": 860,
+      "y": 760,
+      "type": "outdoor",
+      "label": "Cour – côté A"
+    },
+    {
+      "id": "EXT-PAW",
+      "building": "EXT",
+      "floor": 0,
+      "x": 160,
+      "y": 350,
+      "type": "outdoor",
+      "label": "Allée du bâtiment A"
+    },
+    {
+      "id": "EXT-PC1",
+      "building": "EXT",
+      "floor": 0,
+      "x": 860,
+      "y": 1100,
+      "type": "outdoor",
+      "label": "Cour – angle ouest"
+    },
+    {
+      "id": "EXT-PS",
+      "building": "EXT",
+      "floor": 0,
+      "x": 700,
+      "y": 1840,
+      "type": "outdoor",
+      "label": "Allée sud-ouest"
+    },
+    {
+      "id": "EXT-PW",
+      "building": "EXT",
+      "floor": 0,
+      "x": 160,
+      "y": 1100,
+      "type": "outdoor",
+      "label": "Allée ouest"
+    },
+    {
+      "id": "EXT-R1",
+      "building": "EXT",
+      "floor": 0,
+      "x": 2650,
+      "y": 1100,
+      "type": "outdoor",
+      "label": "Rampe d'accès (bas)"
+    },
+    {
+      "id": "EXT-R2",
+      "building": "EXT",
+      "floor": 0,
+      "x": 2650,
+      "y": 1000,
+      "type": "outdoor",
+      "label": "Rampe d'accès (haut)"
     }
   ],
   "edges": [
     {
-      "a": "C0_0",
-      "b": "C0_1",
-      "w": 136,
+      "a": "A0-D1",
+      "b": "A0-W",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "C0_1",
-      "b": "C0_2",
-      "w": 136,
+      "a": "A0-D1",
+      "b": "EXT-PAW",
+      "w": 40,
       "kind": "walk"
     },
     {
-      "a": "C0_2",
-      "b": "C0_3",
-      "w": 136,
+      "a": "A0-D2",
+      "b": "A0-G",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "C0_3",
-      "b": "C0_4",
-      "w": 136,
+      "a": "A0-D2",
+      "b": "EXT-PA",
+      "w": 40,
       "kind": "walk"
     },
     {
-      "a": "S0",
-      "b": "C0_0",
-      "w": 96,
+      "a": "A0-E_C",
+      "b": "A011_C",
+      "w": 160,
       "kind": "walk"
     },
     {
-      "a": "E0",
-      "b": "C0_4",
-      "w": 96,
+      "a": "A0-E",
+      "b": "A0-E_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-E",
+      "b": "A1-E",
+      "w": 90,
+      "kind": "elevator"
+    },
+    {
+      "a": "A0-K",
+      "b": "A0-E_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-K",
+      "b": "A005_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-S1_C",
+      "b": "A001_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-S1",
+      "b": "A0-S1_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-S1",
+      "b": "A1-S1",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "A0-S2",
+      "b": "A0-S",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-S2",
+      "b": "A1-S2",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "A0-V",
+      "b": "A0-G",
+      "w": 120,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-V",
+      "b": "A012_C",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "A0-W",
+      "b": "A0-S1_C",
+      "w": 20,
+      "kind": "walk"
+    },
+    {
+      "a": "A001_C",
+      "b": "A006_C",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "A001",
+      "b": "A001_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A002_C",
+      "b": "A007_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A002",
+      "b": "A002_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A003_C",
+      "b": "A008_C",
+      "w": 75,
+      "kind": "walk"
+    },
+    {
+      "a": "A003",
+      "b": "A003_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A004_C",
+      "b": "A009_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "A004",
+      "b": "A004_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A005_C",
+      "b": "A0-X",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "A005",
+      "b": "A005_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A006_C",
+      "b": "A002_C",
+      "w": 150,
+      "kind": "walk"
+    },
+    {
+      "a": "A006",
+      "b": "A006_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A007_C",
+      "b": "A003_C",
+      "w": 130,
+      "kind": "walk"
+    },
+    {
+      "a": "A007",
+      "b": "A007_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A008_C",
+      "b": "A004_C",
+      "w": 105,
+      "kind": "walk"
+    },
+    {
+      "a": "A008",
+      "b": "A008_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A009_C",
+      "b": "A0-K",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "A009",
+      "b": "A009_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A010_C",
+      "b": "A0-V",
+      "w": 140,
+      "kind": "walk"
+    },
+    {
+      "a": "A010",
+      "b": "A010_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A011_C",
+      "b": "A010_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "A011",
+      "b": "A011_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A012_C",
+      "b": "A0-S",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "A012",
+      "b": "A012_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-E_C",
+      "b": "A108_C",
+      "w": 200,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-E",
+      "b": "A1-E_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-E",
+      "b": "A2-E",
+      "w": 90,
+      "kind": "elevator"
+    },
+    {
+      "a": "A1-K",
+      "b": "A1-E_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-K",
+      "b": "A1-X",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-S1_C",
+      "b": "A101_C",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-S1",
+      "b": "A1-S1_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-S1",
+      "b": "A2-S1",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "A1-S2",
+      "b": "A1-S",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-S2",
+      "b": "A2-S2",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "A1-V",
+      "b": "A109_C",
+      "w": 80,
+      "kind": "walk"
+    },
+    {
+      "a": "A1-W",
+      "b": "A1-S1_C",
+      "w": 20,
+      "kind": "walk"
+    },
+    {
+      "a": "A101_C",
+      "b": "A105_C",
+      "w": 80,
+      "kind": "walk"
+    },
+    {
+      "a": "A101",
+      "b": "A101_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A102_C",
+      "b": "A106_C",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "A102",
+      "b": "A102_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A103_C",
+      "b": "A107_C",
+      "w": 135,
+      "kind": "walk"
+    },
+    {
+      "a": "A103",
+      "b": "A103_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A104_C",
+      "b": "A1-K",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A104",
+      "b": "A104_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A105_C",
+      "b": "A102_C",
+      "w": 110,
+      "kind": "walk"
+    },
+    {
+      "a": "A105",
+      "b": "A105_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A106_C",
+      "b": "A103_C",
+      "w": 125,
+      "kind": "walk"
+    },
+    {
+      "a": "A106",
+      "b": "A106_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A107_C",
+      "b": "A104_C",
+      "w": 160,
+      "kind": "walk"
+    },
+    {
+      "a": "A107",
+      "b": "A107_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A108_C",
+      "b": "A110_C",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "A108",
+      "b": "A108_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A109_C",
+      "b": "A1-S",
+      "w": 80,
+      "kind": "walk"
+    },
+    {
+      "a": "A109",
+      "b": "A109_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A110_C",
+      "b": "A1-V",
+      "w": 55,
+      "kind": "walk"
+    },
+    {
+      "a": "A110",
+      "b": "A110_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-E_C",
+      "b": "A209_C",
+      "w": 160,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-E",
+      "b": "A2-E_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-K",
+      "b": "A2-E_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-K",
+      "b": "A204_C",
+      "w": 15,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-S1_C",
+      "b": "A201_C",
+      "w": 90,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-S1",
+      "b": "A2-S1_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-S2",
+      "b": "A2-S",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-V",
+      "b": "A210_C",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "A2-W",
+      "b": "A2-S1_C",
+      "w": 20,
+      "kind": "walk"
+    },
+    {
+      "a": "A201_C",
+      "b": "A205_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A201",
+      "b": "A201_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A202_C",
+      "b": "A206_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A202",
+      "b": "A202_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A203_C",
+      "b": "A207_C",
+      "w": 70,
+      "kind": "walk"
+    },
+    {
+      "a": "A203",
+      "b": "A203_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A204_C",
+      "b": "A2-X",
+      "w": 85,
+      "kind": "walk"
+    },
+    {
+      "a": "A204",
+      "b": "A204_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A205_C",
+      "b": "A202_C",
+      "w": 180,
+      "kind": "walk"
+    },
+    {
+      "a": "A205",
+      "b": "A205_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A206_C",
+      "b": "A203_C",
+      "w": 170,
+      "kind": "walk"
+    },
+    {
+      "a": "A206",
+      "b": "A206_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A207_C",
+      "b": "A2-K",
+      "w": 150,
+      "kind": "walk"
+    },
+    {
+      "a": "A207",
+      "b": "A207_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A208_C",
+      "b": "A2-V",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A208",
+      "b": "A208_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A209_C",
+      "b": "A208_C",
+      "w": 150,
+      "kind": "walk"
+    },
+    {
+      "a": "A209",
+      "b": "A209_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "A210_C",
+      "b": "A2-S",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "A210",
+      "b": "A210_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-BW",
+      "b": "B002_C",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-D1",
+      "b": "B0-HS",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-D1",
+      "b": "EXT-P1",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-D2",
+      "b": "B0-HN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-D2",
+      "b": "EXT-P3",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-E",
+      "b": "B0-S1_C",
+      "w": 50,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-E",
+      "b": "B1-E",
+      "w": 90,
+      "kind": "elevator"
+    },
+    {
+      "a": "B0-HN",
+      "b": "B0-S1_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-H",
+      "b": "B005_C",
+      "w": 220,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-H",
+      "b": "B007_C",
+      "w": 175,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-S1_C",
+      "b": "B0-H",
+      "w": 180,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-S1",
+      "b": "B0-S1_C",
+      "w": 50,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-S1",
+      "b": "B1-S1",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "B0-S2",
+      "b": "B0-BE",
+      "w": 20,
+      "kind": "walk"
+    },
+    {
+      "a": "B0-S2",
+      "b": "B1-S2",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "B001_C",
+      "b": "B003_C",
+      "w": 75,
       "kind": "walk"
     },
     {
       "a": "B001",
-      "b": "C0_0",
-      "w": 85,
+      "b": "B001_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B002_C",
+      "b": "B001_C",
+      "w": 80,
       "kind": "walk"
     },
     {
       "a": "B002",
-      "b": "C0_1",
-      "w": 85,
+      "b": "B002_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B003_C",
+      "b": "B0-H",
+      "w": 205,
       "kind": "walk"
     },
     {
       "a": "B003",
-      "b": "C0_2",
-      "w": 85,
+      "b": "B003_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B004_C",
+      "b": "B006_C",
+      "w": 100,
       "kind": "walk"
     },
     {
       "a": "B004",
-      "b": "C0_3",
-      "w": 85,
+      "b": "B004_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B005_C",
+      "b": "B004_C",
+      "w": 45,
       "kind": "walk"
     },
     {
       "a": "B005",
-      "b": "C0_4",
-      "w": 85,
+      "b": "B005_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B006_C",
+      "b": "B0-BE",
+      "w": 15,
       "kind": "walk"
     },
     {
       "a": "B006",
-      "b": "C0_0",
-      "w": 85,
+      "b": "B006_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B007_C",
+      "b": "B0-HS",
+      "w": 45,
       "kind": "walk"
     },
     {
       "a": "B007",
-      "b": "C0_1",
-      "w": 85,
+      "b": "B007_C",
+      "w": 20,
       "kind": "walk"
     },
     {
       "a": "B008",
-      "b": "C0_3",
-      "w": 85,
+      "b": "B007_C",
+      "w": 20,
       "kind": "walk"
     },
     {
-      "a": "B009",
-      "b": "C0_4",
-      "w": 85,
+      "a": "B1-BW",
+      "b": "B102_C",
+      "w": 65,
       "kind": "walk"
     },
     {
-      "a": "C1_0",
-      "b": "C1_1",
-      "w": 136,
+      "a": "B1-E_C",
+      "b": "B1-NE",
+      "w": 50,
       "kind": "walk"
     },
     {
-      "a": "C1_1",
-      "b": "C1_2",
-      "w": 136,
+      "a": "B1-E",
+      "b": "B1-E_C",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "C1_2",
-      "b": "C1_3",
-      "w": 136,
+      "a": "B1-GE",
+      "b": "B1-SE",
+      "w": 150,
       "kind": "walk"
     },
     {
-      "a": "C1_3",
-      "b": "C1_4",
-      "w": 136,
+      "a": "B1-GE",
+      "b": "B104_C",
+      "w": 100,
       "kind": "walk"
     },
     {
-      "a": "S1",
-      "b": "C1_0",
-      "w": 96,
+      "a": "B1-GW",
+      "b": "B1-NW",
+      "w": 150,
       "kind": "walk"
     },
     {
-      "a": "E1",
-      "b": "C1_4",
-      "w": 96,
+      "a": "B1-NE",
+      "b": "B1-GE",
+      "w": 150,
       "kind": "walk"
     },
     {
-      "a": "S0",
-      "b": "S1",
-      "w": 140,
-      "kind": "stairs"
+      "a": "B1-NW",
+      "b": "B1-S1_C",
+      "w": 50,
+      "kind": "walk"
     },
     {
-      "a": "E0",
-      "b": "E1",
-      "w": 90,
-      "kind": "elevator"
+      "a": "B1-S1_C",
+      "b": "B1-E_C",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "B1-S1",
+      "b": "B1-S1_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B1-S2",
+      "b": "B1-BE",
+      "w": 20,
+      "kind": "walk"
+    },
+    {
+      "a": "B1-SE",
+      "b": "B108_C",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "B1-SW",
+      "b": "B1-GW",
+      "w": 150,
+      "kind": "walk"
+    },
+    {
+      "a": "B101_C",
+      "b": "B103_C",
+      "w": 80,
+      "kind": "walk"
     },
     {
       "a": "B101",
-      "b": "C1_0",
-      "w": 85,
+      "b": "B101_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B102_C",
+      "b": "B101_C",
+      "w": 75,
       "kind": "walk"
     },
     {
       "a": "B102",
-      "b": "C1_1",
-      "w": 85,
+      "b": "B102_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B103_C",
+      "b": "B1-GW",
+      "w": 100,
       "kind": "walk"
     },
     {
       "a": "B103",
-      "b": "C1_2",
-      "w": 85,
+      "b": "B103_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B104_C",
+      "b": "B105_C",
+      "w": 140,
       "kind": "walk"
     },
     {
       "a": "B104",
-      "b": "C1_3",
-      "w": 85,
+      "b": "B104_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B105_C",
+      "b": "B1-BE",
+      "w": 40,
       "kind": "walk"
     },
     {
       "a": "B105",
-      "b": "C1_4",
-      "w": 85,
+      "b": "B105_C",
+      "w": 30,
       "kind": "walk"
     },
     {
       "a": "B106",
-      "b": "C1_0",
-      "w": 85,
+      "b": "B104_C",
+      "w": 30,
       "kind": "walk"
     },
     {
       "a": "B107",
-      "b": "C1_1",
-      "w": 85,
+      "b": "B105_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "B108_C",
+      "b": "B1-SW",
+      "w": 100,
       "kind": "walk"
     },
     {
       "a": "B108",
-      "b": "C1_3",
-      "w": 85,
+      "b": "B108_C",
+      "w": 20,
       "kind": "walk"
     },
     {
-      "a": "B109",
-      "b": "C1_4",
-      "w": 85,
+      "a": "C0-D1",
+      "b": "C0-MD",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "C2_0",
-      "b": "C2_1",
-      "w": 136,
+      "a": "C0-D1",
+      "b": "EXT-P6",
+      "w": 40,
       "kind": "walk"
     },
     {
-      "a": "C2_1",
-      "b": "C2_2",
-      "w": 136,
+      "a": "C0-ES",
+      "b": "C011_C",
+      "w": 257,
       "kind": "walk"
     },
     {
-      "a": "C2_2",
-      "b": "C2_3",
-      "w": 136,
+      "a": "C0-E_C",
+      "b": "C002_C",
+      "w": 115,
       "kind": "walk"
     },
     {
-      "a": "C2_3",
-      "b": "C2_4",
-      "w": 136,
+      "a": "C0-E",
+      "b": "C0-E_C",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "S2",
-      "b": "C2_0",
-      "w": 96,
-      "kind": "walk"
-    },
-    {
-      "a": "E2",
-      "b": "C2_4",
-      "w": 96,
-      "kind": "walk"
-    },
-    {
-      "a": "S1",
-      "b": "S2",
-      "w": 140,
-      "kind": "stairs"
-    },
-    {
-      "a": "E1",
-      "b": "E2",
+      "a": "C0-E",
+      "b": "C1-E",
       "w": 90,
       "kind": "elevator"
     },
     {
-      "a": "B201",
-      "b": "C2_0",
+      "a": "C0-MS",
+      "b": "C0-MD",
+      "w": 95,
+      "kind": "walk"
+    },
+    {
+      "a": "C0-MS",
+      "b": "C008_C",
+      "w": 115,
+      "kind": "walk"
+    },
+    {
+      "a": "C0-S1",
+      "b": "C0-WN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C0-S1",
+      "b": "C1-S1",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "C0-S2",
+      "b": "C0-EN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C0-S2",
+      "b": "C1-S2",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "C0-WN",
+      "b": "C0-E_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "C0-WS",
+      "b": "C006_C",
+      "w": 10,
+      "kind": "walk"
+    },
+    {
+      "a": "C001_C",
+      "b": "C003_C",
+      "w": 62,
+      "kind": "walk"
+    },
+    {
+      "a": "C001",
+      "b": "C001_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C002_C",
+      "b": "C001_C",
+      "w": 83,
+      "kind": "walk"
+    },
+    {
+      "a": "C002",
+      "b": "C002_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C003_C",
+      "b": "C0-WS",
+      "w": 195,
+      "kind": "walk"
+    },
+    {
+      "a": "C003",
+      "b": "C003_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C004_C",
+      "b": "C0-MS",
+      "w": 50,
+      "kind": "walk"
+    },
+    {
+      "a": "C004",
+      "b": "C004_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C005_C",
+      "b": "C009_C",
+      "w": 135,
+      "kind": "walk"
+    },
+    {
+      "a": "C005",
+      "b": "C005_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C006_C",
+      "b": "C007_C",
+      "w": 205,
+      "kind": "walk"
+    },
+    {
+      "a": "C006",
+      "b": "C006_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C007_C",
+      "b": "C004_C",
+      "w": 35,
+      "kind": "walk"
+    },
+    {
+      "a": "C007",
+      "b": "C007_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C008_C",
+      "b": "C005_C",
+      "w": 45,
+      "kind": "walk"
+    },
+    {
+      "a": "C008",
+      "b": "C008_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C009_C",
+      "b": "C0-ES",
+      "w": 5,
+      "kind": "walk"
+    },
+    {
+      "a": "C009",
+      "b": "C009_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C010_C",
+      "b": "C0-EN",
+      "w": 220,
+      "kind": "walk"
+    },
+    {
+      "a": "C010",
+      "b": "C010_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C011_C",
+      "b": "C010_C",
+      "w": 18,
+      "kind": "walk"
+    },
+    {
+      "a": "C011",
+      "b": "C011_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-ES",
+      "b": "C109_C",
+      "w": 257,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-E_C",
+      "b": "C102_C",
+      "w": 105,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-E",
+      "b": "C1-E_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-E",
+      "b": "C2-E",
+      "w": 90,
+      "kind": "elevator"
+    },
+    {
+      "a": "C1-MS",
+      "b": "C105_C",
+      "w": 135,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-S1",
+      "b": "C1-WN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-S1",
+      "b": "C2-S1",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "C1-S2",
+      "b": "C1-EN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-S2",
+      "b": "C2-S2",
+      "w": 140,
+      "kind": "stairs"
+    },
+    {
+      "a": "C1-WN",
+      "b": "C1-E_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "C1-WS",
+      "b": "C106_C",
+      "w": 80,
+      "kind": "walk"
+    },
+    {
+      "a": "C101_C",
+      "b": "C103_C",
+      "w": 52,
+      "kind": "walk"
+    },
+    {
+      "a": "C101",
+      "b": "C101_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C102_C",
+      "b": "C101_C",
+      "w": 93,
+      "kind": "walk"
+    },
+    {
+      "a": "C102",
+      "b": "C102_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C103_C",
+      "b": "C1-WS",
+      "w": 205,
+      "kind": "walk"
+    },
+    {
+      "a": "C103",
+      "b": "C103_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C104_C",
+      "b": "C1-MS",
+      "w": 135,
+      "kind": "walk"
+    },
+    {
+      "a": "C104",
+      "b": "C104_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C105_C",
+      "b": "C107_C",
+      "w": 90,
+      "kind": "walk"
+    },
+    {
+      "a": "C105",
+      "b": "C105_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C106_C",
+      "b": "C104_C",
       "w": 85,
       "kind": "walk"
     },
     {
-      "a": "B202",
-      "b": "C2_1",
-      "w": 85,
+      "a": "C106",
+      "b": "C106_C",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "B203",
-      "b": "C2_2",
-      "w": 85,
+      "a": "C107_C",
+      "b": "C1-ES",
+      "w": 75,
       "kind": "walk"
     },
     {
-      "a": "B204",
-      "b": "C2_3",
-      "w": 85,
+      "a": "C107",
+      "b": "C107_C",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "B205",
-      "b": "C2_4",
-      "w": 85,
+      "a": "C108_C",
+      "b": "C1-EN",
+      "w": 220,
       "kind": "walk"
     },
     {
-      "a": "B206",
-      "b": "C2_0",
-      "w": 85,
+      "a": "C108",
+      "b": "C108_C",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "B207",
-      "b": "C2_1",
-      "w": 85,
+      "a": "C109_C",
+      "b": "C108_C",
+      "w": 18,
       "kind": "walk"
     },
     {
-      "a": "B208",
-      "b": "C2_3",
-      "w": 85,
+      "a": "C109",
+      "b": "C109_C",
+      "w": 30,
       "kind": "walk"
     },
     {
-      "a": "B209",
-      "b": "C2_4",
-      "w": 85,
+      "a": "C2-ES",
+      "b": "C209_C",
+      "w": 257,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-E_C",
+      "b": "C202_C",
+      "w": 180,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-E",
+      "b": "C2-E_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-MS",
+      "b": "C206_C",
+      "w": 130,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-S1",
+      "b": "C2-WN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-S2",
+      "b": "C2-EN",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-WN",
+      "b": "C2-E_C",
+      "w": 40,
+      "kind": "walk"
+    },
+    {
+      "a": "C2-WS",
+      "b": "C205_C",
+      "w": 80,
+      "kind": "walk"
+    },
+    {
+      "a": "C201_C",
+      "b": "C2-WS",
+      "w": 257,
+      "kind": "walk"
+    },
+    {
+      "a": "C201",
+      "b": "C201_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C202_C",
+      "b": "C201_C",
+      "w": 18,
+      "kind": "walk"
+    },
+    {
+      "a": "C202",
+      "b": "C202_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C203_C",
+      "b": "C2-MS",
+      "w": 130,
+      "kind": "walk"
+    },
+    {
+      "a": "C203",
+      "b": "C203_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C204_C",
+      "b": "C207_C",
+      "w": 156,
+      "kind": "walk"
+    },
+    {
+      "a": "C204",
+      "b": "C204_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C205_C",
+      "b": "C203_C",
+      "w": 90,
+      "kind": "walk"
+    },
+    {
+      "a": "C205",
+      "b": "C205_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C206_C",
+      "b": "C204_C",
+      "w": 10,
+      "kind": "walk"
+    },
+    {
+      "a": "C206",
+      "b": "C206_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C207_C",
+      "b": "C2-ES",
+      "w": 4,
+      "kind": "walk"
+    },
+    {
+      "a": "C207",
+      "b": "C207_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C208_C",
+      "b": "C2-EN",
+      "w": 220,
+      "kind": "walk"
+    },
+    {
+      "a": "C208",
+      "b": "C208_C",
+      "w": 30,
+      "kind": "walk"
+    },
+    {
+      "a": "C209_C",
+      "b": "C208_C",
+      "w": 18,
+      "kind": "walk"
+    },
+    {
+      "a": "C209",
+      "b": "C209_C",
+      "w": 30,
       "kind": "walk"
     },
     {
       "a": "ENTREE",
-      "b": "C0_2",
+      "b": "EXT-P1",
+      "w": 120,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-P1",
+      "b": "EXT-PS",
+      "w": 850,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-P2",
+      "b": "EXT-P3",
+      "w": 160,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-P2",
+      "b": "EXT-P4",
+      "w": 800,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-P4",
+      "b": "EXT-P5",
       "w": 100,
+      "kind": "stairs"
+    },
+    {
+      "a": "EXT-P4",
+      "b": "EXT-R1",
+      "w": 300,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-P5",
+      "b": "EXT-P6",
+      "w": 60,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-PC1",
+      "b": "EXT-P2",
+      "w": 690,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-PC1",
+      "b": "EXT-PA",
+      "w": 340,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-PC1",
+      "b": "EXT-PW",
+      "w": 700,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-PS",
+      "b": "EXT-PC1",
+      "w": 760,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-PW",
+      "b": "EXT-PAW",
+      "w": 750,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-R1",
+      "b": "EXT-R2",
+      "w": 100,
+      "kind": "walk"
+    },
+    {
+      "a": "EXT-R2",
+      "b": "EXT-P5",
+      "w": 300,
       "kind": "walk"
     }
   ]

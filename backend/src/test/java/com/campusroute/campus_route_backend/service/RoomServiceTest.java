@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.campusroute.campus_route_backend.dto.RoomDto;
 
-// Full context: GraphDataLoader fills the H2 database with the 27 rooms at startup
+// Full context: GraphDataLoader fills the H2 database with the 77 rooms of the campus at startup
 @SpringBootTest
 class RoomServiceTest {
 
@@ -19,14 +19,14 @@ class RoomServiceTest {
 
     @Test
     void ignoresCaseAndSpacesOnCode() {
-        assertThat(service.search("b204")).extracting(RoomDto::code).startsWith("B204");
-        assertThat(service.search("  B 2 0 4 ")).extracting(RoomDto::code).startsWith("B204");
+        assertThat(service.search("a204")).extracting(RoomDto::code).startsWith("A204");
+        assertThat(service.search("  A 2 0 4 ")).extracting(RoomDto::code).startsWith("A204");
     }
 
     @Test
     void findsByNameAndByType() {
         assertThat(service.search("TURING")).extracting(RoomDto::code).containsExactly("B001");
-        assertThat(service.search("amphi")).extracting(RoomDto::code).contains("B001");
+        assertThat(service.search("amphi")).extracting(RoomDto::code).containsExactly("B001", "B004");
         assertThat(service.search("salle de td")).isNotEmpty(); // spaces ignored inside the query too
     }
 
@@ -39,9 +39,9 @@ class RoomServiceTest {
 
     @Test
     void capsAtEightResultsSortedByCode() {
-        List<String> codes = service.search("b").stream().map(RoomDto::code).toList(); // "b" is in all 27 codes
+        List<String> codes = service.search("a").stream().map(RoomDto::code).toList(); // "a" matches 76 rooms
         assertThat(codes).hasSize(8).isSorted();
-        assertThat(codes.get(0)).isEqualTo("B001");
+        assertThat(codes.get(0)).isEqualTo("A001");
     }
 
     @Test
@@ -52,8 +52,9 @@ class RoomServiceTest {
 
     @Test
     void findByCodeTrimsAndUppercases() {
-        RoomDto room = service.findByCode(" b204 ");
-        assertThat(room.code()).isEqualTo("B204");
+        RoomDto room = service.findByCode(" a204 ");
+        assertThat(room.code()).isEqualTo("A204");
+        assertThat(room.building()).isEqualTo("A");
         assertThat(room.floor()).isEqualTo(2);
         assertThat(room.capacity()).isEqualTo(30);
         assertThat(room.equipment()).containsExactlyInAnyOrder("Tableau", "Vidéoprojecteur");

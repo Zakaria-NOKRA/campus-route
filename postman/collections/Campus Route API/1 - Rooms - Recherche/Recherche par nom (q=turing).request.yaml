@@ -1,11 +1,11 @@
 $kind: http-request
-description: L'amphithéâtre Turing (B001).
+description: "L'amphithéâtre Turing (B001), dans le bâtiment B."
 url: "{{baseUrl}}/api/rooms/search?q=turing"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  q: turing
+  q: "turing"
 scripts:
   - type: afterResponse
     code: |-
@@ -13,5 +13,6 @@ scripts:
       const rooms = pm.response.json();
       pm.test("Un seul résultat : B001", () => { pm.expect(rooms).to.have.lengthOf(1); pm.expect(rooms[0].code).to.eql("B001"); });
       pm.test("Type Amphithéâtre", () => pm.expect(rooms[0].type).to.eql("Amphithéâtre"));
+      pm.test("Bâtiment B", () => pm.expect(rooms[0].building).to.eql("B"));
     language: text/javascript
 order: 5000

@@ -1,11 +1,11 @@
 $kind: http-request
-description: "Toutes les salles matchent « b » : la réponse est limitée à 8, triée par code."
-url: "{{baseUrl}}/api/rooms/search?q=b"
+description: "76 salles matchent « a » : la réponse est limitée à 8, triée par code."
+url: "{{baseUrl}}/api/rooms/search?q=a"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  q: b
+  q: "a"
 scripts:
   - type: afterResponse
     code: |-
@@ -13,5 +13,6 @@ scripts:
       const codes = pm.response.json().map(r => r.code);
       pm.test("Exactement 8 résultats", () => pm.expect(codes).to.have.lengthOf(8));
       pm.test("Triés par code", () => pm.expect(codes).to.eql([...codes].sort()));
+      pm.test("Le premier est A001", () => pm.expect(codes[0]).to.eql("A001"));
     language: text/javascript
 order: 6000

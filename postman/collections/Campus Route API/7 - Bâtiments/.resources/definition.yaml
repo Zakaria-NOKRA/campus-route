@@ -1,0 +1,4 @@
+$kind: collection
+name: 7 - Bâtiments
+description: GET /api/buildings
+order: 7000

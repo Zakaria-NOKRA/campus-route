@@ -11,6 +11,9 @@ import com.campusroute.campus_route_backend.domain.Room;
 
 public interface RoomRepository extends JpaRepository<Room, String> {
 
+    /** Rooms of one building, sorted by code. */
+    List<Room> findByBuildingOrderByCode(String building);
+
     /**
      * Rooms whose code, name or type contains the pattern, ignoring case and spaces (like the prototype).
      * The pattern must already be lower-case, without spaces, with the LIKE wildcards escaped by '\'.

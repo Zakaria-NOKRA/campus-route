@@ -1,13 +1,13 @@
 $kind: http-request
-name: Départ inconnu (ZZZ) -> 404
-description: Message mentionnant ZZZ.
-url: "{{baseUrl}}/api/route?from=ZZZ&to=B204"
+name: "Départ inconnu (ZZZ) -> 404"
+description: "Message mentionnant ZZZ."
+url: "{{baseUrl}}/api/route?from=ZZZ&to=A204"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  from: ZZZ
-  to: B204
+  from: "ZZZ"
+  to: "A204"
 scripts:
   - type: afterResponse
     code: |-
@@ -15,8 +15,6 @@ scripts:
       pm.test("Réponse JSON", () => pm.response.to.be.json);
       const e = pm.response.json();
       pm.test("status = 404 dans le corps", () => pm.expect(e.status).to.eql(404));
-      pm.test("Un message est fourni", () => pm.expect(e.message).to.be.a("string").that.is.not.empty);
-
-      pm.test("Le message mentionne ZZZ", () => pm.expect(e.message).to.include("ZZZ"));
+      pm.test("Message : Point ZZZ introuvable", () => pm.expect(e.message).to.eql("Point ZZZ introuvable"));
     language: text/javascript
 order: 1000

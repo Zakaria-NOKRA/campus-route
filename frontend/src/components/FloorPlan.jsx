@@ -1,110 +1,61 @@
-import { useState } from 'react'
-import {
-  CORRIDOR_HEIGHT,
-  CORRIDOR_Y,
-  ROOM_HEIGHT,
-  ROOM_WIDTH,
-  SERVICE_WIDTH,
-  VIEW_HEIGHT,
-  VIEW_WIDTH,
-  emptyBottomSlots,
-  rowY,
-  slotX,
-} from '../utils/planGeometry'
 import { floorLabel } from '../utils/floorLabel'
-import { routeFloors } from '../utils/routeGeometry'
-import FloorTabs from './FloorTabs'
+import { OUTDOOR, buildingLabel } from '../utils/place'
+import { floorContents } from '../utils/planGeometry'
+import { routeBuildings } from '../utils/routeGeometry'
+import PlanEdges from './PlanEdges'
+import PlanMarkers from './PlanMarkers'
 import PlanRoom from './PlanRoom'
 import RouteLayer from './RouteLayer'
+import SiteBuilding from './SiteBuilding'
 
-// Stairs or elevator: a box centred on its node, with a short label.
-function ServiceBox({ node, label }) {
-  return (
-    <g>
-      <rect
-        className="svc"
-        x={node.x - SERVICE_WIDTH / 2}
-        y={CORRIDOR_Y}
-        width={SERVICE_WIDTH}
-        height={CORRIDOR_HEIGHT}
-        rx="4"
-      />
-      <text className="lbl" x={node.x} y={node.y + 4} textAnchor="middle">
-        {label}
-      </text>
-    </g>
-  )
-}
-
-// Floor tabs + the SVG of the chosen floor. `plan` is the answer of GET /api/plan.
+// The SVG of one floor of one plan (a building, or the outdoor space EXT).
+// `plan` is the answer of GET /api/plan?building=, `floor` the floor to draw.
 // `route` is the answer of GET /api/route, or null when there is no route to show.
-// `floorRequest` = { floor } sent when a step of the route is clicked, or null.
-function FloorPlan({ plan, selectedCode, onSelect, route, floorRequest }) {
-  const selectedRoom = plan.rooms.find((room) => room.code === selectedCode)
+// The campus plan (EXT) uses the same drawing, plus the buildings (`buildings` = answer of
+// GET /api/buildings), which open with `onOpenBuilding(code)`.
+// Drawing order (later = on top): walls, corridors or paths, buildings, rooms, markers, route.
+function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOpenBuilding }) {
+  const { rooms, nodes, edges } = floorContents(plan, floor)
+  const isOutdoor = plan.building === OUTDOOR
+  // Buildings crossed by the route: highlighted on the campus plan.
+  const buildingsOnRoute = route ? routeBuildings(route.path) : []
 
-  // The floor being shown is view state: it lives here, not in the page.
-  // At the start, show the floor of the selected room (if any).
-  const [floor, setFloor] = useState(selectedRoom?.floor ?? plan.floors[0] ?? 0)
+  // Plans have different sizes (about 1000 px wide for a building, 3000 px for the campus).
+  // --k scales texts and line widths in the CSS, so they look the same size on every plan.
+  const k = plan.width / 1000
+  const svgStyle = { '--k': k }
 
-  // When the selection changes (from the search list or from a click on the plan),
-  // jump to the floor of the new room. We compare with the previous code during
-  // render instead of using an effect: React re-renders at once, with no flicker.
-  // Clicking a floor tab never changes the selection.
-  const [previousCode, setPreviousCode] = useState(selectedCode)
-  if (selectedCode !== previousCode) {
-    setPreviousCode(selectedCode)
-    if (selectedRoom) setFloor(selectedRoom.floor)
-  }
-
-  // Same idea when a new route arrives: show the floor where it starts.
-  // A new calculation gives a new `route` object, so this runs once per route.
-  const [previousRoute, setPreviousRoute] = useState(route)
-  if (route !== previousRoute) {
-    setPreviousRoute(route)
-    if (route) setFloor(route.path[0].floor)
-  }
-
-  // And when a step of the route is clicked. Each click makes a new `floorRequest` object.
-  const [previousFloorRequest, setPreviousFloorRequest] = useState(floorRequest)
-  if (floorRequest !== previousFloorRequest) {
-    setPreviousFloorRequest(floorRequest)
-    if (floorRequest) setFloor(floorRequest.floor)
-  }
-
-  const rooms = plan.rooms.filter((room) => room.floor === floor)
-  const nodes = plan.nodes.filter((node) => node.floor === floor)
-  const stairs = nodes.find((node) => node.type === 'STAIRS')
-  const elevator = nodes.find((node) => node.type === 'ELEVATOR')
-  const hasEntrance = nodes.some((node) => node.type === 'ENTRANCE')
-
-  // The corridor fills the gap between the stairs box and the elevator box.
-  const corridorX = stairs ? stairs.x + SERVICE_WIDTH / 2 : 0
-  const corridorEnd = elevator ? elevator.x - SERVICE_WIDTH / 2 : VIEW_WIDTH
+  const label = isOutdoor
+    ? `Plan : ${buildingLabel(plan.building)}`
+    : `Plan : ${buildingLabel(plan.building)}, ${floorLabel(floor)}`
 
   return (
     <>
-      <FloorTabs
-        floors={plan.floors}
-        current={floor}
-        onChange={setFloor}
-        markedFloors={route ? routeFloors(route.path) : []}
-      />
       <div className="plan-scroll">
         <svg
           className="plan-svg"
-          viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
+          viewBox={`0 0 ${plan.width} ${plan.height}`}
+          style={svgStyle}
           role="group"
-          aria-label={`Plan : ${floorLabel(floor)}`}
+          aria-label={label}
         >
-          <rect
-            className="corr"
-            x={corridorX}
-            y={CORRIDOR_Y}
-            width={corridorEnd - corridorX}
-            height={CORRIDOR_HEIGHT}
-          />
-          {stairs && <ServiceBox node={stairs} label="Esc." />}
-          {elevator && <ServiceBox node={elevator} label="Asc." />}
+          {/* outline = "x1,y1 x2,y2 ...": exactly the format of the SVG points attribute */}
+          <polygon className={isOutdoor ? 'site' : 'wall'} points={plan.outline} />
+
+          <PlanEdges edges={edges} k={k} />
+
+          {isOutdoor &&
+            buildings
+              .filter((building) => !building.outdoor)
+              .map((building) => (
+                <SiteBuilding
+                  key={building.code}
+                  building={building}
+                  onRoute={buildingsOnRoute.includes(building.code)}
+                  onOpen={onOpenBuilding}
+                  k={k}
+                />
+              ))}
 
           {rooms.map((room) => (
             <PlanRoom
@@ -115,52 +66,17 @@ function FloorPlan({ plan, selectedCode, onSelect, route, floorRequest }) {
             />
           ))}
 
-          {/* Free spot of the bottom row: entrance hall on the ground floor, empty atrium above. */}
-          {emptyBottomSlots(rooms).map((slot) => {
-            const cx = slotX(slot)
-            const x = cx - ROOM_WIDTH / 2
-            const y = rowY(false)
-            return hasEntrance ? (
-              <g key={`hall-${slot}`}>
-                <rect
-                  className="room t-serv"
-                  x={x}
-                  y={y}
-                  width={ROOM_WIDTH}
-                  height={ROOM_HEIGHT}
-                  rx="6"
-                />
-                <text className="tag" x={cx} y={y + 26} textAnchor="middle">
-                  Hall d'entrée
-                </text>
-                <text className="code" x={cx} y={y + 104} textAnchor="middle">
-                  ▲ Entrée
-                </text>
-              </g>
-            ) : (
-              <g key={`atrium-${slot}`}>
-                <rect
-                  className="atrium"
-                  x={x}
-                  y={y}
-                  width={ROOM_WIDTH}
-                  height={ROOM_HEIGHT}
-                  rx="6"
-                />
-                <text className="tag" x={cx} y={y + 60} textAnchor="middle">
-                  Atrium (vide)
-                </text>
-              </g>
-            )
-          })}
+          <PlanMarkers nodes={nodes} k={k} />
 
-          {route && <RouteLayer path={route.path} floor={floor} />}
+          {route && <RouteLayer path={route.path} building={plan.building} floor={floor} k={k} />}
         </svg>
       </div>
       <p className="hint">
-        {selectedCode === null
-          ? 'Cliquez sur une salle du plan pour la choisir comme destination.'
-          : 'Sur un petit écran, faites glisser le plan pour voir toute la largeur.'}
+        {isOutdoor
+          ? 'Cliquez sur un bâtiment pour voir ses étages.'
+          : selectedCode === null
+            ? 'Cliquez sur une salle du plan pour la choisir comme destination.'
+            : 'Sur un petit écran, faites glisser le plan pour voir toute la largeur.'}
       </p>
     </>
   )

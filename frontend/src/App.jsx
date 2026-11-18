@@ -2,14 +2,27 @@ import { useState } from 'react'
 import PlanPage from './pages/PlanPage'
 import RoutePage from './pages/RoutePage'
 import SearchPage from './pages/SearchPage'
+import { OUTDOOR, roomPlace } from './utils/place'
 import { useRoute } from './utils/useRoute'
 
 const NO_ROUTE = { status: 'idle', route: null, error: null }
 
 function App() {
   // The ONE place that remembers which room is selected (a room code, or null).
-  // The search page and the plan both read it and change it through setSelectedCode.
+  // The search page and the plan both read it and change it through handleSelect.
   const [selectedCode, setSelectedCode] = useState(null)
+
+  // What the plan shows: a building (A, B, C or EXT = outdoor) and a floor.
+  // It lives here because the search, the route steps and the plan tabs all change it.
+  // At the start: the campus site plan.
+  const [view, setView] = useState({ building: OUTDOOR, floor: 0 })
+
+  // Select a room (search list, plan, swap) and show its building and floor.
+  // null = unselect: the plan stays where it is.
+  function handleSelect(code) {
+    setSelectedCode(code)
+    if (code !== null) setView(roomPlace(code))
+  }
 
   // Route form. originCode = null means "main entrance" (sent to the API as ENTREE).
   const [originCode, setOriginCode] = useState(null)
@@ -30,12 +43,21 @@ function App() {
     request.accessible === accessible
   const routeState = isCurrent ? routeResult : NO_ROUTE
 
-  // Click on a step of the route: ask the plan to show that floor. The plan owns the floor
-  // being shown, so we only send a request. It is a new object each time, so clicking
-  // the same floor again works too. Selection and route are untouched.
-  const [floorRequest, setFloorRequest] = useState(null) // { floor } or null
-  function handleStepClick(floor) {
-    setFloorRequest({ floor })
+  // When a new route arrives, show where it starts (building and floor of its first node).
+  // Same idea as for the selection: we compare with the previous route during render instead
+  // of using an effect, so React re-renders at once, with no flicker. A new calculation gives
+  // a new route object, so this runs once per route.
+  const [previousRoute, setPreviousRoute] = useState(routeState.route)
+  if (routeState.route !== previousRoute) {
+    setPreviousRoute(routeState.route)
+    const start = routeState.route?.path[0]
+    if (start) setView({ building: start.building, floor: start.floor })
+  }
+
+  // Click on a step of the route: show the building and floor of that step.
+  // Selection and route are untouched.
+  function handleStepClick(building, floor) {
+    setView({ building, floor })
   }
 
   function handleCalculate() {
@@ -46,18 +68,18 @@ function App() {
   // Only called when both are rooms (the button is disabled otherwise).
   function handleSwap() {
     setOriginCode(selectedCode)
-    setSelectedCode(originCode)
+    handleSelect(originCode)
   }
 
   return (
     <>
       <header className="app-header">
         <h1>Campus Route</h1>
-        <span>Bâtiment B, 3 étages</span>
+        <span>Campus : bâtiments A, B et C</span>
       </header>
       <main className="app-main">
         <div className="side">
-          <SearchPage selectedCode={selectedCode} onSelect={setSelectedCode} />
+          <SearchPage selectedCode={selectedCode} onSelect={handleSelect} />
           <RoutePage
             originCode={originCode}
             onOriginChange={setOriginCode}
@@ -71,10 +93,11 @@ function App() {
           />
         </div>
         <PlanPage
+          view={view}
+          onViewChange={setView}
           selectedCode={selectedCode}
-          onSelect={setSelectedCode}
+          onSelect={handleSelect}
           route={routeState.route}
-          floorRequest={floorRequest}
         />
       </main>
     </>

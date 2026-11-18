@@ -1,0 +1,20 @@
+$kind: http-request
+description: "La cour et les allées : pas de salle, 14 points dont l'entrée du campus."
+url: "{{baseUrl}}/api/plan?building=ext"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  building: "ext"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Statut 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test("Code EXT (casse ignorée)", () => pm.expect(body.building).to.eql("EXT"));
+      pm.test("Aucune salle", () => pm.expect(body.rooms).to.eql([]));
+      pm.test("14 nœuds, 14 arêtes", () => { pm.expect(body.nodes).to.have.lengthOf(14); pm.expect(body.edges).to.have.lengthOf(14); });
+      pm.test("ENTREE est une entrée", () => pm.expect(body.nodes.find(n => n.id === "ENTREE").type).to.eql("ENTRANCE"));
+      pm.test("Une volée de marches (STAIRS)", () => pm.expect(body.edges.filter(e => e.kind === "STAIRS")).to.have.lengthOf(1));
+    language: text/javascript
+order: 4000
