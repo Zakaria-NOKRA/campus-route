@@ -307,8 +307,25 @@ button.clear-link {
   stroke: none;
 }
 
+/* Corridors: thick lines in plan pixels (50 px = 3.5 m), so NOT multiplied by --k.
+   Round ends make the lines merge at the junctions. */
 .plan-svg .corr {
-  fill: var(--corr);
+  fill: none;
+  stroke: var(--corr);
+  stroke-width: 50px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.plan-svg .corr.to-door {
+  stroke-linecap: butt;
+}
+
+/* Door of a building, on its outline */
+.plan-svg .entrance {
+  fill: var(--accent);
+  stroke: var(--panel);
+  stroke-width: calc(2px * var(--k));
 }
 
 .plan-svg .svc {

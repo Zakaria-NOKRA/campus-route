@@ -23,6 +23,21 @@ export function floorContents(plan, floor) {
   return { rooms, nodes, edges }
 }
 
+// How to draw a walking link of one floor (an edge from floorContents), as a CSS class,
+// or null when no line is needed:
+// - corridor to corridor: a piece of corridor;
+// - corridor to stairs or elevator: the short piece of corridor that leads to it;
+// - corridor to building door: same, with a flat end that stops on the wall (it looks like an opening);
+// - corridor to room: nothing, the door of the room is drawn by PlanRoom.
+// Stairs / elevator links between two floors never get here (see floorContents).
+export function edgeClass(edge) {
+  if (edge.kind !== 'WALK') return null
+  const types = [edge.from.type, edge.to.type]
+  if (!types.includes('CORRIDOR') || types.includes('ROOM')) return null
+  if (types.includes('ENTRANCE')) return 'corr to-door'
+  return 'corr'
+}
+
 // Small rectangle of the door, centred on (doorX, doorY). The door lies on one wall of the
 // room: on the top or bottom wall it is horizontal, on the left or right wall it is vertical.
 export function doorRect(room) {
