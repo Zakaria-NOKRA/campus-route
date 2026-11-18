@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.campusroute.campus_route_backend.dto.RouteDto;
 import com.campusroute.campus_route_backend.dto.RouteNodeDto;
+import com.campusroute.campus_route_backend.dto.RouteStepDto;
 
 // Full context: the real campus graph is loaded in H2.
 // Distance = WALK edges only x 0.07 m; duration = distance / 1.3 m/s + 12 s per stairs edge + 25 s per elevator edge.
@@ -22,6 +23,10 @@ class RouteServiceTest {
 
     private List<String> ids(RouteDto route) {
         return route.path().stream().map(RouteNodeDto::id).toList();
+    }
+
+    private List<String> texts(RouteDto route) {
+        return route.steps().stream().map(RouteStepDto::text).toList();
     }
 
     @Test
@@ -83,6 +88,39 @@ class RouteServiceTest {
         assertThat(accessible.distanceMeters()).isCloseTo(331.94, within(0.01));
         assertThat(accessible.durationSeconds()).isCloseTo(305.3, within(0.1));
         assertThat(ids(accessible)).containsSequence("EXT-P4", "EXT-R1", "EXT-R2", "EXT-P5");
+    }
+
+    @Test
+    void stepsFromTheEntranceToA204GoThroughBThenTheCourtyardThenA() {
+        RouteDto route = service.findRoute("ENTREE", "A204", false);
+        List<String> texts = texts(route);
+
+        assertThat(texts.get(0)).isEqualTo("Départ : Entrée du campus");
+        assertThat(texts.get(1)).startsWith("Depuis l'entrée du campus, avancez de");
+        assertThat(texts).containsSubsequence(
+                "Entrez dans le bâtiment B",
+                "Sortez du bâtiment B",
+                "Entrez dans le bâtiment A",
+                "Prenez l'ascenseur et montez au 2e étage",
+                "Vous êtes arrivé : A204");
+        assertThat(route.steps()).extracting(RouteStepDto::building).contains("EXT", "B", "A");
+    }
+
+    @Test
+    void outdoorStepsAppearOnlyWhenTheRouteIsNotAccessible() {
+        assertThat(texts(service.findRoute("ENTREE", "C209", false))).contains("Empruntez l'escalier extérieur");
+        assertThat(texts(service.findRoute("ENTREE", "C209", true))).doesNotContain("Empruntez l'escalier extérieur");
+    }
+
+    @Test
+    void fromARoomOfAToARoomOfB() {
+        List<String> texts = texts(service.findRoute("A101", "B001", false));
+        assertThat(texts).containsSubsequence(
+                "Départ : A101",
+                "Descendez par l'escalier jusqu'au RDC",
+                "Sortez du bâtiment A",
+                "Entrez dans le bâtiment B",
+                "Vous êtes arrivé : B001");
     }
 
     @Test
