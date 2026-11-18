@@ -3,6 +3,7 @@ import { OUTDOOR, buildingLabel } from '../utils/place'
 import { floorContents } from '../utils/planGeometry'
 import { routeBuildings } from '../utils/routeGeometry'
 import PlanEdges from './PlanEdges'
+import PlanLegend from './PlanLegend'
 import PlanMarkers from './PlanMarkers'
 import PlanRoom from './PlanRoom'
 import RouteLayer from './RouteLayer'
@@ -71,6 +72,7 @@ function FloorPlan({ plan, floor, selectedCode, onSelect, route, buildings, onOp
           {route && <RouteLayer path={route.path} building={plan.building} floor={floor} k={k} />}
         </svg>
       </div>
+      {!isOutdoor && <PlanLegend />}
       <p className="hint">
         {isOutdoor
           ? 'Cliquez sur un bâtiment pour voir ses étages.'

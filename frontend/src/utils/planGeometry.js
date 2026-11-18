@@ -61,11 +61,28 @@ export function outlineTopLeft(outline) {
   }
 }
 
-// Colour class of a room, from its type (same rules as the prototype).
-// The API has no category field, so we match the French type names it sends.
+// Colour category of each room type. The API has no category field, so we use the French
+// type names it sends. 6 categories, the same as the legend under the plan (PlanLegend).
+const TYPE_CLASS = {
+  Amphithéâtre: 't-amph',
+  'Salle de TD': 't-td',
+  'Salle de TP': 't-lab',
+  Laboratoire: 't-lab',
+  'Salle informatique': 't-info',
+  'Salle de formation': 't-info',
+  Secrétariat: 't-admin',
+  Scolarité: 't-admin',
+  Accueil: 't-admin',
+  Bureau: 't-admin',
+  Service: 't-admin',
+  'Salle de réunion': 't-admin',
+  Cafétéria: 't-commons',
+  Bibliothèque: 't-commons',
+  'Salle de lecture': 't-commons',
+  'Salle de travail en groupe': 't-commons',
+}
+
+// Colour class of a room, from its type. An unknown type gets no class (default room colour).
 export function roomTypeClass(type) {
-  if (type === 'Amphithéâtre') return 't-amph'
-  if (/Labo|informatique/.test(type)) return 't-lab'
-  if (type === 'Service') return 't-serv'
-  return ''
+  return TYPE_CLASS[type] ?? ''
 }
