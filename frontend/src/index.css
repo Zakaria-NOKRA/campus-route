@@ -1,49 +1,69 @@
-/* Look and feel taken from prototype/campus_route_prototype.html (light + dark). */
+/* Campus Route: light theme only. Every colour, size and shadow is a variable (token) here,
+   the rules below only use the tokens. */
 :root {
-  --bg: #f5f6f8;
-  --panel: #fff;
-  --ink: #1c2430;
-  --muted: #566070; /* >= 4.5:1 on every background used, incl. the plan fills */
-  --line: #e3e6eb;
-  --accent: #0b7285;
-  --accent-ink: #fff;
-  --info: #f0ecff;
-  --error: #c92a2a;
-  /* plan colours (from the prototype) */
+  color-scheme: light; /* native controls (checkbox, scrollbars) stay light, even in OS dark mode */
+
+  /* Page and text */
+  --bg: #f7f4ee; /* warm off-white */
+  --surface: #ffffff; /* cards */
+  --surface-2: #f3efe7; /* inputs, hover, tab track */
+  --ink: #1f2933; /* main text, about 14:1 on --bg */
+  --muted: #5b6472; /* secondary text, >= 4.5:1 on every background used */
+  --line: #e6e0d6;
+
+  /* Accents: teal for actions, warm orange for the route and the destination */
+  --accent: #0f766e; /* 5.5:1 on white, white text on it is readable */
+  --accent-strong: #115e59;
+  --accent-soft: #e0f2f0;
+  --accent-ink: #ffffff;
+  --warm: #c2410c; /* destination text and arrival icon (5.2:1 on white) */
+  --route: #ea580c; /* route line and destination marker (shapes, not text) */
+  --warm-soft: #fff1e6;
+  --start: #15803d;
+  --error: #b42318;
+  --error-soft: #fdecea;
+
+  /* Plan colours (restyled in the next steps) */
   --room: #eef2f7;
-  --room-line: #9fb0c3;
-  --corr: #fdf6e3;
+  --room-line: #b8c0cc;
+  --corr: #f1ece2;
   --svc: #dde7f0;
   --amph: #e3edff;
   --lab: #e6f6ec;
   --serv: #fff0dc;
-  --dest: #e03131;
-  --route: #0b7285;
-  --start: #2f9e44;
-}
+  --dest: var(--route);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #12161c;
-    --panel: #1b212a;
-    --ink: #e8ecf2;
-    --muted: #9aa5b4;
-    --line: #2a323d;
-    --accent: #3bc9db;
-    --accent-ink: #06222a;
-    --info: #2d2748;
-    --error: #ff8787;
-    --room: #232b36;
-    --room-line: #56667c;
-    --corr: #2b2a22;
-    --svc: #2c3a48;
-    --amph: #1f2d4a;
-    --lab: #1f3a2a;
-    --serv: #40301a;
-    --dest: #ff6b6b;
-    --route: #3bc9db;
-    --start: #51cf66;
-  }
+  /* Shapes */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgb(31 41 51 / 0.06), 0 1px 3px rgb(31 41 51 / 0.08);
+  --shadow-2: 0 6px 16px rgb(31 41 51 / 0.08), 0 2px 4px rgb(31 41 51 / 0.05);
+  --ring: 0 0 0 3px rgb(15 118 110 / 0.35);
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+
+  /* Text (system fonts only: no download) */
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 14px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-route: 1.2s;
 }
 
 * {
@@ -58,38 +78,67 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font);
+  font-size: var(--fs-base);
   background: var(--bg);
   color: var(--ink);
-  line-height: 1.4;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ---------------------------------------------------------------- header */
 .app-header {
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--line);
-  background: var(--panel);
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 60px;
+  padding: var(--s-2) var(--s-5);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.app-logo {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  background: var(--accent-soft);
+}
+
+.app-logo svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.app-title {
+  min-width: 0;
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--fs-lg);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-.app-header span {
+.app-header p {
+  margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 
+/* ---------------------------------------------------------------- layout */
+/* Side column on the left, the plan (the main thing) takes all the remaining width. */
 .app-main {
   display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 16px;
-  padding: 16px;
-  max-width: 1300px;
+  grid-template-columns: 360px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-5);
+  padding: var(--s-5);
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -100,27 +149,36 @@ body {
 .side {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--s-4);
 }
 
+@media (max-width: 1100px) {
+  .app-main {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: var(--s-4);
+    padding: var(--s-4);
+  }
+}
+
+/* One column: search, place, route, then the plan (same order as the keyboard). */
 @media (max-width: 900px) {
   .app-main {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (max-width: 480px) {
   .app-header {
-    padding: 12px 14px;
+    padding: var(--s-2) var(--s-4);
   }
 
   .app-main {
-    padding: 10px;
-    gap: 12px;
+    padding: var(--s-3);
+    gap: var(--s-3);
   }
 
   .card {
-    padding: 12px;
+    padding: var(--s-4);
   }
 
   /* 16px avoids the automatic zoom of mobile browsers when the field is focused. */
@@ -129,63 +187,197 @@ body {
   }
 }
 
+/* ---------------------------------------------------------------- cards */
 .card {
-  background: var(--panel);
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--s-5);
 }
 
 .card h2 {
-  margin: 0 0 10px;
-  font-size: 15px;
+  margin: 0 0 var(--s-3);
+  font-size: var(--fs-md);
+  font-weight: 650;
+  letter-spacing: -0.005em;
 }
 
+/* ---------------------------------------------------------------- forms */
 label {
   display: block;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   color: var(--muted);
-  margin: 10px 0 4px;
+  margin: var(--s-3) 0 6px;
 }
 
+/* Text fields: magnifier icon drawn by an inline SVG (data: URL, no file, no request). */
 input[type='text'] {
   width: 100%;
-  padding: 9px 10px;
+  min-height: 44px;
+  padding: 10px 12px 10px 40px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
+  border-radius: var(--r-md);
+  background-color: var(--surface-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6472' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='6.5'/%3E%3Cpath d='m20 20-4.2-4.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 18px 18px;
   color: var(--ink);
-  font-size: 14px;
+  font: inherit;
+  font-size: var(--fs-base);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
 }
 
-.hint {
-  font-size: 13px;
+input[type='text']::placeholder {
   color: var(--muted);
-  margin: 8px 0 0;
+}
+
+input[type='text']:hover {
+  border-color: var(--room-line);
+}
+
+input[type='text']:focus {
+  outline: none; /* replaced by the ring below, always visible on focus */
+  border-color: var(--accent);
+  background-color: var(--surface);
+  box-shadow: var(--ring);
+}
+
+label.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  margin: var(--s-4) 0;
+  cursor: pointer;
+}
+
+label.check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------- buttons */
+button {
+  font: inherit;
+}
+
+button.primary {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: var(--fs-md);
+  cursor: pointer;
+  box-shadow: var(--shadow-1);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+button.primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button.primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+button.swap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  margin-top: var(--s-3);
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+button.swap:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+button.swap:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.link {
+  margin-left: var(--s-2);
+  padding: 0;
+  min-height: 28px;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+button.link:hover {
+  color: var(--accent-strong);
+}
+
+/* ---------------------------------------------------------------- messages */
+.hint {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  margin: var(--s-2) 0 0;
 }
 
 .error {
-  font-size: 14px;
+  font-size: var(--fs-base);
   color: var(--error);
-  margin: 8px 0 0;
+  background: var(--error-soft);
+  border-radius: var(--r-sm);
+  padding: var(--s-2) var(--s-3);
+  margin: var(--s-2) 0 0;
 }
 
 .badge {
   display: inline-block;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 99px;
-  background: var(--bg);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
   border: 1px solid var(--line);
-  margin: 4px 4px 0 0;
+  margin: 6px 6px 0 0;
 }
 
+/* ---------------------------------------------------------------- search results */
 ul.results {
   list-style: none;
-  margin: 8px 0 0;
+  margin: var(--s-2) 0 0;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-md);
   overflow: hidden;
 }
 
@@ -200,24 +392,40 @@ ul.results li:last-child {
 .room-item {
   display: block;
   width: 100%;
+  min-height: 44px;
   text-align: left;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: 0;
-  background: var(--panel);
+  background: var(--surface);
   color: var(--ink);
-  font: inherit;
-  font-size: 14px;
+  font-size: var(--fs-base);
   cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+/* The room code as a small pill before the name */
+.room-item strong {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
 }
 
 .room-item:hover {
-  background: var(--bg);
+  background: var(--surface-2);
 }
 
 .room-item.selected {
-  background: var(--bg);
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent); /* bar on the left */
+}
+
+.room-item.selected strong {
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .room-item:focus-visible {
@@ -226,45 +434,52 @@ ul.results li:last-child {
 
 .room-item small {
   display: block;
+  margin-top: 2px;
   color: var(--muted);
+  font-size: var(--fs-xs);
 }
 
+/* ---------------------------------------------------------------- room detail */
 .info {
-  background: var(--info);
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 14px;
+  background: var(--accent-soft);
+  border-radius: var(--r-md);
+  padding: var(--s-3) var(--s-4);
+  font-size: var(--fs-base);
 }
 
 .info b {
-  font-size: 16px;
+  font-size: var(--fs-md);
   overflow-wrap: anywhere;
+}
+
+.info p {
+  margin: var(--s-1) 0;
 }
 
 .detail-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--s-2);
 }
 
 button.clear {
   flex: 0 0 auto;
   width: 32px;
   height: 32px;
-  margin: -6px -6px 0 0;
+  margin: -6px -8px 0 0;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--r-sm);
   background: none;
   color: var(--muted);
-  font: inherit;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease);
 }
 
 button.clear:hover {
-  background: var(--bg);
+  background: var(--surface);
   color: var(--ink);
 }
 
@@ -272,11 +487,209 @@ button.clear-link {
   margin-left: 0;
 }
 
-.info p {
-  margin: 4px 0;
+/* ---------------------------------------------------------------- route form */
+.route-point {
+  margin: var(--s-2) 0 0;
+  font-size: var(--fs-base);
+  color: var(--muted);
 }
 
-/* Floor plan (SVG). Classes match the prototype. */
+.route-point b {
+  color: var(--ink);
+}
+
+/* "Destination : B204" takes the warm colour of the destination on the plan */
+form > .route-point b {
+  color: var(--warm);
+}
+
+/* ---------------------------------------------------------------- route result */
+/* Distance and duration: two big numbers side by side, then the options. */
+.route-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: var(--s-4) 0 var(--s-3);
+}
+
+.route-summary .stat {
+  flex: 1 1 0;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.route-summary .stat-value {
+  display: block;
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.route-summary .stat-label {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+.route-summary .badge {
+  margin: 0;
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent-strong);
+}
+
+/* Steps: numbered with a CSS counter, icon from the API in a round tile,
+   a thin line joins the tiles from one step to the next. */
+ol.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+ol.steps li {
+  position: relative;
+  counter-increment: step;
+}
+
+ol.steps li:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 23px; /* centre of the tile: 10px padding + 14px half tile - 1px */
+  top: 42px;
+  bottom: -6px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--line);
+}
+
+ol.steps button.step {
+  display: flex;
+  gap: var(--s-3);
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: none;
+  color: inherit;
+  font-size: var(--fs-base);
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+ol.steps button.step:focus-visible {
+  outline-offset: -2px;
+}
+
+ol.steps button.step:hover {
+  background: var(--surface-2);
+}
+
+ol.steps button.step.active {
+  background: var(--accent-soft);
+}
+
+ol.steps .ic {
+  position: relative;
+  flex: 0 0 28px;
+  height: 28px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: var(--fs-base);
+}
+
+/* Step number, in a small bubble on the corner of the tile */
+ol.steps .ic::after {
+  content: counter(step);
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+
+/* Arrival: warm colour, like the destination marker on the plan */
+ol.steps li:last-child .ic {
+  background: var(--warm);
+}
+
+ol.steps li:last-child button.step:not(.active) {
+  background: var(--warm-soft);
+}
+
+ol.steps small {
+  display: block;
+  margin-top: 1px;
+  color: var(--muted);
+  font-size: var(--fs-xs);
+}
+
+/* ---------------------------------------------------------------- tabs (restyled in step 2) */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 8px 12px;
+  min-height: 36px;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-base);
+}
+
+.tabs button.on {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+/* Dot on the building and floor tabs crossed by the route */
+.tabs button .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: var(--route);
+  vertical-align: middle;
+}
+
+.tabs button.on .dot {
+  background: var(--accent-ink);
+}
+
+/* ---------------------------------------------------------------- floor plan (SVG) */
 .plan-scroll {
   overflow-x: auto;
 }
@@ -288,7 +701,7 @@ button.clear-link {
      sideways instead (only the plan moves, not the page). */
   min-width: 600px;
   display: block;
-  border-radius: 10px;
+  border-radius: var(--r-md);
   border: 1px solid var(--line);
   background: var(--bg);
 }
@@ -296,7 +709,7 @@ button.clear-link {
 /* --k = plan width / 1000 (set on the <svg>): texts and lines keep the same size on screen
    whether the plan is 1000 px wide (a building) or 3000 px (the campus). */
 .plan-svg .wall {
-  fill: var(--panel);
+  fill: var(--surface);
   stroke: var(--ink);
   stroke-width: calc(4px * var(--k));
   stroke-linejoin: round;
@@ -355,7 +768,7 @@ button.clear-link {
 }
 
 .plan-svg .site-shape {
-  fill: var(--panel);
+  fill: var(--surface);
   stroke: var(--ink);
   stroke-width: calc(3px * var(--k));
   stroke-linejoin: round;
@@ -389,7 +802,7 @@ button.clear-link {
 /* Door of a building, on its outline */
 .plan-svg .entrance {
   fill: var(--accent);
-  stroke: var(--panel);
+  stroke: var(--surface);
   stroke-width: calc(2px * var(--k));
 }
 
@@ -436,32 +849,6 @@ button.clear-link {
   fill: var(--muted);
 }
 
-/* Floor tabs */
-.tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-
-.tabs button {
-  cursor: pointer;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  color: var(--ink);
-  padding: 8px 12px;
-  min-height: 36px;
-  border-radius: 8px;
-  font: inherit;
-  font-size: 14px;
-}
-
-.tabs button.on {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
-}
-
 /* Selectable rooms */
 .plan-svg .plan-room {
   cursor: pointer;
@@ -479,116 +866,6 @@ button.clear-link {
 .plan-svg .room.selected {
   stroke: var(--dest);
   stroke-width: 3;
-}
-
-/* Route form */
-.route-point {
-  margin: 10px 0 0;
-  font-size: 14px;
-}
-
-label.check {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--ink);
-  margin: 12px 0;
-}
-
-button.primary {
-  width: 100%;
-  padding: 10px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button.primary:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-button.link {
-  margin-left: 8px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent);
-  font: inherit;
-  font-size: 13px;
-  text-decoration: underline;
-  cursor: pointer;
-  min-height: 28px;
-}
-
-/* Route result */
-.route-summary {
-  margin: 14px 0 8px;
-  font-size: 14px;
-}
-
-.route-summary .badge {
-  margin-left: 8px;
-}
-
-ol.steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-ol.steps button.step {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  width: 100%;
-  padding: 8px;
-  border: 0;
-  border-radius: 8px;
-  background: none;
-  color: inherit;
-  font: inherit;
-  font-size: 14px;
-  text-align: left;
-  cursor: pointer;
-  overflow-wrap: anywhere;
-}
-
-ol.steps button.step:focus-visible {
-  outline-offset: -2px;
-}
-
-ol.steps button.step:hover {
-  background: var(--bg);
-}
-
-ol.steps button.step.active {
-  background: var(--bg);
-  outline: 2px solid var(--accent);
-}
-
-ol.steps .ic {
-  flex: 0 0 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-ink);
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-ol.steps small {
-  display: block;
-  color: var(--muted);
 }
 
 /* Route on the plan */
@@ -612,12 +889,6 @@ ol.steps small {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .plan-svg .route {
-    animation: none;
-  }
-}
-
 .plan-svg .mk-start {
   fill: var(--start);
   stroke: #fff;
@@ -630,34 +901,15 @@ ol.steps small {
   stroke-width: 2;
 }
 
-/* Dot on the building and floor tabs crossed by the route */
-.tabs button .dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-left: 6px;
-  border-radius: 50%;
-  background: var(--route);
-  vertical-align: middle;
-}
-
-.tabs button.on .dot {
-  background: var(--accent-ink);
-}
-
-button.swap {
-  margin-top: 10px;
-  padding: 6px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  color: var(--ink);
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-button.swap:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
+/* ---------------------------------------------------------------- reduced motion */
+/* The user asked the system for less motion: no animation and no transition at all
+   (everything is shown directly in its final state). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

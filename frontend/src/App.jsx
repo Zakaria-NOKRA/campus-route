@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import AppHeader from './components/AppHeader'
 import PlanPage from './pages/PlanPage'
 import RoutePage from './pages/RoutePage'
 import SearchPage from './pages/SearchPage'
@@ -73,10 +74,7 @@ function App() {
 
   return (
     <>
-      <header className="app-header">
-        <h1>Campus Route</h1>
-        <span>Campus : bâtiments A, B et C</span>
-      </header>
+      <AppHeader />
       <main className="app-main">
         <div className="side">
           <SearchPage selectedCode={selectedCode} onSelect={handleSelect} />
