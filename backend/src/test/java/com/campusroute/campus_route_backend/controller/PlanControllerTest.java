@@ -24,22 +24,33 @@ class PlanControllerTest {
                 .andExpect(jsonPath("$.floors.length()").value(3))
                 .andExpect(jsonPath("$.floors[0]").value(0))
                 .andExpect(jsonPath("$.floors[2]").value(2))
-                .andExpect(jsonPath("$.rooms.length()").value(27))
-                .andExpect(jsonPath("$.nodes.length()").value(49))
-                .andExpect(jsonPath("$.edges.length()").value(50));
+                .andExpect(jsonPath("$.rooms.length()").value(77))
+                .andExpect(jsonPath("$.nodes.length()").value(251))
+                .andExpect(jsonPath("$.edges.length()").value(264));
     }
 
     @Test
     void roomHasPlanFieldsAndNoNestedNode() throws Exception {
         mvc.perform(get("/api/plan"))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].name").value("Salle de TD B204"))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].tag").value("TD"))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].floor").value(2))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].slot").value(3))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].top").value(true))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].x").value(536))
-                .andExpect(jsonPath("$.rooms[?(@.code == 'B204')].y").value(115))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].name").value("Salle de TD A204"))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].tag").value("TD"))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].building").value("A"))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].floor").value(2))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].x").value(750))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].y").value(20))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].width").value(230))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].height").value(100))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].doorX").value(865))
+                .andExpect(jsonPath("$.rooms[?(@.code == 'A204')].doorY").value(120))
+                .andExpect(jsonPath("$.rooms[0].slot").doesNotExist())
                 .andExpect(jsonPath("$.rooms[0].node").doesNotExist());
+    }
+
+    @Test
+    void nodeHasItsBuilding() throws Exception {
+        mvc.perform(get("/api/plan"))
+                .andExpect(jsonPath("$.nodes[?(@.id == 'ENTREE')].building").value("EXT"))
+                .andExpect(jsonPath("$.nodes[?(@.id == 'EXT-P2')].type").value("OUTDOOR"));
     }
 
     @Test

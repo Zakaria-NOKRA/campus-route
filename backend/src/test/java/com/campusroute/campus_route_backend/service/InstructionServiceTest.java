@@ -16,7 +16,7 @@ class InstructionServiceTest {
     private final InstructionService service = new InstructionService();
 
     private static Node node(String id, int floor, int x, int y, NodeType type) {
-        return new Node(id, floor, x, y, type, id);
+        return new Node(id, "A", floor, x, y, type, id);
     }
 
     private List<String> texts(List<RouteStepDto> steps) {
