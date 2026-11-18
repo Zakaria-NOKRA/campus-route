@@ -1,6 +1,6 @@
 $kind: http-request
-name: Documentation OpenAPI (/v3/api-docs)
-description: Contrat de l'API généré pour Swagger.
+name: "Documentation OpenAPI (/v3/api-docs)"
+description: "Contrat de l'API généré pour Swagger."
 url: "{{baseUrl}}/v3/api-docs"
 method: GET
 headers:
@@ -12,6 +12,6 @@ scripts:
       pm.test("Réponse JSON", () => pm.response.to.be.json);
       const doc = pm.response.json();
       pm.test("Titre Campus Route API", () => pm.expect(doc.info.title).to.eql("Campus Route API"));
-      pm.test("Les 4 chemins sont documentés", () => pm.expect(Object.keys(doc.paths)).to.include.members(["/api/rooms/search","/api/rooms/{code}","/api/route","/api/plan"]));
+      pm.test("Les 5 chemins sont documentés", () => pm.expect(Object.keys(doc.paths)).to.include.members(["/api/rooms/search","/api/rooms/{code}","/api/route","/api/plan","/api/buildings"]));
     language: text/javascript
 order: 4000

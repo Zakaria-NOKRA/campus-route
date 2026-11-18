@@ -1,13 +1,13 @@
 $kind: http-request
-name: ENTREE -> B204 (accessible)
+name: "ENTREE -> A204 (accessible)"
 description: "Même résultat que sans l'option : le trajet utilisait déjà l'ascenseur."
-url: "{{baseUrl}}/api/route?from=ENTREE&to=B204&accessible=true"
+url: "{{baseUrl}}/api/route?from=ENTREE&to=A204&accessible=true"
 method: GET
 headers:
   Accept: application/json
 queryParams:
-  from: ENTREE
-  to: B204
+  from: "ENTREE"
+  to: "A204"
   accessible: "true"
 scripts:
   - type: afterResponse
@@ -15,8 +15,8 @@ scripts:
       pm.test("Statut 200", () => pm.response.to.have.status(200));
       const body = pm.response.json();
 
-      pm.test("Distance ≈ 54.95 m", () => pm.expect(body.distanceMeters).to.be.closeTo(54.95, 0.01));
-      pm.test("Durée ≈ 92.3 s", () => pm.expect(body.durationSeconds).to.be.closeTo(92.3, 0.1));
+      pm.test("Distance ≈ 181.65 m", () => pm.expect(body.distanceMeters).to.be.closeTo(181.65, 0.01));
+      pm.test("Durée ≈ 189.7 s", () => pm.expect(body.durationSeconds).to.be.closeTo(189.7, 0.1));
 
       pm.test("Aucun escalier sur le chemin", () => pm.expect(body.path.some(n => n.type === "STAIRS")).to.be.false);
     language: text/javascript

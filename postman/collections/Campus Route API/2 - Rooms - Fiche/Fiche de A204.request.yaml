@@ -1,6 +1,6 @@
 $kind: http-request
-description: Une salle de TD standard au 2e étage.
-url: "{{baseUrl}}/api/rooms/B204"
+description: "Une salle de TD standard au 2e étage du bâtiment A."
+url: "{{baseUrl}}/api/rooms/A204"
 method: GET
 headers:
   Accept: application/json
@@ -10,7 +10,8 @@ scripts:
       pm.test("Statut 200", () => pm.response.to.have.status(200));
       pm.test("Réponse JSON", () => pm.response.to.be.json);
       const r = pm.response.json();
-      pm.test("Code B204", () => pm.expect(r.code).to.eql("B204"));
+      pm.test("Code A204", () => pm.expect(r.code).to.eql("A204"));
+      pm.test("Bâtiment A", () => pm.expect(r.building).to.eql("A"));
       pm.test("2e étage", () => pm.expect(r.floor).to.eql(2));
       pm.test("Type Salle de TD", () => pm.expect(r.type).to.eql("Salle de TD"));
       pm.test("Capacité 30", () => pm.expect(r.capacity).to.eql(30));
