@@ -1,0 +1,12 @@
+# Build output and IDE files: not needed to build the image
+target/
+.idea/
+*.iml
+.vscode/
+.git
+.gitignore
+.gitattributes
+HELP.md
+*.log
+Dockerfile
+.dockerignore

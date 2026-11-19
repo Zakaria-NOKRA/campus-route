@@ -40,3 +40,13 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+
+  # Checks that both Docker images still build (nothing is pushed)
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t campus-route-backend backend
+      - name: Build frontend image
+        run: docker build -t campus-route-frontend frontend

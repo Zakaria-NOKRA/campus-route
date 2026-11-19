@@ -2,7 +2,7 @@ $kind: collection
 description: |-
   Collection de tests de l'API Campus Route (backend Spring Boot).
 
-  Prérequis : `docker compose up -d` puis `.\mvnw.cmd spring-boot:run` dans backend/.
+  Prérequis : `docker compose up -d db` puis `.\mvnw.cmd spring-boot:run` dans backend/.
   Lancer toute la collection : clic droit sur la collection > Run collection.
 variables:
   baseUrl: http://localhost:8080
