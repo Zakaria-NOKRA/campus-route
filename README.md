@@ -38,8 +38,35 @@ tout (voir [Données du campus](#données-du-campus)).
 
 - Maven n'est pas à installer : le projet embarque son propre Maven (`mvnw`).
 - Docker Desktop doit être **démarré** avant de lancer la base de données.
+- Pour seulement **utiliser** l'application, Git et Docker Desktop suffisent : voir [Lancer avec Docker](#lancer-avec-docker).
+
+## Lancer avec Docker
+
+Toute l'application (base de données, back-end et front-end) tourne dans Docker : il n'est pas nécessaire
+d'installer Java ni Node.js. Prérequis : **Docker Desktop**, démarré.
+
+Depuis la racine du dépôt :
+
+```powershell
+docker compose up --build
+```
+
+Le premier lancement construit les images, ce qui peut prendre quelques minutes. Quand le journal affiche
+`Graph imported: 4 buildings, 77 rooms, ...`, ouvre **http://localhost:3000** dans ton navigateur.
+
+- Documentation de l'API (Swagger) : **http://localhost:8080/swagger-ui.html**
+- Arrêter : `Ctrl+C`, puis `docker compose down`.
+- Repartir d'une base vide (après un changement des données) : `docker compose down -v`, puis
+  `docker compose up --build`. `-v` efface les données de la base, rechargées au démarrage suivant.
+- Si un port est déjà utilisé, change-le avec les variables `FRONTEND_PORT` (3000 par défaut), `BACKEND_PORT`
+  (8080) ou `DB_PORT` (5432), par exemple : `$env:FRONTEND_PORT=3001; docker compose up --build`.
+
+Le back-end lancé dans Docker utilise le port 8080 : arrête-le (`docker compose down`) avant de lancer le back-end
+depuis IntelliJ ou `mvnw`.
 
 ## Lancer le projet
+
+Mode développement : le back-end et le front-end tournent sur ta machine, seule la base de données est dans Docker.
 
 Commandes pour **Windows (PowerShell)**. Sous macOS ou Linux, remplace `.\mvnw.cmd` par `./mvnw`.
 
@@ -53,8 +80,10 @@ cd campus-route
 **2. Démarrer la base de données** (depuis la racine du dépôt)
 
 ```powershell
-docker compose up -d
+docker compose up -d db
 ```
+
+`db` démarre uniquement la base de données (sans ce nom, Docker lance aussi le back-end et le front-end).
 
 **3. Démarrer le back-end**
 
@@ -89,7 +118,7 @@ Problèmes fréquents :
 | Problème                                               | Solution                                                                                         |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
 | `Cannot connect to the Docker daemon`                  | Docker Desktop n'est pas démarré.                                                                |
-| Port 5432, 8080 ou 5173 déjà utilisé                   | Une autre application utilise ce port : ferme-la, ou change le port.                             |
+| Port 5432, 8080, 5173 ou 3000 déjà utilisé             | Une autre application utilise ce port (par exemple le back-end lancé dans Docker) : ferme-la, ou change le port. |
 | Erreur de compilation Java                             | Vérifie que `java -version` indique 17 ou plus.                                                  |
 | `npm` ou `node` introuvable                            | Node.js n'est pas installé : installe la version LTS depuis nodejs.org, puis rouvre le terminal. |
 | La page s'affiche mais la recherche renvoie une erreur | Le back-end n'est pas démarré (étape 3).                                                         |
@@ -146,7 +175,7 @@ campus-route/
 ├── docs/                 documents du projet
 ├── postman/              collection Postman
 ├── tools/campus/         générateur des données du campus (Node, sans dépendance)
-├── docker-compose.yml    base de données PostgreSQL pour le développement
+├── docker-compose.yml    base de données, back-end et front-end dans Docker
 └── README.md
 ```
 
@@ -214,8 +243,10 @@ la version à un seul bâtiment), vide la base locale puis redémarre le back-en
 
 ```powershell
 docker compose down -v
-docker compose up -d
+docker compose up -d db
 ```
+
+(Avec [Docker uniquement](#lancer-avec-docker), utilise `docker compose up --build` à la place de la deuxième ligne.)
 
 `-v` supprime le volume de la base PostgreSQL de développement : toutes ses données sont effacées, puis rechargées
 depuis le fichier JSON au démarrage suivant. Le journal du back-end indique alors
