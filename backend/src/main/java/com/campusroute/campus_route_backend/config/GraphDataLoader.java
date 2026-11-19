@@ -71,7 +71,7 @@ public class GraphDataLoader implements ApplicationRunner {
             if (buildingRepository.count() == 0) {
                 // Nodes without buildings: the database still holds the old one-building data
                 log.warn("The database holds old data (no building). Reset it: "
-                        + "\"docker compose down -v\" then \"docker compose up -d\", and restart the back-end");
+                        + "\"docker compose down -v\" then \"docker compose up -d db\", and restart the back-end");
             } else {
                 log.info("Graph already loaded, skipping import");
             }
