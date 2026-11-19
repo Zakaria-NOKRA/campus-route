@@ -1,0 +1,17 @@
+# Installed and built files are recreated inside the image
+node_modules
+dist
+dist-ssr
+
+# Local env files (machine-specific values)
+.env
+*.local
+
+# Git, editors, logs
+.git
+.gitignore
+.vscode
+.idea
+*.log
+Dockerfile
+.dockerignore
