@@ -233,6 +233,6 @@ depuis le fichier JSON au démarrage suivant. Le journal du back-end indique alo
 Projet réalisé dans le cadre du cours de méthodologies agiles et langage avancé (Master 2, Université Sorbonne Paris
 Nord), selon la méthode Scrum.
 
-- **Nidal** : coordination, Git, déploiement
-- **Wiame** : maquettes et front-end
-- **Zakaria** : back-end, base de données, calcul d'itinéraire
+- **Nidal** : développement front-end, création de la carte du campus et du guide utilisateur, coordination de la démarche agile
+- **Wiame** : conception, maquettes et cahier des charges, développement front-end
+- **Zakaria** : back-end, base de données et moteur d'itinéraire
