@@ -1,3 +1,6 @@
+# Whole app: docker compose up --build  ->  http://localhost:3000
+# Local development (IntelliJ + npm run dev): docker compose up -d db
+# Host ports can be changed with FRONTEND_PORT, BACKEND_PORT and DB_PORT.
 services:
   db:
     image: postgres:16
@@ -6,8 +9,34 @@ services:
       POSTGRES_USER: campusroute
       POSTGRES_PASSWORD: campusroute
     ports:
-      - "5432:5432"
+      - "127.0.0.1:${DB_PORT:-5432}:5432" # localhost only, used by the IntelliJ back-end
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campusroute -d campusroute"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy # wait until PostgreSQL accepts connections
+    environment:
+      # Override application.properties: inside Docker the database host is "db", not localhost
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/campusroute
+      SPRING_DATASOURCE_USERNAME: campusroute
+      SPRING_DATASOURCE_PASSWORD: campusroute
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8080}:8080" # localhost only, for Swagger and Postman
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+
 volumes:
   pgdata:
