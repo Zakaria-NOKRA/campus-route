@@ -1,5 +1,7 @@
 // Base URL of the back-end. Can be changed with VITE_API_URL (see .env files), default = local back-end.
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
+// It is resolved against the page origin, so a relative value like '/' also works: the Docker image
+// uses it to call /api on the same server (nginx forwards those requests to the back-end).
+const BASE_URL = new URL(import.meta.env.VITE_API_URL ?? 'http://localhost:8080', window.location.origin)
 
 // An error coming from the API (or from the network). The UI only needs `message`.
 export class ApiError extends Error {
