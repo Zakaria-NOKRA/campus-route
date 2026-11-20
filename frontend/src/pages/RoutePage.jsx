@@ -1,3 +1,4 @@
+import CopyRouteButton from '../components/CopyRouteButton'
 import RouteForm from '../components/RouteForm'
 import RouteSteps from '../components/RouteSteps'
 import RouteSummary from '../components/RouteSummary'
@@ -46,6 +47,14 @@ function RoutePage({
             accessible={accessible}
           />
           <RouteSteps steps={route.steps} onStepClick={onStepClick} />
+          <CopyRouteButton
+            from={originCode ?? 'ENTREE'}
+            to={destinationCode}
+            distanceMeters={route.distanceMeters}
+            durationSeconds={route.durationSeconds}
+            accessible={accessible}
+            steps={route.steps}
+          />
         </>
       )
     }
